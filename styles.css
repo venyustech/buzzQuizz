@@ -27,9 +27,7 @@ button{
     box-sizing: border-box;
     cursor: pointer;
 }
-.hide{
-    display: none;
-}
+
 /******************************************
 *         Configurações tela1:            *
 *******************************************/
@@ -295,6 +293,9 @@ height: 181px;
     align-items: center;
     justify-content: center;
     color: #818181;
+}
+.hide{
+    display: none;
 }
 
 /*Mobile:*/
