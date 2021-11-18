@@ -26,6 +26,9 @@ button{
     box-sizing: border-box;
     cursor: pointer;
 }
+.hide{
+    display: none;
+}
 /******************************************
 *         Configurações tela1:            *
 *******************************************/
