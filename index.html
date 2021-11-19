@@ -24,9 +24,8 @@
         <!--**********************************
         *         Configurações tela 1:      *
         ***********************************-->
-        <main class = "tela1 hide">
-
-          
+        <main class = "tela1 ">
+  
         <div class = "quizzes-usuario">
           <div class = "exibir-quiz">
             <p>Seus Quizzes<p>
@@ -34,56 +33,24 @@
             
                 <!-- ESSA PARTE VAI SER GERADA POR JS -->
             
-                <!-- Quizz -->
-                <article class = "quizz">
-                  <figure>
-                    <img alt = "image da ap" />
-                    <span>title da api</span>
-                  </figure>
-                </article>
-                    <!-- Quizz -->
-                    <article class = "quizz">
-                      <figure>
-                        <img alt = "image da ap" />
-                        <span>title da api</span>
-                      </figure>
-                    </article>
-            
               </div>
-            
           </div>
         </div>
-
 
           <!-- se não houver quizzes do usuário -->
         <div class = "criar-quiz">
         <span>Você não criou nenhum <br> quizz ainda :(</span>
-        <button>Criar Quizz</button>
+        <button class = "criar-novo-quizz">Criar Quizz</button>
         </div>
         <!-- fim criar quizz -->
 
-
-
         <div class = "exibir-quiz">
         <p>Todos os Quizzes<p>
-          <div class = "lista-quiz-disponivel">
+          <div class = "lista-quiz-disponivel lista_servidor">
 
             <!-- ESSA PARTE VAI SER GERADA POR JS -->
 
-            <!-- Quizz -->
-            <article class = "quizz">
-              <figure>
-                <img alt = "image da ap" />
-                <span>title da api</span>
-              </figure>
-            </article>
-                <!-- Quizz -->
-                <article class = "quizz">
-                  <figure>
-                    <img alt = "image da ap" />
-                    <span>title da api</span>
-                  </figure>
-                </article>
+            
         
             
 
@@ -158,7 +125,7 @@
               </div>
           </div>
           <button class="reiniciar-quizz-button text-button"><p>Reiniciar Quizz</p></button>
-          <button class="voltar-home-button text-button"><p>Voltar para home</p></button>
+          <button onclick = 'voltarParaHome(this)' class="voltar-home-button text-button"><p>Voltar para home</p></button>
         </div>
 
       </main>
@@ -265,7 +232,7 @@
             <button type="submit"><span>Finalizar Quizz</span></button>
           </div>         
 
-          <div class="tela3-4"> 
+          <div class="tela3-4 hide"> 
             <div class="titulo-form">Seu quizz está pronto!</div>
             <div class="card">
               <figure>
