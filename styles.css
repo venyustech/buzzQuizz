@@ -1,6 +1,10 @@
 /*****************************************
 *         COnfigurações gerais           *
 ******************************************/
+*{
+    box-sizing: border-box;
+}
+
 body {
     font-family     : 'Roboto';
     background-color: #FAFAFA;
@@ -349,6 +353,7 @@ form {
     height       : auto;
     padding      : 21px 20px 24px 16px;
     gap          : 9px;
+    margin-bottom: 24px;
 
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
