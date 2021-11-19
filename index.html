@@ -24,15 +24,15 @@
         <!--**********************************
         *         Configurações tela 1:      *
         ***********************************-->
-        <main class = "tela1 ">
+        <main class = "tela1">
   
-        <div class = "quizzes-usuario">
+        <div class = "quizzes-usuario ">
           <div class = "exibir-quiz">
             <p>Seus Quizzes<p>
               <div class = "lista-quiz-disponivel">
             
                 <!-- ESSA PARTE VAI SER GERADA POR JS -->
-            
+
               </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
           <!-- se não houver quizzes do usuário -->
         <div class = "criar-quiz">
         <span>Você não criou nenhum <br> quizz ainda :(</span>
-        <button class = "criar-novo-quizz">Criar Quizz</button>
+        <button onclick ='tela1tela3(this)' class = "criar-novo-quizz">Criar Quizz</button>
         </div>
         <!-- fim criar quizz -->
 
@@ -50,12 +50,7 @@
 
             <!-- ESSA PARTE VAI SER GERADA POR JS -->
 
-            
-        
-            
-
           </div>
-
         </div>
       </main>
         <!--**********************************
@@ -127,7 +122,6 @@
           <button class="reiniciar-quizz-button text-button"><p>Reiniciar Quizz</p></button>
           <button onclick = 'voltarParaHome(this)' class="voltar-home-button text-button"><p>Voltar para home</p></button>
         </div>
-
       </main>
 
 
@@ -242,7 +236,7 @@
                 </figure>
             </div>
             <button><span>Acessar Quizz</span></button>
-            <button class="botao-voltar-home">Voltar para home</button>
+            <button onclick = 'voltarParaHome(this)' class="botao-voltar-home">Voltar para home</button>
           </div>
 
         </div>

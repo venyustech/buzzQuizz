@@ -2,6 +2,7 @@
 *         COnfigurações gerais:          *
 ******************************************/
 
+let quizzesUsuarioArmazenados = 0;//variável global onde será alterado o valor se adicionado quizzes pelo usuário
 
 /*****************************************
 *         COnfigurações tela 1:          *
@@ -14,6 +15,12 @@ function carregarQuizzes() {
     const quizzes = axios.get('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes');
     quizzes.then(exibicaoDeQuizz);
     quizzes.catch(verificacaoDeErro);
+
+    if(quizzesUsuarioArmazenados==0){
+        let listagem_quizz_usuario = document.querySelector(".quizzes-usuario");
+        listagem_quizz_usuario.style.display= 
+        "none";
+    }
 }
 
 function verificacaoDeErro(erro){
@@ -22,21 +29,42 @@ console.log(erro);
 }
 
 function exibicaoDeQuizz(resposta){
-
+    let nomes = [];
+    let capas = [];
+    let imprimir = 0;
     let listagem_quizz = document.querySelector(".lista_servidor");
 
     listagem_quizz.innerHTML = "";
-//criacao do quizz
-    for(let ii = 0;ii<resposta.data.length;ii++){
+
+    for(let ii = 0;ii<resposta.data.length;ii++){ 
+    
+    if(nomes.includes(resposta.data[ii].title)){
+        console.log("já tem um quizz com esse nome");
+        //verificar mais uma variável para ver se é mesmo o mesmo quizz
+        imprimir = false;
+    }
+         else{ 
+        nomes.push(resposta.data[ii].title);
+        capas.push(resposta.data[ii].image);console.log("ok, é um quizz novo");
+        imprimir = true;}
+        
+if(imprimir){
+        //CONFERIR SE TEM QUIZZES REPETIDOS
+        
         listagem_quizz.innerHTML+=`<article class = "quizz" onclick = 'buscarQuizzSelecionado(this)'>
+      
         <figure>
-          <img src = '${resposta.data[ii].image}' = alt = "image da ap" />
+        <div class = "degrade-escuro"></div>
+          <img  src = '${resposta.data[ii].image}' = alt = "image da ap" />
           <span>${resposta.data[ii].title}</span>
           <span class = "identificacao">${resposta.data[ii].id}</span>
         </figure>
       </article>`
-    }
+    }}
 //fim criacao quizz
+console.log(nomes);
+nomes = [];
+capas = [];
 }
 
 function buscarQuizzSelecionado(id){ 
@@ -60,7 +88,14 @@ function criarQuizzSelecionado(resposta){
     //criar o quiz com os itens da resposta
 }
 
-
+function tela1tela3(resposta){
+    let tela_anterior = document.querySelector(".tela1");
+    tela_anterior.classList.toggle("hide");
+    console.log(tela_anterior);
+    let tela_atual = document.querySelector(".tela3-1");
+    tela_atual.classList.toggle("hide");
+    console.log("ok");
+}
 
 
 /*****************************************
@@ -83,16 +118,40 @@ document.getElementById("c2").style.backgroundColor="#a0438d";
 function voltarParaHome(clique){
     console.log("fui chamado para voltar pra tela1");
     let conferencia = clique.parentElement.classList;
-    let localTela2 ="embrulho-quizz-tela2"
+    console.log(conferencia);
+    console.log(conferencia.value);
+    console.log(typeof(conferencia.value));
+
     
+//  ESTÁ FUNCIONANDO PARA A TELA 2, MAS NÃO PARA A TELA 3. AINDA NÃO SEI O PORQUE. NAO COMENTEI ESSA PARTE PORQUE ELA NÃO ESTÁ AFETANDO O RESTANTE
+    const localTela2 ="embrulho-quizz-tela2";
+    const localTela3 = 'tela3-4';
+
+    console.log(conferencia==localTela3);
+    console.log(conferencia.value==localTela3);
+
+    console.log(conferencia.value);
+    console.log(localTela3);
+    console.log(typeof(conferencia.value));
+    console.log(typeof(localTela3));
+
     if(conferencia==localTela2){
         let tela_anterior = document.querySelector(".embrulho-quizz-tela2");
         tela_anterior.classList.toggle("hide");
         console.log(tela_anterior);
         let tela_atual = document.querySelector(".tela1");
         tela_atual.classList.toggle("hide");
+        console.log("ok");
     }
-    else{
-        console.log("tem algum lugar errado");
+    else if(conferencia.value==localTela3){
+        console.log("ok");
+        let tela_anterior = document.querySelector(".tela3-4");
+        tela_anterior.classList.toggle("hide");
+        console.log(tela_anterior);
+        let tela_atual = document.querySelector(".tela1");
+        tela_atual.classList.toggle("hide");
+      
     }
+
+    else{ console.log("tem algum lugar errado");}
 }
