@@ -366,13 +366,13 @@ form {
     justify-content: space-between;
 }
 
-p {
+.tela3 p {
     font-size: 20px;
     font-weight: bold;
     text-align: left;
 }
 
-input {
+.tela3 input {
     width : 564px;
     height: 46px;
 
@@ -383,7 +383,7 @@ input {
     text-align: center;
 }
 
-input::placeholder {
+.tela3 input::placeholder {
     font-family: 'Roboto';
     font-style : italic;
     font-size  : 19px;
@@ -395,13 +395,13 @@ input::placeholder {
     padding-left: 23px;
 }
 
-button {
+.tela3 button {
     width : 370px;
     height: 54px;
     margin-top: 85px;
 
     background-color: #EC362D;
-    border-radius: 12px;
+    border-radius: 15px;
 
     font-family: 'Roboto';
     color      : #FFF5F4;
@@ -409,6 +409,37 @@ button {
     font-size  : 21px;
 }
 
+.tela3-4 {
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+}
+
+.tela3-4 .card .card-image{
+    position: relative;
+}
+
+.tela3-4 .card  span{
+    position: absolute;
+    left: 23px;
+    top: 213px;
+    bottom: 9px;
+
+    font-size: 23px;
+    color: #FFFFFF;
+
+}
+
+.tela3-4 .botao-voltar-home {
+    color: #818181;
+    font-size: 21px;
+
+    background: transparent;
+
+    margin-top: 9px;
+
+}
 
 
 
