@@ -164,6 +164,15 @@
         >
           <p>Voltar para home</p>
         </button>-->
+        <button class="reiniciar-quizz-button text-button">
+          <p>Reiniciar Quizz</p>
+        </button>
+        <button
+          onclick="voltarParaHome(this)"
+          class="voltar-home-button text-button"
+        >
+          <p>Voltar para home</p>
+        </button>
       </div>
     </section>
 
@@ -258,7 +267,7 @@
           <input type="text" placeholder="Resposta incorreta 3" />
           <input type="text" placeholder="URL da imagem 3" />
         </form>
-        <button type="submit"><span>Prosseguir para criar níveis</span></button>
+        <button onclick = "passarProximaFormulario()" type="submit"><span>Prosseguir para criar níveis</span></button>
       </div>
 
       <div class="tela33 hide">
@@ -298,7 +307,7 @@
           <input type="text" placeholder="URL da imagem do nível" />
           <input type="text" placeholder="Descrição do nível" />
         </form>
-        <button type="submit"><span>Finalizar Quizz</span></button>
+        <button onclick = "passarProximaFormulario()" type="submit"><span>Finalizar Quizz</span></button>
       </div>
 
       <div class="tela34 hide">

@@ -53,7 +53,7 @@ function exibicaoDeQuizz(resposta) {
     if (imprimir) {
       //CONFERIR SE TEM QUIZZES REPETIDOS
 
-      listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'buscarQuizzSelecionado(this)'>
+      listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizz(this)'>
       
         <figure>
         <div class = "degrade-escuro"></div>
@@ -70,27 +70,6 @@ function exibicaoDeQuizz(resposta) {
   capas = [];
 }
 
-function buscarQuizzSelecionado(id) {
-  let identificacao = id.querySelector(".identificacao").innerText;
-  let quizz = axios(
-    `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${identificacao}`
-  );
-
-  quizz.then(criarQuizzSelecionado);
-  quizz.catch(verificacaoDeErro);
-}
-
-function criarQuizzSelecionado(resposta) {
-  //console.log("selecionou um quizz");
-  // se o quizz existir, e ele for selecionado, a tela1 será escondida para abrir a "tela2" com o quizz
-  let tela_anterior = document.querySelector(".tela1");
-  tela_anterior.classList.toggle("hide");
-  //console.log(tela_anterior);
-  let tela_atual = document.querySelector(".embrulho-quizz-tela2");
-  tela_atual.classList.toggle("hide");
-  //criar o quiz com os itens da resposta
-}
-
 function tela1tela3(resposta) {
   let tela_anterior = document.querySelector(".tela1");
   tela_anterior.classList.toggle("hide");
@@ -98,19 +77,50 @@ function tela1tela3(resposta) {
   let tela_atual = document.querySelector(".tela31");
   tela_atual.classList.toggle("hide");
   //console.log("ok");
+
 }
+
+// function buscarQuizzSelecionado(id) {
+//   let identificacao = id.querySelector(".identificacao").innerText;
+//   let quizz = axios(
+//     `https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${identificacao}`
+//   );
+
+//   quizz.then(mostraQuizz);
+//   quizz.catch(verificacaoDeErro);
+// }
+
+function criarQuizzSelecionado() {
+  let tela_anterior = document.querySelector(".tela1");
+  tela_anterior.classList.toggle("hide");
+  let tela_atual = document.querySelector(".embrulho-quizz-tela2");
+  tela_atual.classList.toggle("hide");
+
+}
+
+
 
 /******************************************
  *         COnfigurações tela 2:          *
  ******************************************/
 let id = 0;
-function mostraQuizz(idt) {
-  id = idt;
+
+function mostraQuizz(resposta) {
+  criarQuizzSelecionado();//ele tá aqui só pra  mudar de tela. Provavelmente poderia ser uma arrow function
+
+  let id = resposta.querySelector(".identificacao").innerText;
+  	console.log(id);
+  // id = idt;
   const promisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
   promisse.then(quizzLoading);
   promisse.catch(loadingQuizzError);
+
+  
 }
-mostraQuizz(1);  /*********************************************************
+
+// mostraQuizz(id);
+
+/*********************************************************
                   *     mostraQuizz(idt) precisa ser chamado na função    *
                   *     que abre o quizz (recebendo o id como parametro)  *
                   *********************************************************/
@@ -227,6 +237,7 @@ function validarInformacoesBasicas() {
   
   else {
     console.log('passei');
+    passarProximaFormulario();
   }
 
   //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
@@ -242,6 +253,7 @@ function validarInformacoesBasicas() {
 /***********************************************
  *         COnfigurações Navegação Entre Telas *
  ***********************************************/
+ let posicaoFormulario=1; //variavel global para poder conferir a passagem dos formularios
 
 function voltarParaHome(clique) {
   console.log("fui chamado para voltar pra tela1");
@@ -253,15 +265,8 @@ function voltarParaHome(clique) {
 
   //  ESTÁ FUNCIONANDO PARA A TELA 2, MAS NÃO PARA A TELA 3. AINDA NÃO SEI O PORQUE. NAO COMENTEI ESSA PARTE PORQUE ELA NÃO ESTÁ AFETANDO O RESTANTE
   const localTela2 = "embrulho-quizz-tela2";
-  const localTela3 = 'tela3-4';
+  const localTela3 = 'tela34';
 
-  console.log(conferencia == localTela3);
-  console.log(conferencia.value == localTela3);
-
-  console.log(conferencia.value);
-  console.log(localTela3);
-  console.log(typeof (conferencia.value));
-  console.log(typeof (localTela3));
 
   if (conferencia == localTela2) {
     let tela_anterior = document.querySelector(".embrulho-quizz-tela2");
@@ -273,13 +278,29 @@ function voltarParaHome(clique) {
   }
   else if (conferencia.value == localTela3) {
     console.log("ok");
-    let tela_anterior = document.querySelector(".tela3-4");
+    let tela_anterior = document.querySelector(".tela34");
     tela_anterior.classList.toggle("hide");
     console.log(tela_anterior);
     let tela_atual = document.querySelector(".tela1");
     tela_atual.classList.toggle("hide");
 
+    posicaoFormulario = 1;
+    //resentando minha variável global
+
   }
 
   else { console.log("tem algum lugar errado"); }
+}
+
+
+
+function passarProximaFormulario(){
+ if(posicaoFormulario<4){
+   let tela_atual = document.querySelector(`.tela3${posicaoFormulario}`);
+   let proxima_tela = document.querySelector(`.tela3${posicaoFormulario+1}`);
+   tela_atual.classList.toggle("hide");
+   proxima_tela.classList.toggle("hide");
+  posicaoFormulario++;
+ }
+
 }
