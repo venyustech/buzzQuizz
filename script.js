@@ -109,13 +109,13 @@ function mostraQuizz(resposta) {
   criarQuizzSelecionado();//ele tá aqui só pra  mudar de tela. Provavelmente poderia ser uma arrow function
 
   let id = resposta.querySelector(".identificacao").innerText;
-  	console.log(id);
+  console.log(id);
   // id = idt;
   const promisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
   promisse.then(quizzLoading);
   promisse.catch(loadingQuizzError);
 
-  
+
 }
 
 // mostraQuizz(id);
@@ -195,21 +195,21 @@ function quizzLoading(answer) {
 
 function validarInformacoesBasicas() {
   console.log('estou funcionando');
-// RAFA, COMENTEI SUA PARTE PORQUE NÃO ACHEI DE ONDE QUE ESTAVA VINDO ESSE INFORMACOES BASICAS NO HTML
+  // RAFA, COMENTEI SUA PARTE PORQUE NÃO ACHEI DE ONDE QUE ESTAVA VINDO ESSE INFORMACOES BASICAS NO HTML
 
   // let tituloQuiz = informacoesBasicas.firstChild.value;
   // let URLquiz = informacoesBasicas.secondChild.value;
   // let quantPerguntas = informacoesBasicas.thirdChild.value;
   // let quantNiveis = informacoesBasicas.fourthChild.value  
 
-  
+
   let tituloQuiz = document.querySelector("#titulo").value;
   let URLquiz = document.querySelector("#urlImagem").value;
   let quantPerguntas = document.querySelector("#numeroPerguntas").value;
   let quantNiveis = document.querySelector("#numeroNiveis").value;
 
   //passei esse daqui pra cima, por a verificacao do else não podia ser feita se ele ainda nào estivesse definido
- 
+
   let isValidHttpUrl = (URLquiz) => {
     let url;
 
@@ -222,19 +222,23 @@ function validarInformacoesBasicas() {
     return url.protocol === "http:" || url.protocol === "https:";
   }
 
-  if (tituloQuiz.length < 20 ||tituloQuiz.length > 65 ) {
+  if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
+    // document.querySelector("#titulo").value = "";
   }
-  else if (!isValidHttpUrl ||URLquiz.length<2) {
+  else if (!isValidHttpUrl || URLquiz.length < 2) {
     alert('Validação falhou, url deve ter formato válido');
+    // document.querySelector("#urlImagem").value = "";
   }
-  else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas)!==parseInt(quantPerguntas)) {
+  else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas) !== parseInt(quantPerguntas)) {
     alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
+    // document.querySelector("#numeroPerguntas").value = "";
   }
-  else if (parseInt(quantNiveis) < 2 || parseInt(quantNiveis)!==parseInt(quantNiveis)) {
+  else if (parseInt(quantNiveis) < 2 || parseInt(quantNiveis) !== parseInt(quantNiveis)) {
     alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
+    // document.querySelector("#numeroNiveis").value = "";
   }
-  
+
   else {
     console.log('passei');
     passarProximaFormulario();
@@ -253,7 +257,7 @@ function validarInformacoesBasicas() {
 /***********************************************
  *         COnfigurações Navegação Entre Telas *
  ***********************************************/
- let posicaoFormulario=1; //variavel global para poder conferir a passagem dos formularios
+let posicaoFormulario = 1; //variavel global para poder conferir a passagem dos formularios
 
 function voltarParaHome(clique) {
   console.log("fui chamado para voltar pra tela1");
@@ -294,13 +298,13 @@ function voltarParaHome(clique) {
 
 
 
-function passarProximaFormulario(){
- if(posicaoFormulario<4){
-   let tela_atual = document.querySelector(`.tela3${posicaoFormulario}`);
-   let proxima_tela = document.querySelector(`.tela3${posicaoFormulario+1}`);
-   tela_atual.classList.toggle("hide");
-   proxima_tela.classList.toggle("hide");
-  posicaoFormulario++;
- }
+function passarProximaFormulario() {
+  if (posicaoFormulario < 4) {
+    let tela_atual = document.querySelector(`.tela3${posicaoFormulario}`);
+    let proxima_tela = document.querySelector(`.tela3${posicaoFormulario + 1}`);
+    tela_atual.classList.toggle("hide");
+    proxima_tela.classList.toggle("hide");
+    posicaoFormulario++;
+  }
 
 }
