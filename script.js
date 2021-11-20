@@ -125,9 +125,9 @@ abreQuizz();
  *         COnfigurações tela 3:          *
  ******************************************/
 
- //cria um novo quiz personalizado e envia informaçoes dele para o servidor
+//cria um novo quiz personalizado e envia informaçoes dele para o servidor
 //  function criarNovoQuizz(){
-    const informacoesBasicas = document.querySelectorAll(".informacoesBasicas");
+const informacoesBasicas = document.querySelectorAll(".informacoesBasicas");
 //    const novaPergunta = document.querySelectorAll(".novaPergunta");
 //    const novoNivel = document.querySelectorAll(".novoNivel");
 
@@ -148,41 +148,41 @@ abreQuizz();
 
 //   }
 
-function validarInformacoesBasicas(){
-   console.log('estou funcionando');
-   
-   let tituloQuiz = informacoesBasicas.firstChild.value;
-   let URLquiz = informacoesBasicas.secondChild.value;
-   let quantPerguntas = informacoesBasicas.thirdChild.value;
-   let quantNiveis = informacoesBasicas.fourthChild.value
+function validarInformacoesBasicas() {
+  console.log('estou funcionando');
 
-  
-   if(tituloQuiz.length < 20 && tituloQuiz.length > 65){
-     alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
-   }
-   else if(!isValidHttpUrl){
-     alert('Validação falhou, url deve ter formato válido');
-   }
-   else if(quantPerguntas < 3){
-     alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
-   }
-   else if(quantNiveis < 2){
-     alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
-   }
-   else{
-     console.log('passei');
-   }
-  
-   let isValidHttpUrl = (URLquiz) =>{
-     let url;
+  let tituloQuiz = informacoesBasicas.firstChild.value;
+  let URLquiz = informacoesBasicas.secondChild.value;
+  let quantPerguntas = informacoesBasicas.thirdChild.value;
+  let quantNiveis = informacoesBasicas.fourthChild.value
 
-     try {
-        url = new URL(URLquiz);
-     } catch (_) {
-        return false;
-     }
- 
-     return url.protocol === "http:" || url.protocol === "https:";
+
+  if (tituloQuiz.length < 20 && tituloQuiz.length > 65) {
+    alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
+  }
+  else if (!isValidHttpUrl) {
+    alert('Validação falhou, url deve ter formato válido');
+  }
+  else if (quantPerguntas < 3) {
+    alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
+  }
+  else if (quantNiveis < 2) {
+    alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
+  }
+  else {
+    console.log('passei');
+  }
+
+  let isValidHttpUrl = (URLquiz) => {
+    let url;
+
+    try {
+      url = new URL(URLquiz);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
   }
 }
 
@@ -204,7 +204,7 @@ function voltarParaHome(clique){
     console.log(conferencia.value);
     console.log(typeof(conferencia.value));
 
-    
+
 //  ESTÁ FUNCIONANDO PARA A TELA 2, MAS NÃO PARA A TELA 3. AINDA NÃO SEI O PORQUE. NAO COMENTEI ESSA PARTE PORQUE ELA NÃO ESTÁ AFETANDO O RESTANTE
     const localTela2 ="embrulho-quizz-tela2";
     const localTela3 = 'tela3-4';
@@ -232,7 +232,7 @@ function voltarParaHome(clique){
         console.log(tela_anterior);
         let tela_atual = document.querySelector(".tela1");
         tela_atual.classList.toggle("hide");
-      
+
     }
 
     else{ console.log("tem algum lugar errado");}
