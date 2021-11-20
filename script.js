@@ -138,28 +138,31 @@ function quizzLoading(answer) {
   document.querySelector(".quizz-titulo").style.backgroundImage = `url('${quizzPerguntar.image}')`;
 
   for (let i = 0; i < quizzPerguntar.questions.length; i++) {
-    tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
-    <div class="pergunta-caixa">
-      <div class="pergunta-titulo" id="c${i + 1}"><p>${quizzPerguntar.questions[i].title}</p>
-    </div>
-    <div class="cards-embrulho">
-      <div class="card">
-        <img class="card-image" src="${quizzPerguntar.questions[i].answers[0].image}" height = "175.2px"  width="329.91px"/>
-        <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[0].text}</p></div>
-      </div>
-      <div class="card">
-        <img class="card-image" src="${quizzPerguntar.questions[i].answers[1].image}" height = "175.2px"  width="329.91px"/>
-        <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[1].text}</p></div>
-      </div>
-      <div class="card">
-        <img class="card-image" src="${quizzPerguntar.questions[i].answers[2].image}"  height = "175.2px"  width="329.91px"/>
-        <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[2].text}</p></div>
-      </div>
-      <div class="card">
-        <img class="card-image" src="${quizzPerguntar.questions[i].answers[3].image}" height = "175.2px"  width="329.91px"/>
-        <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[3].text}</p></div>
-      </div>
-    `
+    let embaralhador = [];
+let comprimento = quizzPerguntar.questions[i].answers.length;
+
+while(embaralhador.length<comprimento){
+  let numero = Math.floor(Math.random() * 4);
+  if(!embaralhador.includes(numero)){
+embaralhador.push(numero);
+  }
+}
+tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
+<div class="pergunta-caixa">
+  <div class="pergunta-titulo" id="c${i + 1}"><p>${quizzPerguntar.questions[i].title}</p>
+</div>
+<div class="cards-embrulho${i}">  </div>
+`
+let ii=0;
+while (ii<comprimento){
+let localRespostas = document.querySelector(`.cards-embrulho${i}`);
+localRespostas.innerHTML+= `<div class="card ${ii}" onclick = "respostaSelecionada(this)">
+<img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
+<div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p></div>
+</div>`
+ii++
+}
+
   }
   for (i = 0; i < quizzPerguntar.questions.length; i++) {
     document.getElementById(`c${i + 1}`).style.backgroundColor = `${quizzPerguntar.questions[i].color}`;
