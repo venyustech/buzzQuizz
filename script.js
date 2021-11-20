@@ -153,10 +153,17 @@ function quizzLoading(answer) {
 </div>
 <div class="cards-embrulho${i}">  </div>
 `
+<<<<<<< HEAD
+let ii=0;
+while (ii<comprimento){
+let localRespostas = document.querySelector(`.cards-embrulho${i}`);
+localRespostas.innerHTML+= `<div class="card" onclick = "respostaSelecionada(this)">
+=======
     let ii = 0;
     while (ii < comprimento) {
       let localRespostas = document.querySelector(`.cards-embrulho${i}`);
       localRespostas.innerHTML += `<div class="card ${ii}" onclick = "respostaSelecionada(this)">
+>>>>>>> d454bb784e3acbaf1251f2da508a48782ec93cc7
 <img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
 <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p></div>
 </div>`
