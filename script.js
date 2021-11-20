@@ -11,7 +11,7 @@ carregarQuizzes();
 
 function carregarQuizzes() {
   console.log("tá indo aqui");
-  const quizzes = axios.get(
+  let quizzes = axios.get(
     "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
   );
   quizzes.then(exibicaoDeQuizz);
@@ -124,6 +124,74 @@ abreQuizz();
 /*****************************************
  *         COnfigurações tela 3:          *
  ******************************************/
+
+ //cria um novo quiz personalizado e envia informaçoes dele para o servidor
+//  function criarNovoQuizz(){
+    const informacoesBasicas = document.querySelectorAll(".informacoesBasicas");
+//    const novaPergunta = document.querySelectorAll(".novaPergunta");
+//    const novoNivel = document.querySelectorAll(".novoNivel");
+
+//   const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes',{
+//     title: informacoesBasicas.firstChild.value,
+//     image: informacoesBasicas.secondChild.value,
+//     questions: [],
+//     levels: []
+//   });
+
+//   //for pra criar o vetor de questions
+//   for(i = 0; i < informacoesBasicas.thirdChild.value; i++){
+
+//   }
+
+//   //for pra criar o vetor de levels
+//   for(i = 0; i < informacoesBasicas.fourthChild.value; i++){
+
+//   }
+
+function validarInformacoesBasicas(){
+   console.log('estou funcionando');
+   
+   let tituloQuiz = informacoesBasicas.firstChild.value;
+   let URLquiz = informacoesBasicas.secondChild.value;
+   let quantPerguntas = informacoesBasicas.thirdChild.value;
+   let quantNiveis = informacoesBasicas.fourthChild.value
+
+  
+   if(tituloQuiz.length < 20 && tituloQuiz.length > 65){
+     alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
+   }
+   else if(!isValidHttpUrl){
+     alert('Validação falhou, url deve ter formato válido');
+   }
+   else if(quantPerguntas < 3){
+     alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
+   }
+   else if(quantNiveis < 2){
+     alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
+   }
+   else{
+     console.log('passei');
+   }
+  
+   let isValidHttpUrl = (URLquiz) =>{
+     let url;
+
+     try {
+        url = new URL(URLquiz);
+     } catch (_) {
+        return false;
+     }
+ 
+     return url.protocol === "http:" || url.protocol === "https:";
+  }
+}
+
+
+
+
+
+
+
 
 /*****************************************
  *         COnfigurações Navegação Entre Telas      *
