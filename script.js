@@ -153,28 +153,67 @@ function quizzLoading(answer) {
 </div>
 <div class="cards-embrulho${i}">  </div>
 `
-<<<<<<< HEAD
 let ii=0;
 while (ii<comprimento){
-let localRespostas = document.querySelector(`.cards-embrulho${i}`);
-localRespostas.innerHTML+= `<div class="card" onclick = "respostaSelecionada(this)">
-=======
-    let ii = 0;
-    while (ii < comprimento) {
-      let localRespostas = document.querySelector(`.cards-embrulho${i}`);
-      localRespostas.innerHTML += `<div class="card ${ii}" onclick = "respostaSelecionada(this)">
->>>>>>> d454bb784e3acbaf1251f2da508a48782ec93cc7
-<img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
-<div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p></div>
-</div>`
-      ii++
-    }
+  let localRespostas = document.querySelector(`.cards-embrulho${i}`);
+  localRespostas.innerHTML+= `<div class="card" id = "${ii}"onclick = "respostaSelecionada(this)"><div class = "nao-selecionada"></div>
+  <img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
+  <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p><span class = "resposta-card">${quizzPerguntar.questions[i].answers[embaralhador[ii]].isCorrectAnswer}</span></div>
+  </div>`
+  ii++
+  }
 
   }
   for (i = 0; i < quizzPerguntar.questions.length; i++) {
     document.getElementById(`c${i + 1}`).style.backgroundColor = `${quizzPerguntar.questions[i].color}`;
   }
 }
+
+// **************************************** ESSA FUNCAO DEIXA AS COISAS BRANCAS E CHAMA A FUNCAO QUE VAI CONFERIR AS RESPOSTAS ***************
+
+function respostaSelecionada(resposta){
+  let selecionada = resposta;
+  console.log(selecionada.firstChild);
+  selecionada.classList.add("selecionada");
+  selecionada.removeAttribute("onclick");
+  selecionada.firstChild.classList.remove("nao-selecionada");
+  console.log(selecionada);
+
+  //com isso, ele marca a carta que foi selecionada, agora falta adicionar algo nas outras para remover o onclick, mas como a encontrar?
+  let espacoSelecao = selecionada.parentElement.classList.value;
+  // console.log(espacoSelecao);
+  // com isso, ele ve em qual espaço (ou em qual pergunta) foi selecionada a resposta em questão
+  let numeroRespostas = document.querySelectorAll(`.${espacoSelecao} .card`).length;
+  //com isso ele ve quantas respostas tem no total, contando a selecionada
+// console.log(numeroRespostas);
+  //agora com um for eu vou adicionar a classe de nao selecionada em todas as outras, e tirar o onclick delas muahahaha
+
+  let nao_selecionada_display = document.querySelectorAll(`.${espacoSelecao} .card .nao-selecionada`);
+  let nao_selecionada_clique = document.querySelectorAll(`.${espacoSelecao} .card .nao-selecionada`);
+
+  for (let i=0; i<nao_selecionada_display.length;i++){
+  nao_selecionada_display[i].style.display = "initial";
+  nao_selecionada_clique[i].parentElement.removeAttribute("onclick");
+}
+   //conferencia se a resposta é certa ou não
+
+   conferirRespostas(resposta);
+  }
+
+  // **************************************** ESSA FUNCAO  VAI CONFERIR AS RESPOSTAS ***************
+
+  function conferirRespostas(resposta){
+
+  let selecionada = resposta;
+  let espacoSelecao = selecionada.parentElement.classList.value;
+
+  let cards_conferir = document.querySelector(`.${espacoSelecao} .card .resposta-card`);
+
+  console.log(cards_conferir);
+  //FALTA TERMINAR A LÓGICA
+
+
+  }
 
 /*****************************************
  *         COnfigurações tela 3:          *
@@ -235,7 +274,7 @@ function validarInformacoesBasicas() {
   if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
   }
-  else if (!isValidHttpUrl || URLquiz < 2) {
+  else if (!isValidHttpUrl || URLquiz === '') {
     alert('Validação falhou, url deve ter formato válido');
   }
   else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas) !== parseInt(quantPerguntas)) {
