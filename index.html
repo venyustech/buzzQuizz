@@ -1,70 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="reset.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!--Roboto fonts-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="reset.css" />
 
-    <title>BuzzFeed</title>
-  </head>
-  <body>
-    <header>
-      <p>BuzzQuizz</p>
-    </header>
+  <!--Roboto fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 
-    <!--**********************************
+  <title>BuzzFeed</title>
+</head>
+
+<body>
+  <header>
+    <p>BuzzQuizz</p>
+  </header>
+
+  <!--**********************************
         *         Configurações tela 1:      *
         ***********************************-->
 
-    <main class="tela1">
-      <div class="quizzes-usuario">
-        <div class="exibir-quiz">
-          <p>Seus Quizzes</p>
-          <p></p>
-          <div class="lista-quiz-disponivel">
-            <!-- ESSA PARTE VAI SER GERADA POR JS -->
-          </div>
-        </div>
-      </div>
-
-      <!-- se não houver quizzes do usuário -->
-      <div class="criar-quiz">
-        <span
-          >Você não criou nenhum <br />
-          quizz ainda :(</span
-        >
-        <button onclick="tela1tela3(this)" class="criar-novo-quizz">
-          Criar Quizz
-        </button>
-      </div>
-      <!-- fim criar quizz -->
-
+  <main class="tela1">
+    <div class="quizzes-usuario">
       <div class="exibir-quiz">
-        <p>Todos os Quizzes</p>
+        <p>Seus Quizzes</p>
         <p></p>
-        <div class="lista-quiz-disponivel lista_servidor">
+        <div class="lista-quiz-disponivel">
           <!-- ESSA PARTE VAI SER GERADA POR JS -->
         </div>
       </div>
-    </main>
-    <!--**********************************
+    </div>
+
+    <!-- se não houver quizzes do usuário -->
+    <div class="criar-quiz">
+      <span>Você não criou nenhum <br />
+        quizz ainda :(</span>
+      <button onclick="tela1tela3(this)" class="criar-novo-quizz">
+        Criar Quizz
+      </button>
+    </div>
+    <!-- fim criar quizz -->
+
+    <div class="exibir-quiz">
+      <p>Todos os Quizzes</p>
+      <p></p>
+      <div class="lista-quiz-disponivel lista_servidor">
+        <!-- ESSA PARTE VAI SER GERADA POR JS -->
+      </div>
+    </div>
+  </main>
+  <!--**********************************
         *         Configurações tela 2:      *
         ***********************************-->
-    <section>
-      <div class="embrulho-quizz-tela2 hide">
-        <!--<div class="quizz-titulo" id="titulo1">
+  <section>
+    <div class="embrulho-quizz-tela2 hide">
+      <!--<div class="quizz-titulo" id="titulo1">
           <p>O quão PotterHead é você?</p>
         </div>
 
@@ -164,180 +163,156 @@
         >
           <p>Voltar para home</p>
         </button>-->
-        <button class="reiniciar-quizz-button text-button">
-          <p>Reiniciar Quizz</p>
-        </button>
-        <button
-          onclick="voltarParaHome(this)"
-          class="voltar-home-button text-button"
-        >
-          <p>Voltar para home</p>
-        </button>
-      </div>
-    </section>
+      <button class="reiniciar-quizz-button text-button">
+        <p>Reiniciar Quizz</p>
+      </button>
+      <button onclick="voltarParaHome(this)" class="voltar-home-button text-button">
+        <p>Voltar para home</p>
+      </button>
+    </div>
+  </section>
 
-    <!--************************************
+  <!--************************************
         *         Configurações tela 3:      *
         ***********************************-->
-    <div class="tela3">
-      <div class="tela31 hide">
-        <span class="titulo-form">Comece pelo começo</span>
-        <form>
-          <input id = "titulo" type="text" placeholder="Título do seu quizz" />
-          <input id = "urlImagem" type="text" placeholder="URL da imagem do seu quizz" />
-          <input id = "numeroPerguntas" type="text" placeholder="Quantidade de perguntas do quizz" />
-          <input id = "numeroNiveis" type="text" placeholder="Quantidade de níveis do quizz" />
-        </form>
-        <!-- aDICIONEI A FUNCAO ONCLICK PARA QUE A VERIFICACAO SEJA FEITA -->
-        <button  onclick = "validarInformacoesBasicas()"class = "prosseguir" >
-          <span>Prosseguir para criar perguntas</span>
-        </button>
-      </div>
-
-      <div class="tela32 hide">
-        <div class="titulo-form">Crie suas perguntas</div>
-        <form class="caixa novaPergunta">
-          <p>Pergunta 1</p>
-          <img
-            src="https://img.icons8.com/metro/26/000000/create-new.png hide"
-            alt=""
-          />
-          <input type="text" placeholder="Texto da pergunta" />
-          <input type="text" placeholder="Cor de fundo da pergunta" />
-
-          <p>Resposta correta</p>
-          <input type="text" placeholder="Resposta correta" />
-          <input type="text" placeholder="URL da imagem" />
-
-          <p>Respostas incorretas</p>
-          <input type="text" placeholder="Resposta incorreta 1" />
-          <input type="text" placeholder="URL da imagem 1" /><br />
-
-          <input type="text" placeholder="Resposta incorreta 2" />
-          <input type="text" placeholder="URL da imagem 2" /><br />
-
-          <input type="text" placeholder="Resposta incorreta 3" />
-          <input type="text" placeholder="URL da imagem 3" />
-        </form>
-
-        <form class="caixa novaPergunta">
-          <p>Pergunta 2</p>
-          <img
-            src="https://img.icons8.com/metro/26/000000/create-new.png hide"
-            alt=""
-          />
-          <input type="text" placeholder="Texto da pergunta" />
-          <input type="text" placeholder="Cor de fundo da pergunta" />
-
-          <p>Resposta correta</p>
-          <input type="text" placeholder="Resposta correta" />
-          <input type="text" placeholder="URL da imagem" />
-
-          <p>Respostas incorretas</p>
-          <input type="text" placeholder="Resposta incorreta 1" />
-          <input type="text" placeholder="URL da imagem 1" /><br />
-
-          <input type="text" placeholder="Resposta incorreta 2" />
-          <input type="text" placeholder="URL da imagem 2" /><br />
-
-          <input type="text" placeholder="Resposta incorreta 3" />
-          <input type="text" placeholder="URL da imagem 3" />
-        </form>
-
-        <form class="caixa novaPergunta">
-          <p>Pergunta 3</p>
-          <img
-            src="https://img.icons8.com/metro/26/000000/create-new.png hide"
-            alt=""
-          />
-          <input type="text" placeholder="Texto da pergunta" />
-          <input type="text" placeholder="Cor de fundo da pergunta" />
-
-          <p>Resposta correta</p>
-          <input type="text" placeholder="Resposta correta" />
-          <input type="text" placeholder="URL da imagem" />
-
-          <p>Respostas incorretas</p>
-          <input type="text" placeholder="Resposta incorreta 1" />
-          <input type="text" placeholder="URL da imagem 1" /><br />
-
-          <input type="text" placeholder="Resposta incorreta 2" />
-          <input type="text" placeholder="URL da imagem 2" /><br />
-
-          <input type="text" placeholder="Resposta incorreta 3" />
-          <input type="text" placeholder="URL da imagem 3" />
-        </form>
-        <button onclick = "passarProximaFormulario()" type="submit"><span>Prosseguir para criar níveis</span></button>
-      </div>
-
-      <div class="tela33 hide">
-        <div class="titulo-form">Agora, decida os níveis</div>
-        <form class="caixa novoNível">
-          <p>Nível 1</p>
-          <img
-            src="https://img.icons8.com/metro/26/000000/create-new.png hide"
-            alt=""
-          />
-          <input type="text" placeholder="Título do nível" />
-          <input type="text" placeholder="% de acerto mínima" />
-          <input type="text" placeholder="URL da imagem do nível" />
-          <input type="text" placeholder="Descrição do nível" />
-        </form>
-
-        <form class="caixa novoNível">
-          <p>Nível 2</p>
-          <img
-            src="https://img.icons8.com/metro/26/000000/create-new.png hide"
-            alt=""
-          />
-          <input type="text" placeholder="Título do nível" />
-          <input type="text" placeholder="% de acerto mínima" />
-          <input type="text" placeholder="URL da imagem do nível" />
-          <input type="text" placeholder="Descrição do nível" />
-        </form>
-
-        <form class="caixa novoNível">
-          <p>Nível 3</p>
-          <img
-            src="https://img.icons8.com/metro/26/000000/create-new.png hide"
-            alt=""
-          />
-          <input type="text" placeholder="Título do nível" />
-          <input type="text" placeholder="% de acerto mínima" />
-          <input type="text" placeholder="URL da imagem do nível" />
-          <input type="text" placeholder="Descrição do nível" />
-        </form>
-        <button onclick = "passarProximaFormulario()" type="submit"><span>Finalizar Quizz</span></button>
-      </div>
-
-      <div class="tela34 hide">
-        <div class="titulo-form">Seu quizz está pronto!</div>
-        <div class="card">
-          <figure>
-            <div class="card-image">
-              <img src="./assets/tela2/cards/Rectangle 34.png" />
-              <span>O quão Potterhead é você?</span>
-            </div>
-          </figure>
-        </div>
-        <button><span>Acessar Quizz</span></button>
-        <button onclick="voltarParaHome(this)" class="botao-voltar-home">
-          Voltar para home
-        </button>
-      </div>
+  <div class="tela3">
+    <div class="tela31 hide">
+      <span class="titulo-form">Comece pelo começo</span>
+      <form class="informacoesBasicas">
+        <input id="titulo" type="text" placeholder="Título do seu quizz" />
+        <input id="urlImagem" type="text" placeholder="URL da imagem do seu quizz" />
+        <input id="numeroPerguntas" type="text" placeholder="Quantidade de perguntas do quizz" />
+        <input id="numeroNiveis" type="text" placeholder="Quantidade de níveis do quizz" />
+      </form>
+      <!-- aDICIONEI A FUNCAO ONCLICK PARA QUE A VERIFICACAO SEJA FEITA -->
+      <button onclick="validarInformacoesBasicas()" class="prosseguir">
+        <span>Prosseguir para criar perguntas</span>
+      </button>
     </div>
 
-    <a href="https://icons8.com/icon/6698/crie-um-novo"></a>
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="script.js"></script>
-  </body>
-  <html></html>
+    <div class="tela32 hide">
+      <div class="titulo-form">Crie suas perguntas</div>
+      <form class="caixa novaPergunta">
+        <p>Pergunta 1</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input id="textoPergunta" type="text" placeholder="Texto da pergunta" />
+        <input id="corFundo" type="text" placeholder="Cor de fundo da pergunta" />
+
+        <p>Resposta correta</p>
+        <input id="textoResposta" type="text" placeholder="Resposta correta" />
+        <input id="urlImagemResposta" type="text" placeholder="URL da imagem" />
+
+        <p>Respostas incorretas</p>
+        <input type="text" placeholder="Resposta incorreta 1" />
+        <input type="text" placeholder="URL da imagem 1" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 2" />
+        <input type="text" placeholder="URL da imagem 2" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 3" />
+        <input type="text" placeholder="URL da imagem 3" />
+      </form>
+
+      <form class="caixa novaPergunta">
+        <p>Pergunta 2</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input type="text" placeholder="Texto da pergunta" />
+        <input type="text" placeholder="Cor de fundo da pergunta" />
+
+        <p>Resposta correta</p>
+        <input type="text" placeholder="Resposta correta" />
+        <input type="text" placeholder="URL da imagem" />
+
+        <p>Respostas incorretas</p>
+        <input type="text" placeholder="Resposta incorreta 1" />
+        <input type="text" placeholder="URL da imagem 1" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 2" />
+        <input type="text" placeholder="URL da imagem 2" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 3" />
+        <input type="text" placeholder="URL da imagem 3" />
+      </form>
+
+      <form class="caixa novaPergunta">
+        <p>Pergunta 3</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input type="text" placeholder="Texto da pergunta" />
+        <input type="text" placeholder="Cor de fundo da pergunta" />
+
+        <p>Resposta correta</p>
+        <input type="text" placeholder="Resposta correta" />
+        <input type="text" placeholder="URL da imagem" />
+
+        <p>Respostas incorretas</p>
+        <input type="text" placeholder="Resposta incorreta 1" />
+        <input type="text" placeholder="URL da imagem 1" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 2" />
+        <input type="text" placeholder="URL da imagem 2" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 3" />
+        <input type="text" placeholder="URL da imagem 3" />
+      </form>
+      <button onclick="passarProximaFormulario()" type="submit"><span>Prosseguir para criar níveis</span></button>
+    </div>
+
+    <div class="tela33 hide">
+      <div class="titulo-form">Agora, decida os níveis</div>
+      <form class="caixa novoNível">
+        <p>Nível 1</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input type="text" placeholder="Título do nível" />
+        <input type="text" placeholder="% de acerto mínima" />
+        <input type="text" placeholder="URL da imagem do nível" />
+        <input type="text" placeholder="Descrição do nível" />
+      </form>
+
+      <form class="caixa novoNível">
+        <p>Nível 2</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input type="text" placeholder="Título do nível" />
+        <input type="text" placeholder="% de acerto mínima" />
+        <input type="text" placeholder="URL da imagem do nível" />
+        <input type="text" placeholder="Descrição do nível" />
+      </form>
+
+      <form class="caixa novoNível">
+        <p>Nível 3</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input type="text" placeholder="Título do nível" />
+        <input type="text" placeholder="% de acerto mínima" />
+        <input type="text" placeholder="URL da imagem do nível" />
+        <input type="text" placeholder="Descrição do nível" />
+      </form>
+      <button onclick="passarProximaFormulario()" type="submit"><span>Finalizar Quizz</span></button>
+    </div>
+
+    <div class="tela34 hide">
+      <div class="titulo-form">Seu quizz está pronto!</div>
+      <div class="card">
+        <figure>
+          <div class="card-image">
+            <img src="./assets/tela2/cards/Rectangle 34.png" />
+            <span>O quão Potterhead é você?</span>
+          </div>
+        </figure>
+      </div>
+      <button><span>Acessar Quizz</span></button>
+      <button onclick="voltarParaHome(this)" class="botao-voltar-home">
+        Voltar para home
+      </button>
+    </div>
+  </div>
+
+  <a href="https://icons8.com/icon/6698/crie-um-novo"></a>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script.js"></script>
+</body>
+<html>
+
+</html>
+
 </html>

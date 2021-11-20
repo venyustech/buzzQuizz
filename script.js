@@ -109,13 +109,13 @@ function mostraQuizz(resposta) {
   criarQuizzSelecionado();//ele tá aqui só pra  mudar de tela. Provavelmente poderia ser uma arrow function
 
   let id = resposta.querySelector(".identificacao").innerText;
-  	console.log(id);
+  console.log(id);
   // id = idt;
   const promisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
   promisse.then(quizzLoading);
   promisse.catch(loadingQuizzError);
 
-  
+
 }
 
 // mostraQuizz(id);
@@ -139,29 +139,36 @@ function quizzLoading(answer) {
 
   for (let i = 0; i < quizzPerguntar.questions.length; i++) {
     let embaralhador = [];
-let comprimento = quizzPerguntar.questions[i].answers.length;
+    let comprimento = quizzPerguntar.questions[i].answers.length;
 
-while(embaralhador.length<comprimento){
-  let numero = Math.floor(Math.random() * 4);
-  if(!embaralhador.includes(numero)){
-embaralhador.push(numero);
-  }
-}
-tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
+    while (embaralhador.length < comprimento) {
+      let numero = Math.floor(Math.random() * 4);
+      if (!embaralhador.includes(numero)) {
+        embaralhador.push(numero);
+      }
+    }
+    tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
 <div class="pergunta-caixa">
   <div class="pergunta-titulo" id="c${i + 1}"><p>${quizzPerguntar.questions[i].title}</p>
 </div>
 <div class="cards-embrulho${i}">  </div>
 `
+<<<<<<< HEAD
 let ii=0;
 while (ii<comprimento){
 let localRespostas = document.querySelector(`.cards-embrulho${i}`);
 localRespostas.innerHTML+= `<div class="card" onclick = "respostaSelecionada(this)">
+=======
+    let ii = 0;
+    while (ii < comprimento) {
+      let localRespostas = document.querySelector(`.cards-embrulho${i}`);
+      localRespostas.innerHTML += `<div class="card ${ii}" onclick = "respostaSelecionada(this)">
+>>>>>>> d454bb784e3acbaf1251f2da508a48782ec93cc7
 <img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
 <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p></div>
 </div>`
-ii++
-}
+      ii++
+    }
 
   }
   for (i = 0; i < quizzPerguntar.questions.length; i++) {
@@ -198,21 +205,21 @@ ii++
 
 function validarInformacoesBasicas() {
   console.log('estou funcionando');
-// RAFA, COMENTEI SUA PARTE PORQUE NÃO ACHEI DE ONDE QUE ESTAVA VINDO ESSE INFORMACOES BASICAS NO HTML
+  // RAFA, COMENTEI SUA PARTE PORQUE NÃO ACHEI DE ONDE QUE ESTAVA VINDO ESSE INFORMACOES BASICAS NO HTML
 
   // let tituloQuiz = informacoesBasicas.firstChild.value;
   // let URLquiz = informacoesBasicas.secondChild.value;
   // let quantPerguntas = informacoesBasicas.thirdChild.value;
   // let quantNiveis = informacoesBasicas.fourthChild.value  
 
-  
+
   let tituloQuiz = document.querySelector("#titulo").value;
   let URLquiz = document.querySelector("#urlImagem").value;
   let quantPerguntas = document.querySelector("#numeroPerguntas").value;
   let quantNiveis = document.querySelector("#numeroNiveis").value;
 
   //passei esse daqui pra cima, por a verificacao do else não podia ser feita se ele ainda nào estivesse definido
- 
+
   let isValidHttpUrl = (URLquiz) => {
     let url;
 
@@ -225,19 +232,18 @@ function validarInformacoesBasicas() {
     return url.protocol === "http:" || url.protocol === "https:";
   }
 
-  if (tituloQuiz.length < 20 ||tituloQuiz.length > 65 ) {
+  if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
   }
-  else if (!isValidHttpUrl ||URLquiz.length<2) {
+  else if (!isValidHttpUrl || URLquiz === '') {
     alert('Validação falhou, url deve ter formato válido');
   }
-  else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas)!==parseInt(quantPerguntas)) {
+  else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas) !== parseInt(quantPerguntas)) {
     alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
   }
-  else if (parseInt(quantNiveis) < 2 || parseInt(quantNiveis)!==parseInt(quantNiveis)) {
+  else if (parseInt(quantNiveis) < 2 || parseInt(quantNiveis) !== parseInt(quantNiveis)) {
     alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
   }
-  
   else {
     console.log('passei');
     passarProximaFormulario();
@@ -245,6 +251,43 @@ function validarInformacoesBasicas() {
 
   //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
 }
+
+function validarPerguntaseRespostas() {
+  let textoPergunta = document.querySelector("#textoPergunta").value;
+  let corFundo = document.querySelector("#corFundo").value;
+  let textoResposta = document.querySelector("#textoResposta").value;
+  let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
+
+  let isValidHttpUrl = (urlImagemResposta) => {
+    let url;
+
+    try {
+      url = new URL(urlImagemResposta);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
+  if (textoPergunta.lentgh < 20 || textoPergunta === "") {
+    alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
+  }
+  else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+    alert('Validação falhou, cor em formato inválido');
+  }
+  else if (textoResposta === "") {
+    alert('Validação falhou, o texto da resposta não pode estar vazio');
+  }
+  else if (!isValidHttpUrl || urlImagemResposta === "") {
+    alert('Validação falhou, url deve ter formato válido');
+  }
+  else {
+    console.log('passei');
+    passarProximaFormulario();
+  }
+}
+
 
 
 
@@ -256,7 +299,7 @@ function validarInformacoesBasicas() {
 /***********************************************
  *         COnfigurações Navegação Entre Telas *
  ***********************************************/
- let posicaoFormulario=1; //variavel global para poder conferir a passagem dos formularios
+let posicaoFormulario = 1; //variavel global para poder conferir a passagem dos formularios
 
 function voltarParaHome(clique) {
   console.log("fui chamado para voltar pra tela1");
@@ -297,13 +340,13 @@ function voltarParaHome(clique) {
 
 
 
-function passarProximaFormulario(){
- if(posicaoFormulario<4){
-   let tela_atual = document.querySelector(`.tela3${posicaoFormulario}`);
-   let proxima_tela = document.querySelector(`.tela3${posicaoFormulario+1}`);
-   tela_atual.classList.toggle("hide");
-   proxima_tela.classList.toggle("hide");
-  posicaoFormulario++;
- }
+function passarProximaFormulario() {
+  if (posicaoFormulario < 4) {
+    let tela_atual = document.querySelector(`.tela3${posicaoFormulario}`);
+    let proxima_tela = document.querySelector(`.tela3${posicaoFormulario + 1}`);
+    tela_atual.classList.toggle("hide");
+    proxima_tela.classList.toggle("hide");
+    posicaoFormulario++;
+  }
 
 }
