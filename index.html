@@ -28,7 +28,7 @@
         *         Configurações tela 1:      *
         ***********************************-->
 
-    <main class="tela1 hide">
+    <main class="tela1">
       <div class="quizzes-usuario">
         <div class="exibir-quiz">
           <p>Seus Quizzes</p>
@@ -63,7 +63,7 @@
         *         Configurações tela 2:      *
         ***********************************-->
     <section>
-      <div class="embrulho-quizz-tela2">
+      <div class="embrulho-quizz-tela2 hide">
         <!--<div class="quizz-titulo" id="titulo1">
           <p>O quão PotterHead é você?</p>
         </div>
@@ -171,20 +171,21 @@
         *         Configurações tela 3:      *
         ***********************************-->
     <div class="tela3">
-      <div class="tela3-1 hide">
+      <div class="tela31 hide">
         <span class="titulo-form">Comece pelo começo</span>
         <form>
-          <input type="text" placeholder="Título do seu quizz" />
-          <input type="text" placeholder="URL da imagem do seu quizz" />
-          <input type="text" placeholder="Quantidade de perguntas do quizz" />
-          <input type="text" placeholder="Quantidade de níveis do quizz" />
+          <input id = "titulo" type="text" placeholder="Título do seu quizz" />
+          <input id = "urlImagem" type="text" placeholder="URL da imagem do seu quizz" />
+          <input id = "numeroPerguntas" type="text" placeholder="Quantidade de perguntas do quizz" />
+          <input id = "numeroNiveis" type="text" placeholder="Quantidade de níveis do quizz" />
         </form>
-        <button type="submit">
+        <!-- aDICIONEI A FUNCAO ONCLICK PARA QUE A VERIFICACAO SEJA FEITA -->
+        <button  onclick = "validarInformacoesBasicas()"class = "prosseguir" >
           <span>Prosseguir para criar perguntas</span>
         </button>
       </div>
 
-      <div class="tela3-2 hide">
+      <div class="tela32 hide">
         <div class="titulo-form">Crie suas perguntas</div>
         <form class="caixa novaPergunta">
           <p>Pergunta 1</p>
@@ -260,7 +261,7 @@
         <button type="submit"><span>Prosseguir para criar níveis</span></button>
       </div>
 
-      <div class="tela3-3 hide">
+      <div class="tela33 hide">
         <div class="titulo-form">Agora, decida os níveis</div>
         <form class="caixa novoNível">
           <p>Nível 1</p>
@@ -300,7 +301,7 @@
         <button type="submit"><span>Finalizar Quizz</span></button>
       </div>
 
-      <div class="tela3-4 hide">
+      <div class="tela34 hide">
         <div class="titulo-form">Seu quizz está pronto!</div>
         <div class="card">
           <figure>

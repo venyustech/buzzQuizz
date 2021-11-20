@@ -425,12 +425,12 @@ input::placeholder {
   padding-left: 23px;
 }
 
-button {
+.prosseguir{
   width: 370px;
   height: 54px;
 
   border-radius: 12px;
-
+  background-color: #ec362d;
   font-family: "Roboto";
   color: #fff5f4;
   text-align: center;

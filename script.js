@@ -95,7 +95,7 @@ function tela1tela3(resposta) {
   let tela_anterior = document.querySelector(".tela1");
   tela_anterior.classList.toggle("hide");
   //console.log(tela_anterior);
-  let tela_atual = document.querySelector(".tela3-1");
+  let tela_atual = document.querySelector(".tela31");
   tela_atual.classList.toggle("hide");
   //console.log("ok");
 }
@@ -162,7 +162,7 @@ function quizzLoading(answer) {
 
 //cria um novo quiz personalizado e envia informaçoes dele para o servidor
 //  function criarNovoQuizz(){
-const informacoesBasicas = document.querySelectorAll(".informacoesBasicas");
+// const informacoesBasicas = document.querySelectorAll(".informacoesBasicas");
 //    const novaPergunta = document.querySelectorAll(".novaPergunta");
 //    const novoNivel = document.querySelectorAll(".novoNivel");
 
@@ -185,29 +185,21 @@ const informacoesBasicas = document.querySelectorAll(".informacoesBasicas");
 
 function validarInformacoesBasicas() {
   console.log('estou funcionando');
+// RAFA, COMENTEI SUA PARTE PORQUE NÃO ACHEI DE ONDE QUE ESTAVA VINDO ESSE INFORMACOES BASICAS NO HTML
 
-  let tituloQuiz = informacoesBasicas.firstChild.value;
-  let URLquiz = informacoesBasicas.secondChild.value;
-  let quantPerguntas = informacoesBasicas.thirdChild.value;
-  let quantNiveis = informacoesBasicas.fourthChild.value
+  // let tituloQuiz = informacoesBasicas.firstChild.value;
+  // let URLquiz = informacoesBasicas.secondChild.value;
+  // let quantPerguntas = informacoesBasicas.thirdChild.value;
+  // let quantNiveis = informacoesBasicas.fourthChild.value  
 
+  
+  let tituloQuiz = document.querySelector("#titulo").value;
+  let URLquiz = document.querySelector("#urlImagem").value;
+  let quantPerguntas = document.querySelector("#numeroPerguntas").value;
+  let quantNiveis = document.querySelector("#numeroNiveis").value;
 
-  if (tituloQuiz.length < 20 && tituloQuiz.length > 65) {
-    alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
-  }
-  else if (!isValidHttpUrl) {
-    alert('Validação falhou, url deve ter formato válido');
-  }
-  else if (quantPerguntas < 3) {
-    alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
-  }
-  else if (quantNiveis < 2) {
-    alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
-  }
-  else {
-    console.log('passei');
-  }
-
+  //passei esse daqui pra cima, por a verificacao do else não podia ser feita se ele ainda nào estivesse definido
+ 
   let isValidHttpUrl = (URLquiz) => {
     let url;
 
@@ -219,6 +211,25 @@ function validarInformacoesBasicas() {
 
     return url.protocol === "http:" || url.protocol === "https:";
   }
+
+  if (tituloQuiz.length < 20 ||tituloQuiz.length > 65 ) {
+    alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
+  }
+  else if (!isValidHttpUrl ||URLquiz.length<2) {
+    alert('Validação falhou, url deve ter formato válido');
+  }
+  else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas)!==parseInt(quantPerguntas)) {
+    alert('Validação falhou, o quiz deve ter no mínimo 3 perguntas');
+  }
+  else if (parseInt(quantNiveis) < 2 || parseInt(quantNiveis)!==parseInt(quantNiveis)) {
+    alert('Validação falhou, o quiz deve ter no mínimo 2 níveis');
+  }
+  
+  else {
+    console.log('passei');
+  }
+
+  //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
 }
 
 
