@@ -263,16 +263,16 @@ function validarPerguntaseRespostas() {
     return url.protocol === "http:" || url.protocol === "https:";
   }
 
-  if (textoPergunta.lentgh < 20 || typeof (textoPergunta) === null) {
+  if (textoPergunta.lentgh < 20 || textoPergunta === "") {
     alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
   }
-  else if (corFundo.match(/^#[a-f0-9]{6}$/i) !== null) {
+  else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
     alert('Validação falhou, cor em formato inválido');
   }
-  else if (textoResposta !== '') {
+  else if (textoResposta === "") {
     alert('Validação falhou, o texto da resposta não pode estar vazio');
   }
-  else if (!isValidHttpUrl || urlImagemResposta === '') {
+  else if (!isValidHttpUrl || urlImagemResposta === "") {
     alert('Validação falhou, url deve ter formato válido');
   }
   else {
