@@ -23,47 +23,48 @@
     <header>
       <p>BuzzQuizz</p>
     </header>
-    <main>
-      <!--**********************************
+
+    <!--**********************************
         *         Configurações tela 1:      *
         ***********************************-->
 
-      <main class="tela1">
-        <div class="quizzes-usuario">
-          <div class="exibir-quiz">
-            <p>Seus Quizzes</p>
-            <p></p>
-            <div class="lista-quiz-disponivel">
-              <!-- ESSA PARTE VAI SER GERADA POR JS -->
-            </div>
-          </div>
-        </div>
-
-        <!-- se não houver quizzes do usuário -->
-        <div class="criar-quiz">
-          <span
-            >Você não criou nenhum <br />
-            quizz ainda :(</span
-          >
-          <button onclick="tela1tela3(this)" class="criar-novo-quizz">
-            Criar Quizz
-          </button>
-        </div>
-        <!-- fim criar quizz -->
-
+    <main class="tela1 hide">
+      <div class="quizzes-usuario">
         <div class="exibir-quiz">
-          <p>Todos os Quizzes</p>
+          <p>Seus Quizzes</p>
           <p></p>
-          <div class="lista-quiz-disponivel lista_servidor">
+          <div class="lista-quiz-disponivel">
             <!-- ESSA PARTE VAI SER GERADA POR JS -->
           </div>
         </div>
-      </main>
-      <!--**********************************
+      </div>
+
+      <!-- se não houver quizzes do usuário -->
+      <div class="criar-quiz">
+        <span
+          >Você não criou nenhum <br />
+          quizz ainda :(</span
+        >
+        <button onclick="tela1tela3(this)" class="criar-novo-quizz">
+          Criar Quizz
+        </button>
+      </div>
+      <!-- fim criar quizz -->
+
+      <div class="exibir-quiz">
+        <p>Todos os Quizzes</p>
+        <p></p>
+        <div class="lista-quiz-disponivel lista_servidor">
+          <!-- ESSA PARTE VAI SER GERADA POR JS -->
+        </div>
+      </div>
+    </main>
+    <!--**********************************
         *         Configurações tela 2:      *
         ***********************************-->
-      <div class="embrulho-quizz-tela2 hide">
-        <div class="quizz-titulo" id="titulo1">
+    <section>
+      <div class="embrulho-quizz-tela2">
+        <!--<div class="quizz-titulo" id="titulo1">
           <p>O quão PotterHead é você?</p>
         </div>
 
@@ -160,9 +161,9 @@
           class="voltar-home-button text-button"
         >
           <p>Voltar para home</p>
-        </button>
+        </button>-->
       </div>
-    </main>
+    </section>
 
     <!--************************************
         *         Configurações tela 3:      *
