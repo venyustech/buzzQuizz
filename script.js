@@ -228,7 +228,7 @@ function validarInformacoesBasicas() {
   if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert('Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters');
   }
-  else if (!isValidHttpUrl || URLquiz === '') {
+  else if (!isValidHttpUrl || URLquiz < 2) {
     alert('Validação falhou, url deve ter formato válido');
   }
   else if (parseInt(quantPerguntas) < 3 || parseInt(quantPerguntas) !== parseInt(quantPerguntas)) {
