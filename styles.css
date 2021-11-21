@@ -340,6 +340,13 @@ button {
   color: #818181;
 }
 
+.resposta-errada{
+  color:#ec362d;
+}
+.resposta-certa{
+  color:green;
+}
+
 /*Mobile:*/
 @media (max-width: 800px) {
   .cards-embrulho {

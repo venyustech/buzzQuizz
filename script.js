@@ -195,17 +195,50 @@ function respostaSelecionada(resposta) {
 }
 
 // **************************************** ESSA FUNCAO  VAI CONFERIR AS RESPOSTAS ***************
-
+let respostas_certas = 0; //variável global para contabilizar quantas das respostas seleciondas são === true
+let perguntas_respondidas = 0;
 function conferirRespostas(resposta) {
 
   let selecionada = resposta;
-  let espacoSelecao = selecionada.parentElement.classList.value;
+  let espacoSelecao = selecionada.parentElement.classList[1];
+  //conferir se a resposta selecionada é a resposta certa
+  let resposta_selecionada = document.querySelector(`.${espacoSelecao} .selecionada .resposta-card`).innerText;
+  // console.log(resposta_selecionada==selecionada);
+  console.log(resposta_selecionada);
+  console.log(resposta_selecionada==="true");
+  if(resposta_selecionada === "true"){
+    alert("você acertou!");
+    respostas_certas++
+  }
+  
 
-  let cards_conferir = document.querySelector(`.${espacoSelecao} .card .resposta-card`);
+  let cards_conferir = document.querySelectorAll(`.${espacoSelecao} .card .resposta-card`);
+//com isso eu consigo um vetor com todas as respostas já de forma relacionada aos seus cards. 
 
-  console.log(cards_conferir);
-  //FALTA TERMINAR A LÓGICA
+for(let i=0;i<cards_conferir.length;i++){
+ 
+  if (cards_conferir[i].innerText ==="true"){
 
+    let titulo_card = cards_conferir[i].parentElement;
+    titulo_card.classList.add("resposta-certa");
+
+  }
+  else{
+    let titulo_card = cards_conferir[i].parentElement;
+    titulo_card.classList.add("resposta-errada");
+
+  }
+}
+//eu tenho que saber quantas perguntas no total tem, pra ver se eu já respondi todas elas
+
+let numero_perguntas = document.querySelectorAll(".pergunta-caixa").length;
+//cada vez que a função é chamada, uma função foi respondida
+
+perguntas_respondidas++
+
+if(perguntas_respondidas === numero_perguntas){
+  alert(`você terminou o quiz! você acertou ${respostas_certas} perguntas`);
+}
 
 }
 
