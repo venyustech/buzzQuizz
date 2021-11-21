@@ -151,11 +151,11 @@ tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
 <div class="pergunta-caixa">
   <div class="pergunta-titulo" id="c${i + 1}"><p>${quizzPerguntar.questions[i].title}</p>
 </div>
-<div class="cards-embrulho${i}">  </div>
+<div class="cards-embrulho conjunto-cards${i}">  </div>
 `
 let ii=0;
 while (ii<comprimento){
-let localRespostas = document.querySelector(`.cards-embrulho${i}`);
+let localRespostas = document.querySelector(`.conjunto-cards${i}`);
 localRespostas.innerHTML+= `<div class="card" onclick = "respostaSelecionada(this)"><div class = "nao-selecionada"></div>
 <img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
 <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p><span class = "resposta-card">${quizzPerguntar.questions[i].answers[embaralhador[ii]].isCorrectAnswer}</span></div>
@@ -181,7 +181,8 @@ function respostaSelecionada(resposta){
   console.log(selecionada);
 
   //com isso, ele marca a carta que foi selecionada, agora falta adicionar algo nas outras para remover o onclick, mas como a encontrar?
-  let espacoSelecao = selecionada.parentElement.classList.value;
+  let espacoSelecao = selecionada.parentElement.classList[1];
+  console.log(espacoSelecao);
   // console.log(espacoSelecao);
   // com isso, ele ve em qual espaço (ou em qual pergunta) foi selecionada a resposta em questão
   let numeroRespostas = document.querySelectorAll(`.${espacoSelecao} .card`).length;
