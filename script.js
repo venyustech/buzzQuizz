@@ -153,7 +153,6 @@ function quizzLoading(answer) {
 </div>
 <div class="cards-embrulho${i}">  </div>
 `
-<<<<<<< HEAD
     let ii = 0;
     while (ii < comprimento) {
       let localRespostas = document.querySelector(`.cards-embrulho${i}`);
@@ -163,17 +162,6 @@ function quizzLoading(answer) {
 </div>`
       ii++
     }
-=======
-let ii=0;
-while (ii<comprimento){
-  let localRespostas = document.querySelector(`.cards-embrulho${i}`);
-  localRespostas.innerHTML+= `<div class="card" id = "${ii}"onclick = "respostaSelecionada(this)"><div class = "nao-selecionada"></div>
-  <img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
-  <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p><span class = "resposta-card">${quizzPerguntar.questions[i].answers[embaralhador[ii]].isCorrectAnswer}</span></div>
-  </div>`
-  ii++
-  }
->>>>>>> b253004a5bce9b59b9848b91c707a91902c1d9de
 
   }
   for (i = 0; i < quizzPerguntar.questions.length; i++) {
@@ -183,7 +171,7 @@ while (ii<comprimento){
 
 // **************************************** ESSA FUNCAO DEIXA AS COISAS BRANCAS E CHAMA A FUNCAO QUE VAI CONFERIR AS RESPOSTAS ***************
 
-function respostaSelecionada(resposta){
+function respostaSelecionada(resposta) {
   let selecionada = resposta;
   console.log(selecionada.firstChild);
   selecionada.classList.add("selecionada");
@@ -197,24 +185,24 @@ function respostaSelecionada(resposta){
   // com isso, ele ve em qual espaço (ou em qual pergunta) foi selecionada a resposta em questão
   let numeroRespostas = document.querySelectorAll(`.${espacoSelecao} .card`).length;
   //com isso ele ve quantas respostas tem no total, contando a selecionada
-// console.log(numeroRespostas);
+  // console.log(numeroRespostas);
   //agora com um for eu vou adicionar a classe de nao selecionada em todas as outras, e tirar o onclick delas muahahaha
 
   let nao_selecionada_display = document.querySelectorAll(`.${espacoSelecao} .card .nao-selecionada`);
   let nao_selecionada_clique = document.querySelectorAll(`.${espacoSelecao} .card .nao-selecionada`);
 
-  for (let i=0; i<nao_selecionada_display.length;i++){
-  nao_selecionada_display[i].style.display = "initial";
-  nao_selecionada_clique[i].parentElement.removeAttribute("onclick");
-}
-   //conferencia se a resposta é certa ou não
-
-   conferirRespostas(resposta);
+  for (let i = 0; i < nao_selecionada_display.length; i++) {
+    nao_selecionada_display[i].style.display = "initial";
+    nao_selecionada_clique[i].parentElement.removeAttribute("onclick");
   }
+  //conferencia se a resposta é certa ou não
 
-  // **************************************** ESSA FUNCAO  VAI CONFERIR AS RESPOSTAS ***************
+  conferirRespostas(resposta);
+}
 
-  function conferirRespostas(resposta){
+// **************************************** ESSA FUNCAO  VAI CONFERIR AS RESPOSTAS ***************
+
+function conferirRespostas(resposta) {
 
   let selecionada = resposta;
   let espacoSelecao = selecionada.parentElement.classList.value;
@@ -225,7 +213,7 @@ function respostaSelecionada(resposta){
   //FALTA TERMINAR A LÓGICA
 
 
-  }
+}
 
 /*****************************************
  *         COnfigurações tela 3:          *
@@ -332,6 +320,43 @@ function validarPerguntaseRespostas() {
   }
   else if (!isValidHttpUrl || urlImagemResposta === "") {
     alert('Validação falhou, url deve ter formato válido');
+  }
+  else {
+    console.log('passei');
+    passarProximaFormulario();
+  }
+}
+
+function validarNiveis() {
+  let tituloNivel = document.querySelector("#tituloNivel").value;
+  let porcentagemAcerto = document.querySelector("#porcentagemAcerto").value;
+  //Pelo menos um dos níveis precisa ter porcentagemAcerto mínimo igual a 0%
+  let urlImagemNivel = document.querySelector("#urlImagemNivel").value;
+  let descricaoNivel = document.querySelector("#descricaoNivel").value;
+
+  let isValidHttpUrl = (urlImagemNivel) => {
+    let url;
+
+    try {
+      url = new URL(urlImagemNivel);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
+  if (tituloNivel.length < 10 || tituloNivel === "") {
+    alert('Validação falhou, o título do nível precisa ter no mínimo 10 caracteres');
+  }
+  else if (parseInt(porcentagemAcerto) < 0 || parseInt(porcentagemAcerto) > 100 || porcentagemAcerto === "") {
+    alert('Validação falhou, porcentagem precisa estar entre 0 e 100%');
+  }
+  else if (!isValidHttpUrl || urlImagemNivel === "") {
+    alert('Validação falhou, o texto da resposta não pode estar vazio');
+  }
+  else if (descricaoNivel.length < 30 || descricaoNivel === "") {
+    alert('Validação falhou, descrição do nível deve ter no mínimo 30 caracteres');
   }
   else {
     console.log('passei');

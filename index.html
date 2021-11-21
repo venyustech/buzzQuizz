@@ -262,10 +262,10 @@
       <form class="caixa novoNível">
         <p>Nível 1</p>
         <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-        <input type="text" placeholder="Título do nível" />
-        <input type="text" placeholder="% de acerto mínima" />
-        <input type="text" placeholder="URL da imagem do nível" />
-        <input type="text" placeholder="Descrição do nível" />
+        <input id="tituloNivel" type="text" placeholder="Título do nível" />
+        <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
+        <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
+        <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
       </form>
 
       <form class="caixa novoNível">
@@ -285,7 +285,7 @@
         <input type="text" placeholder="URL da imagem do nível" />
         <input type="text" placeholder="Descrição do nível" />
       </form>
-      <button onclick="passarProximaFormulario()" type="submit"><span>Finalizar Quizz</span></button>
+      <button onclick="validarNiveis()" type="submit"><span>Finalizar Quizz</span></button>
     </div>
 
     <div class="tela34 hide">
