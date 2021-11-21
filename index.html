@@ -29,7 +29,7 @@
         *         Configurações tela 1:      *
         ***********************************-->
 
-  <main class="tela1">
+  <main class="tela1 hide">
     <div class="quizzes-usuario">
       <div class="exibir-quiz">
         <p>Seus Quizzes</p>
@@ -62,77 +62,52 @@
         *         Configurações tela 2:      *
         ***********************************-->
   <section>
-    <div class="embrulho-quizz-tela2 hide">
-      <!--<div class="quizz-titulo" id="titulo1">
+    <div class="embrulho-quizz-tela2">
+    <!--<div class="quizz-titulo" id="titulo1">
           <p>O quão PotterHead é você?</p>
         </div>
 
-        <div class="pergunta-embrulho">
-          <div class="pergunta-caixa">
-            <div class="pergunta-titulo" id="c1">
-              <p>Em qual animal Olho-Tonto Moody transfigurou Malfoy?</p>
+        <div class="pergunta-embrulho conjunto-cards1">
+          <div class="pergunta-caixa" id= "caixa1">
+          
+            <div class="pergunta-titulo" id="c0">
+              <p>Qual pinguim é mais bonito?</p>
             </div>
-            <div class="cards-embrulho">
-              <div class="card">
-                <img class="card-image" src="assets/tela2/cards/image 3.png" />
-                <div class="card-titulo"><p>Gatíneo</p></div>
-              </div>
-              <div class="card">
-                <img class="card-image" src="assets/tela2/cards/image 4.png" />
-                <div class="card-titulo"><p>Ratata</p></div>
-              </div>
-              <div class="card">
-                <img class="card-image" src="assets/tela2/cards/image 7.png" />
-                <div class="card-titulo"><p>Sapo gordo</p></div>
-              </div>
-              <div class="card">
-                <img class="card-image" src="assets/tela2/cards/image 8.png" />
-                <div class="card-titulo"><p>Mustela putorius (o Furão)</p></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pergunta-embrulho">
-          <div class="pergunta-caixa">
-            <div class="pergunta-titulo" id="c2">
-              <p>Qual dos objetos abaixo NÃO é uma horcrux?</p>
-            </div>
-            <div class="cards-embrulho">
-              <div class="card">
-                <img
-                  class="card-image"
-                  src="assets/tela2/cards/Rectangle 38.png"
-                />
-                <div class="card-titulo"><p>The boy who lived</p></div>
-              </div>
-              <div class="card">
-                <img
-                  class="card-image"
-                  src="assets/tela2/cards/Rectangle 39.png"
-                />
+            <div class="cards-embrulho conjunto-cards1" >
+              <div class="card" onclick = "respostaSelecionada(this)">
+                <div class = "nao-selecionada"></div>
+                <img class="card-image" src="http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png" height = "175.2px"  width="329.91px"/>
                 <div class="card-titulo">
-                  <p>O livro monstruoso dos monstros</p>
+                  <p>Qual Pinguim É mais bonito? u</p>
+                  <span class = "resposta-card">${quizzPerguntar.questions[i].answers[embaralhador[j]].isCorrectAnswer}</span>
+                </div>
                 </div>
               </div>
-              <div class="card">
-                <img
-                  class="card-image"
-                  src="assets/tela2/cards/Rectangle 40.png"
-                />
-                <div class="card-titulo"><p>Anel velho</p></div>
-              </div>
-              <div class="card">
-                <img
-                  class="card-image"
-                  src="assets/tela2/cards/Rectangle 41.png"
-                />
-                <div class="card-titulo"><p>Diadema da Ravenclaw</p></div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="pergunta-embrulho conjunto-cards1">
+          <div class="pergunta-caixa" id= "caixa1">
+          
+            <div class="pergunta-titulo" id="c1">
+              <p>Qual pinguim é mais bonito?</p>
+            </div>
+            <div class="cards-embrulho conjunto-cards1" >
+              <div class="card" onclick = "respostaSelecionada(this)">
+                <div class = "nao-selecionada"></div>
+                <img class="card-image" src="http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png" height = "175.2px"  width="329.91px"/>
+                <div class="card-titulo">
+                  <p>Qual Pinguim É mais bonito? u</p>
+                  <span class = "resposta-card">${quizzPerguntar.questions[i].answers[embaralhador[j]].isCorrectAnswer}</span>
+                </div>
+                </div>
               </div>
             </div>
+            
           </div>
         </div>
         
-          PRECISA FAZER ESSA PARTE:
 
         <div class="resultado-embrulho">
           <div class="resultado-caixa">
@@ -155,20 +130,12 @@
           </div>
         </div>
         <button class="reiniciar-quizz-button text-button">
-          <p>Reiniciar Quizz</p>
+           <p>Reiniciar Quizz</p>
         </button>
-        <button
-          onclick="voltarParaHome(this)"
-          class="voltar-home-button text-button"
-        >
+        <button onclick="voltarParaHome(this)"class="voltar-home-button text-button">
           <p>Voltar para home</p>
         </button>-->
-      <button class="reiniciar-quizz-button text-button">
-        <p>Reiniciar Quizz</p>
-      </button>
-      <button onclick="voltarParaHome(this)" class="voltar-home-button text-button">
-        <p>Voltar para home</p>
-      </button>
+
     </div>
   </section>
 

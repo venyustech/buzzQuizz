@@ -341,7 +341,7 @@ button {
 }
 
 /*Mobile:*/
-@media (max-width: 20px) {
+@media (max-width: 800px) {
   .cards-embrulho {
     flex-direction: column;
     width: 90%;
