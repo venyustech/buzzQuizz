@@ -98,48 +98,43 @@ function criarQuizzSelecionado() {
 
 }
 
-
-
 /******************************************
  *         COnfigurações tela 2:          *
  ******************************************/
 let id = 0;
 
 function mostraQuizz(resposta) {
+  console.log("entrou");
   criarQuizzSelecionado();//ele tá aqui só pra  mudar de tela. Provavelmente poderia ser uma arrow function
 
-  let id = resposta.querySelector(".identificacao").innerText;
+  id = resposta.querySelector(".identificacao").innerText;
   console.log(id);
   // id = idt;
   const promisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
   promisse.then(quizzLoading);
   promisse.catch(loadingQuizzError);
-
-
 }
+//mostraQuizz(294);
 
-// mostraQuizz(id);
 
-/*********************************************************
-                  *     mostraQuizz(idt) precisa ser chamado na função    *
-                  *     que abre o quizz (recebendo o id como parametro)  *
-                  *********************************************************/
 function loadingQuizzError(error) {
   alert("error#1 - Não foi possivel carregar esse quizz");
 }
 function quizzLoading(answer) {
-  const quizzPerguntar = answer.data;
-  //console.log(quizzPerguntar);
+  const quizz = answer.data;
+  let embaralhador = [];
+
+  console.log(quizz);
   //console.log(quizzPerguntar.questions.length);
   const tituloDaPaginaLoading = document.querySelector(".embrulho-quizz-tela2");
   tituloDaPaginaLoading.innerHTML = `<div class="quizz-titulo" id="titulo${id}">
-<p>${quizzPerguntar.title}</p>
+<p>${quizz.title}</p>
 </div>`;
-  document.querySelector(".quizz-titulo").style.backgroundImage = `url('${quizzPerguntar.image}')`;
+  document.querySelector(".quizz-titulo").style.backgroundImage = `url('${quizz.image}')`;
 
-  for (let i = 0; i < quizzPerguntar.questions.length; i++) {
-    let embaralhador = [];
-    let comprimento = quizzPerguntar.questions[i].answers.length;
+  for (let i = 0; i < quizz.questions.length; i++) {
+    embaralhador = [];
+    let comprimento = 4;
 
     while (embaralhador.length < comprimento) {
       let numero = Math.floor(Math.random() * 4);
@@ -147,25 +142,32 @@ function quizzLoading(answer) {
         embaralhador.push(numero);
       }
     }
+    console.log(embaralhador)
     tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
 <div class="pergunta-caixa">
-  <div class="pergunta-titulo" id="c${i + 1}"><p>${quizzPerguntar.questions[i].title}</p>
+  <div class="pergunta-titulo" id="c${i + 1}"><p>${quizz.questions[i].title}</p>
 </div>
-<div class="cards-embrulho${i}">  </div>
+<div class="cards-embrulho">
+  <div class="card">
+    <img class="card-image" src="${quizz.questions[i].answers[embaralhador[0]].image}" height = "175.2px"  width="329.91px"/>
+    <div class="card-titulo"><p>${quizz.questions[i].answers[embaralhador[0]].text}</p></div>
+  </div>
+  <div class="card">
+    <img class="card-image" src="${quizz.questions[i].answers[embaralhador[1]].image}" height = "175.2px"  width="329.91px"/>
+    <div class="card-titulo"><p>${quizz.questions[i].answers[embaralhador[1]].text}</p></div>
+  </div>
+  <div class="card">
+    <img class="card-image" src="${quizz.questions[i].answers[embaralhador[2]].image}"  height = "175.2px"  width="329.91px"/>
+    <div class="card-titulo"><p>${quizz.questions[i].answers[embaralhador[2]].text}</p></div>
+  </div>
+  <div class="card">
+    <img class="card-image" src="${quizz.questions[i].answers[embaralhador[3]].image}" height = "175.2px"  width="329.91px"/>
+    <div class="card-titulo"><p>${quizz.questions[i].answers[embaralhador[3]].text}</p></div>
+</div>
 `
-    let ii = 0;
-    while (ii < comprimento) {
-      let localRespostas = document.querySelector(`.cards-embrulho${i}`);
-      localRespostas.innerHTML += `<div class="card" onclick = "respostaSelecionada(this)">
-<img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[ii]].image}" height = "175.2px"  width="329.91px"/>
-<div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[ii]].text}</p></div>
-</div>`
-      ii++
-    }
-
   }
-  for (i = 0; i < quizzPerguntar.questions.length; i++) {
-    document.getElementById(`c${i + 1}`).style.backgroundColor = `${quizzPerguntar.questions[i].color}`;
+  for (i = 0; i < quizz.questions.length; i++) {
+    document.getElementById(`c${i + 1}`).style.backgroundColor = `${quizz.questions[i].color}`;
   }
 }
 
