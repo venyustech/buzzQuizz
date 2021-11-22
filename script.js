@@ -374,7 +374,7 @@ function validarInformacoesBasicas() {
 
 criarPerguntas();
 function criarPerguntas() {
-  numero_perguntas = 3; //TIRAR DEPOIS
+  numero_perguntas = 1; //TIRAR DEPOIS
   let espaco_perguntas = document.querySelector(".tela32 .espaco-perguntas");
   for (let i = 0; i < numero_perguntas; i++) {
     espaco_perguntas.innerHTML += `
@@ -404,16 +404,27 @@ function validarPerguntaseRespostas() {
 
   let perguntasTotal = document.querySelectorAll(".novaPergunta");
 
-for(let j = 0; j<perguntasTotal.length;j++){
+for(let j = 0; j<perguntasTotal.length;j=j+1){
 const todosInput = perguntasTotal[j].querySelectorAll("input");
 let textoPergunta = todosInput[0].value;
+// console.log(textoPergunta);
 let corFundo = todosInput[1].value;
-console.log(todosInput);
+// console.log(todosInput);
 
-for(let i=2; i<perguntasTotal.length;i++){
+if (textoPergunta.length < 20 || textoPergunta === "") {
+  alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
+  break
+} else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+  alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
+  break
+}
+console.log(textoPergunta);
 
-  let textoResposta = document.querySelectorAll(".textoResposta");
-  let urlImagemResposta = document.querySelectorAll(".urlImagemResposta");
+for(let i=2; i<todosInput.length;i=i+2){
+  console.log(i);
+  let textoResposta =todosInput[i].value;
+  let urlImagemResposta = todosInput[i+1].value;
+
 
   let isValidHttpUrl = (urlImagemResposta) => {
     let url;
@@ -425,16 +436,14 @@ for(let i=2; i<perguntasTotal.length;i++){
     return url.protocol === "http:" || url.protocol === "https:";
   };
 
-  //agora é outro loop para as verificacoes de perguntas
+  // agora é outro loop para as verificacoes de perguntas
 
-  if (textoPergunta.lentgh < 20 || textoPergunta === "") {
-    alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
-  } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-    alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
-  } else if (textoResposta === "") {
+    if (textoResposta === "") {
     alert("Validação falhou, o texto da resposta não pode estar vazio");
+    break
   } else if (!isValidHttpUrl || urlImagemResposta === "") {
     alert("Validação falhou, url deve ter formato válido");
+    break
   } 
 
 }
@@ -445,6 +454,7 @@ for(let i=2; i<perguntasTotal.length;i++){
     ".tela32 .espaco-perguntas .perguntas-impressas"
   ).length;
   for (let j = 0; j < numero_perguntas; j++) {
+    let respostas = [];
     //o primeiro for abre as perguntas
     let pergunta_atual_texto = document.querySelector(
       `.tela32 .espaco-perguntas .pergunta_numero${j} .textoPergunta`
@@ -456,8 +466,6 @@ for(let i=2; i<perguntasTotal.length;i++){
       `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta`
     ).length;
     //respostas está aqui porque cada vez que começar um for para uma nova pergunta eu tenho que zerar ele
-    contagem_respostas = contagem_respostas;
-    let respostas = [];
     let resposta_correta_texto = document.querySelector(
       `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-correta`
     ).value;
@@ -472,14 +480,15 @@ for(let i=2; i<perguntasTotal.length;i++){
     };
 
     respostas.push(resposta_correta);
-
     for (let i = 0; i < contagem_respostas; i++) {
       //o loop é só para as respostas erradas
       let resposta_incorreta_texto = document.querySelector(
-        `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta .inc_${j}`
-      );
+        `.tela32 .espaco-perguntas .pergunta_numero${j}`);
+        console.log(j);
+
+      console.log(resposta_incorreta_texto.value);
       let resposta_incorreta_imagem = document.querySelector(
-        `.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta .inc_${j}`
+        `.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta .inc_${i}`
       );
 
       if (resposta_incorreta_texto !== null && resposta_incorreta_imagem !== null) {
@@ -488,6 +497,7 @@ for(let i=2; i<perguntasTotal.length;i++){
           imagem: resposta_incorreta_imagem.value,
           isCorrectAnswer: true,
         };
+        console.log("estou sendo chamado");
         respostas.push(resposta_incorreta);
       }
     } 
@@ -502,7 +512,7 @@ for(let i=2; i<perguntasTotal.length;i++){
     perguntasQuizNovo.push(pergunta_preenchida);
   } 
   criarNiveis();
-  passarProximaFormulario();
+  // passarProximaFormulario();
 }
 //fecha a funcao
 criarNiveis();
@@ -510,8 +520,6 @@ criarNiveis();
 function criarNiveis() {
   numero_niveis = 2;
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
-  console.log(espaco_niveis);
-  console.log(espaco_niveis.innerHTML);
   for (let i = 0; i < numero_niveis; i++) {
     espaco_niveis.innerHTML += `
     <form class="caixa novoNivel">
