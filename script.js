@@ -205,40 +205,40 @@ function conferirRespostas(resposta) {
   let resposta_selecionada = document.querySelector(`.${espacoSelecao} .selecionada .resposta-card`).innerText;
   // console.log(resposta_selecionada==selecionada);
   console.log(resposta_selecionada);
-  console.log(resposta_selecionada==="true");
-  if(resposta_selecionada === "true"){
+  console.log(resposta_selecionada === "true");
+  if (resposta_selecionada === "true") {
     alert("você acertou!");
     respostas_certas++
   }
-  
+
 
   let cards_conferir = document.querySelectorAll(`.${espacoSelecao} .card .resposta-card`);
-//com isso eu consigo um vetor com todas as respostas já de forma relacionada aos seus cards. 
+  //com isso eu consigo um vetor com todas as respostas já de forma relacionada aos seus cards. 
 
-for(let i=0;i<cards_conferir.length;i++){
- 
-  if (cards_conferir[i].innerText ==="true"){
+  for (let i = 0; i < cards_conferir.length; i++) {
 
-    let titulo_card = cards_conferir[i].parentElement;
-    titulo_card.classList.add("resposta-certa");
+    if (cards_conferir[i].innerText === "true") {
 
+      let titulo_card = cards_conferir[i].parentElement;
+      titulo_card.classList.add("resposta-certa");
+
+    }
+    else {
+      let titulo_card = cards_conferir[i].parentElement;
+      titulo_card.classList.add("resposta-errada");
+
+    }
   }
-  else{
-    let titulo_card = cards_conferir[i].parentElement;
-    titulo_card.classList.add("resposta-errada");
+  //eu tenho que saber quantas perguntas no total tem, pra ver se eu já respondi todas elas
 
+  let numero_perguntas = document.querySelectorAll(".pergunta-caixa").length;
+  //cada vez que a função é chamada, uma função foi respondida
+
+  perguntas_respondidas++
+
+  if (perguntas_respondidas === numero_perguntas) {
+    alert(`você terminou o quiz! você acertou ${respostas_certas} perguntas`);
   }
-}
-//eu tenho que saber quantas perguntas no total tem, pra ver se eu já respondi todas elas
-
-let numero_perguntas = document.querySelectorAll(".pergunta-caixa").length;
-//cada vez que a função é chamada, uma função foi respondida
-
-perguntas_respondidas++
-
-if(perguntas_respondidas === numero_perguntas){
-  alert(`você terminou o quiz! você acertou ${respostas_certas} perguntas`);
-}
 
 }
 
@@ -319,6 +319,78 @@ function validarInformacoesBasicas() {
 
   //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
 }
+
+function validarPerguntaseRespostas() {
+  let textoPergunta = document.querySelector("#textoPergunta").value;
+  let corFundo = document.querySelector("#corFundo").value;
+  let textoResposta = document.querySelector("#textoResposta").value;
+  let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
+
+  let isValidHttpUrl = (urlImagemResposta) => {
+    let url;
+    try {
+      url = new URL(urlImagemResposta);
+    } catch (_) {
+      return false;
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
+  if (textoPergunta.lentgh < 20 || textoPergunta === "") {
+    alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
+  }
+  else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+    alert('Validação falhou, cor em formato inválido');
+  }
+  else if (textoResposta === "") {
+    alert('Validação falhou, o texto da resposta não pode estar vazio');
+  }
+  else if (!isValidHttpUrl || urlImagemResposta === "") {
+    alert('Validação falhou, url deve ter formato válido');
+  }
+  else {
+    console.log('passei');
+    passarProximaFormulario();
+  }
+}
+
+function validarNiveis() {
+  let tituloNivel = document.querySelector("#tituloNivel").value;
+  let porcentagemAcerto = document.querySelector("#porcentagemAcerto").value;
+  //Pelo menos um dos níveis precisa ter porcentagemAcerto mínimo igual a 0%
+  let urlImagemNivel = document.querySelector("#urlImagemNivel").value;
+  let descricaoNivel = document.querySelector("#descricaoNivel").value;
+
+  let isValidHttpUrl = (urlImagemNivel) => {
+    let url;
+
+    try {
+      url = new URL(urlImagemNivel);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
+  if (tituloNivel.length < 10 || tituloNivel === "") {
+    alert('Validação falhou, o título do nível precisa ter no mínimo 10 caracteres');
+  }
+  else if (parseInt(porcentagemAcerto) < 0 || parseInt(porcentagemAcerto) > 100 || porcentagemAcerto === "") {
+    alert('Validação falhou, porcentagem precisa estar entre 0 e 100%');
+  }
+  else if (!isValidHttpUrl || urlImagemNivel === "") {
+    alert('Validação falhou, o texto da resposta não pode estar vazio');
+  }
+  else if (descricaoNivel.length < 30 || descricaoNivel === "") {
+    alert('Validação falhou, descrição do nível deve ter no mínimo 30 caracteres');
+  }
+  else {
+    console.log('passei');
+    passarProximaFormulario();
+  }
+}
+
 
 
 

@@ -181,13 +181,17 @@
         <input type="text" placeholder="Texto da pergunta" />
         <input type="text" placeholder="Cor de fundo da pergunta" />
 
-        <p>Resposta correta</p>
-        <input type="text" placeholder="Resposta correta" />
-        <input type="text" placeholder="URL da imagem" />
+        <p>
+        <div class="novaResposta correta">Resposta correta</p>
+          <input type="text" placeholder="Resposta correta" />
+          <input type="text" placeholder="URL da imagem" />
+        </div>
 
-        <p>Respostas incorretas</p>
-        <input type="text" placeholder="Resposta incorreta 1" />
-        <input type="text" placeholder="URL da imagem 1" /><br />
+        <p>
+        <div class="novaResposta incorreta">Respostas incorretas</p>
+          <input type="text" placeholder="Resposta incorreta 1" />
+          <input type="text" placeholder="URL da imagem 1" /><br />
+        </div>
 
       </form>
 
@@ -223,20 +227,12 @@
       <form class="caixa novoNível">
         <p>Nível 2</p>
         <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-        <input type="text" placeholder="Título do nível" />
-        <input type="text" placeholder="% de acerto mínima" />
-        <input type="text" placeholder="URL da imagem do nível" />
-        <input type="text" placeholder="Descrição do nível" />
+        <input id="tituloNivel" type="text" placeholder="Título do nível" />
+        <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
+        <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
+        <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
       </form>
 
-      <form class="caixa novoNível">
-        <p>Nível 3</p>
-        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-        <input type="text" placeholder="Título do nível" />
-        <input type="text" placeholder="% de acerto mínima" />
-        <input type="text" placeholder="URL da imagem do nível" />
-        <input type="text" placeholder="Descrição do nível" />
-      </form>
       <button onclick="validarNiveis()" type="submit"><span>Finalizar Quizz</span></button>
     </div>
 
