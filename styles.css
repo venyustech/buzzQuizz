@@ -89,7 +89,7 @@ button {
 
 .lista-quiz-disponivel {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 15px;
   gap: 15px;
@@ -449,7 +449,6 @@ button {
 
 form {
   width: 600px;
-  height: 256px;
   padding: 21px 20px 24px 16px;
   margin-bottom: 85px;
   gap: 9px;
