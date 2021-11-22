@@ -247,7 +247,7 @@ function conferirRespostas(resposta) {
     //alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
     mostraResultado();
   }
-  setTimeout(scrollPagina, 1000);
+  setTimeout(scrollPagina, 2000);
 }
 function scrollPagina() {
   let scrollInto = document.querySelector(`.${embrulhoCardSelecionado}`);
