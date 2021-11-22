@@ -122,13 +122,14 @@ let quizzPerguntar = [];
 function quizzLoading(answer) {
   quizzPerguntar = answer.data;
   console.log(quizzPerguntar);
-  //console.log(quizzPerguntar.questions.length);
+
   const tituloDaPaginaLoading = document.querySelector(".embrulho-quizz-tela2");
-  tituloDaPaginaLoading.innerHTML = `<div class="quizz-titulo" id="titulo${id}">
+  tituloDaPaginaLoading.innerHTML = `<div class="quizz-titulo" id="titulo${id} " >
+  <img src="${quizzPerguntar.image}" alt="${quizzPerguntar.title}">
 <p>${quizzPerguntar.title}</p>
 </div>`;
-  document.querySelector(".quizz-titulo").style.backgroundImage = `url('${quizzPerguntar.image}')`;
-  document.querySelector(".quizz-titulo").style.backgroundColor = "black";
+  //document.querySelector(".quizz-titulo").style.backgroundImage = `url('${quizzPerguntar.image}')`;
+
 
   for (let i = 0; i < quizzPerguntar.questions.length; i++) {
     let embaralhador = [];
@@ -210,7 +211,7 @@ function conferirRespostas(resposta) {
   console.log(resposta_selecionada);
   console.log(resposta_selecionada === "true");
   if (resposta_selecionada === "true") {
-    alert("você acertou!");
+    // alert("você acertou!");
     respostas_certas++
   }
 
@@ -240,7 +241,7 @@ function conferirRespostas(resposta) {
   perguntas_respondidas++
 
   if (perguntas_respondidas === numero_perguntas) {
-    alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
+    //alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
     mostraResultado();
   }
   setTimeout(scrollPagina, 1000);
@@ -266,14 +267,14 @@ function mostraResultado() {
           <p>${resultado}% de acerto: ${quizzPerguntar.levels[i].title}</p> 
         </div>
         <div class="resultado-card">
-          <img class="resultado-card-image" src="${quizzPerguntar.levels[i].image}"/>
+          <img class="resultado-card-image" src="${quizzPerguntar.levels[i].image}"  height = "273px"  width="364px"/>
           <div class="resultado-card-titulo">
             <p>${quizzPerguntar.levels[i].text}</p>
           </div>
         </div>
       </div>
 </div>
-      <button class="reiniciar-quizz-button text-button">
+      <button class="reiniciar-quizz-button text-button" onclick="reiniciarQuizz(this)">
          <p>Reiniciar Quizz</p>
       </button>
       <button onclick="voltarParaHome(this)"class="voltar-home-button text-button">
@@ -283,6 +284,15 @@ function mostraResultado() {
     }
 
   }
+}
+function reiniciarQuizz(answer) {
+
+  let scrollInto = document.querySelector(`.embrulho-quizz-tela2`);
+  scrollInto.lastElementChild.firstElementChild.scrollIntoView();
+
+  window.location.reload(true);
+
+
 }
 /*****************************************
  *         COnfigurações tela 3:          *

@@ -16,12 +16,14 @@ header {
   align-items: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
 header p {
   font-size: 37px;
   font-style: normal;
   font-weight: 700;
   color: #ffffff;
 }
+
 button {
   all: unset;
   box-sizing: border-box;
@@ -79,10 +81,12 @@ button {
   flex-direction: column;
   text-align: start;
 }
+
 .exibir-quizz p {
   size: 20px;
   font-weight: bold;
 }
+
 .lista-quiz-disponivel {
   display: flex;
   justify-content: start;
@@ -109,6 +113,7 @@ button {
   height: 181px;
   position: relative;
 }
+
 .quizz:hover {
   cursor: pointer;
 }
@@ -116,6 +121,7 @@ button {
 .quizz .identificacao {
   display: none;
 }
+
 .quizz figure {
   width: 340px;
   height: 181px;
@@ -129,12 +135,10 @@ button {
   top: 0;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(0, 0, 0, 0.5) 64.58%,
-    #000000 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0.5) 64.58%,
+      #000000 100%);
   z-index: 101;
   border-radius: 5px;
 }
@@ -172,6 +176,7 @@ button {
     width: 90%;
   }
 }
+
 /*****************************************
 *         Configurações tela2            *
 ******************************************/
@@ -184,11 +189,14 @@ button {
 
   padding-bottom: 32px;
 }
+
+
 .quizz-titulo {
+  position: relative;
   width: 100%;
   height: 227px;
   left: 0px;
-  top: 69px;
+
 
   /*background-image: linear-gradient(
       0deg,
@@ -202,11 +210,22 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.quizz-titulo img {
+  filter: brightness(60%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .quizz-titulo p {
   font-size: 39px;
   line-height: 46px;
   color: #ffffff;
+  z-index: 3;
 }
+
 .pergunta-embrulho {
   margin-top: 42px;
   width: 759px;
@@ -217,12 +236,14 @@ button {
   background-color: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
+
 .pergunta-caixa {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .pergunta-titulo {
   margin-top: 30px;
   width: 90%;
@@ -231,6 +252,7 @@ button {
   justify-content: center;
   align-items: center;
 }
+
 .pergunta-titulo p {
   font-weight: bold;
   font-size: 23px;
@@ -239,24 +261,26 @@ button {
   color: #ffffff;
 }
 
-.card{
+.card {
   position: relative;
-  }
-  
-  .resposta-card{
-    display : none;
-  }
-  
-  .nao-selecionada{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background: rgba(255, 255, 255,0.5);
-    z-index: 101;
-    border-radius: 5px;
-    display:none;
-  }
+}
+
+.resposta-card {
+  display: none;
+}
+
+.nao-selecionada {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 177px;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 101;
+  border-radius: 5px;
+  display: none;
+
+}
 
 .cards-embrulho {
   padding: 35px;
@@ -265,6 +289,7 @@ button {
   align-items: center;
   justify-content: space-between;
 }
+
 .card-titulo {
   width: 329.91px;
   font-weight: bold;
@@ -273,6 +298,7 @@ button {
   color: #000000;
   padding: 15px 0;
 }
+
 .resultado-embrulho {
   margin-top: 44px;
   margin-bottom: 57px;
@@ -283,6 +309,7 @@ button {
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
+
 .resultado-titulo {
   margin-bottom: 18px;
   width: 727px;
@@ -293,6 +320,7 @@ button {
   justify-content: center;
   background-color: #ec362d;
 }
+
 .resultado-titulo p {
   font-weight: bold;
   font-size: 23px;
@@ -304,6 +332,7 @@ button {
   display: flex;
   justify-content: space-between;
 }
+
 .resultado-card-titulo {
   width: 328px;
   font-weight: bold;
@@ -312,11 +341,13 @@ button {
   /* or 132% */
   color: #484848;
 }
+
 .text-button {
   font-size: 21px;
   line-height: 25px;
   color: #ffffff;
 }
+
 .reiniciar-quizz-button {
   width: 260.38px;
   height: 52px;
@@ -328,6 +359,7 @@ button {
   background: #ec362d;
   border-radius: 15px;
 }
+
 .voltar-home-button {
   width: 219.64px;
   height: 44px;
@@ -340,11 +372,12 @@ button {
   color: #818181;
 }
 
-.resposta-errada{
-  color:#ec362d;
+.resposta-errada {
+  color: #ec362d;
 }
-.resposta-certa{
-  color:green;
+
+.resposta-certa {
+  color: green;
 }
 
 /*Mobile:*/
@@ -388,6 +421,7 @@ button {
     width: 100%;
   }
 }
+
 
 /******************************************
 *         Configurações tela3:            *
@@ -452,7 +486,7 @@ input::placeholder {
   padding-left: 23px;
 }
 
-.prosseguir{
+.prosseguir {
   width: 370px;
   height: 54px;
 
