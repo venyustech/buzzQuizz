@@ -96,7 +96,7 @@ function criarQuizzSelecionado() {
   let tela_atual = document.querySelector(".embrulho-quizz-tela2");
   tela_atual.classList.toggle("hide");
 
-}*/
+}
 
 /******************************************
  *         COnfigurações tela 2:          *
@@ -118,9 +118,9 @@ mostraQuizz(1)
 function loadingQuizzError(error) {
   alert("error#1 - Não foi possivel carregar esse quizz");
 }
-
+let quizzPerguntar = [];
 function quizzLoading(answer) {
-  const quizzPerguntar = answer.data;
+  quizzPerguntar = answer.data;
   console.log(quizzPerguntar);
   //console.log(quizzPerguntar.questions.length);
   const tituloDaPaginaLoading = document.querySelector(".embrulho-quizz-tela2");
@@ -161,6 +161,7 @@ function quizzLoading(answer) {
     document.getElementById(`c${i}`).style.backgroundColor = `${quizzPerguntar.questions[i].color}`;
   }
 }
+
 
 // **************************************** ESSA FUNCAO DEIXA AS COISAS BRANCAS E CHAMA A FUNCAO QUE VAI CONFERIR AS RESPOSTAS ***************
 
@@ -239,16 +240,50 @@ function conferirRespostas(resposta) {
   perguntas_respondidas++
 
   if (perguntas_respondidas === numero_perguntas) {
-    alert(`você terminou o quiz! você acertou ${respostas_certas} perguntas`);
+    alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
+    mostraResultado();
   }
-  setTimeout(scrollPagina, 2000);
+  setTimeout(scrollPagina, 1000);
 }
 function scrollPagina() {
   let scrollInto = document.querySelector(`.${embrulhoCardSelecionado}`);
   scrollInto.lastElementChild.lastElementChild.scrollIntoView();
-
 }
 
+function mostraResultado() {
+  console.log("entrouu");
+  console.log(quizzPerguntar);
+  resultado = (respostas_certas / perguntas_respondidas) * 100;
+  console.log("resultado:", resultado)
+  let resultadoLoading = document.querySelector(".embrulho-quizz-tela2")
+  console.log(resultadoLoading.innerHTML)
+  for (let i = (quizzPerguntar.levels.length) - 1; i >= 0; i--) {
+    console.log(quizzPerguntar.levels[i].minValue)
+    if (resultado >= quizzPerguntar.levels[i].minValue) {
+      resultadoLoading.innerHTML += `<div class="resultado-embrulho">
+      <div class="resultado-caixa">
+        <div class="resultado-titulo">
+          <p>${resultado}% de acerto: ${quizzPerguntar.levels[i].title}</p> 
+        </div>
+        <div class="resultado-card">
+          <img class="resultado-card-image" src="${quizzPerguntar.levels[i].image}"/>
+          <div class="resultado-card-titulo">
+            <p>${quizzPerguntar.levels[i].text}</p>
+          </div>
+        </div>
+      </div>
+</div>
+      <button class="reiniciar-quizz-button text-button">
+         <p>Reiniciar Quizz</p>
+      </button>
+      <button onclick="voltarParaHome(this)"class="voltar-home-button text-button">
+        <p>Voltar para home</p>
+      </button>`
+      return;
+    }
+
+  }
+}
 /*****************************************
  *         COnfigurações tela 3:          *
  ******************************************/
