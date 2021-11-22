@@ -119,11 +119,11 @@ function loadingQuizzError(error) {
 }
 
 let quizzPerguntar = [];
-
+let reloadPage = 0;
 function quizzLoading(answer) {
   quizzPerguntar = answer.data;
   console.log(quizzPerguntar);
-
+  reloadPage = answer;
   const tituloDaPaginaLoading = document.querySelector(".embrulho-quizz-tela2");
   tituloDaPaginaLoading.innerHTML = `<div class="quizz-titulo" id="titulo${id} " >
   <img src="${quizzPerguntar.image}" alt="${quizzPerguntar.title}">
@@ -166,6 +166,7 @@ function quizzLoading(answer) {
 //respostas brancas:
 function respostaSelecionada(resposta) {
   let selecionada = resposta;
+
   console.log(selecionada.firstChild);
   selecionada.classList.add("selecionada");
   selecionada.removeAttribute("onclick");
@@ -197,12 +198,12 @@ function respostaSelecionada(resposta) {
 // conferir respostas:
 let respostas_certas = 0; //variável global para contabilizar quantas das respostas seleciondas são === true
 let perguntas_respondidas = 0;
-let embrulhoCardSelecionado; //para scrollar pagina
+let cardSelecionado; //para scrollar pagina
 function conferirRespostas(resposta) {
 
   let selecionada = resposta;
   let espacoSelecao = selecionada.parentElement.classList[1];
-  embrulhoCardSelecionado = espacoSelecao;
+  cardSelecionado = resposta;
   //conferir se a resposta selecionada é a resposta certa
   let resposta_selecionada = document.querySelector(`.${espacoSelecao} .selecionada .resposta-card`).innerText;
   // console.log(resposta_selecionada==selecionada);
@@ -234,17 +235,29 @@ function conferirRespostas(resposta) {
   perguntas_respondidas++
 
   //alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
-  if (perguntas_respondidas === numero_perguntas)
-    mostraResultado();
+  if (perguntas_respondidas === numero_perguntas) {
+    console.log('entrou no if')
+    setTimeout(mostraResultado, 2000)
+    console.log("saiu do if")
+
+  }
   setTimeout(scrollPagina, 2000);
+
+  console.log("respostas_certas:", respostas_certas)
+  console.log("perguntas_respondidas:", perguntas_respondidas)
+
 }
 
 function scrollPagina() {
-  let scrollInto = document.querySelector(`.${embrulhoCardSelecionado}`);
-  scrollInto.lastElementChild.lastElementChild.scrollIntoView();
+  let proximoCard = cardSelecionado.parentNode.parentNode.parentNode.nextElementSibling;
+  if (proximoCard == null)
+    return;
+  console.log("card selecionado : ", proximoCard)
+  proximoCard.scrollIntoView({ behavior: "smooth" });
 }
 
 function mostraResultado() {
+
   console.log("entrouu");
   console.log(quizzPerguntar);
   resultado = (respostas_certas / perguntas_respondidas) * 100;
@@ -273,14 +286,26 @@ function mostraResultado() {
       <button onclick="voltarParaHome(this)"class="voltar-home-button text-button">
         <p>Voltar para home</p>
       </button>`
+      scrollResultado();
       return;
     }
   }
+  scrollResultado();
+}
+function scrollResultado() {
+  let scrollToResultado = document.querySelector(".resultado-embrulho");
+  if (scrollToResultado == null)
+    return;
+  scrollToResultado.firstElementChild.scrollIntoView({ behavior: "smooth" });
 }
 function reiniciarQuizz(answer) {
   let scrollInto = document.querySelector(`.embrulho-quizz-tela2`);
-  scrollInto.lastElementChild.firstElementChild.scrollIntoView();
-  window.location.reload(true);
+  scrollInto.firstElementChild.scrollIntoView();
+  scrollInto.innerHTML = "";
+  respostas_certas = 0;
+  perguntas_respondidas = 0;
+  quizzLoading(reloadPage)
+
 }
 /*****************************************
  *         COnfigurações tela 3:          *
@@ -511,6 +536,9 @@ function validarNiveis() {
 //variavel global para poder conferir a passagem dos formularios
 
 function voltarParaHome(clique) {
+  respostas_certas = 0;
+  perguntas_respondidas = 0;
+
   console.log("fui chamado para voltar pra tela1");
   let conferencia = clique.parentElement.classList;
   console.log(conferencia);
@@ -541,7 +569,6 @@ function voltarParaHome(clique) {
 
     posicaoFormulario = 1;
     //resentando minha variável global
-
   }
 
   else { console.log("tem algum lugar errado"); }
