@@ -1,12 +1,24 @@
 /*****************************************
  *         COnfigurações gerais:          *
  ******************************************/
-let numero_perguntas = ""; //O NUMERO DE PERGUNTAS, QUE DEPOIS SERÁ DETERMINADO ALI EMBAIXO
-let numero_niveis = "";
+let numero_perguntas = 2; //O NUMERO DE PERGUNTAS, QUE DEPOIS SERÁ DETERMINADO ALI EMBAIXO
+let numero_niveis = 2;
 let posicaoFormulario = 1;
 
 let quizzesUsuarioArmazenados = 0; //variável global onde será alterado o valor se adicionado quizzes pelo usuário
 
+// Rafa: variáveis globais genéricas/fixas para criar o objeto
+let tituloQuizNovo="";
+let bannerQuizNovo="";
+let perguntasQuizNovo = [];
+let niveisQuizNovo;
+
+let Objeto_Vazio = {
+  title:tituloQuizNovo,
+  image: bannerQuizNovo,
+  questions: perguntasQuizNovo,
+  levels: niveisQuizNovo
+  }
 /*****************************************
  *         COnfigurações tela 1:          *
  ******************************************/
@@ -74,12 +86,11 @@ function exibicaoDeQuizz(resposta) {
 }
 
 function tela1tela3(resposta) {
+  console.log('fui chamada');
   let tela_anterior = document.querySelector(".tela1");
   tela_anterior.classList.toggle("hide");
-  //console.log(tela_anterior);
   let tela_atual = document.querySelector(".tela31");
   tela_atual.classList.toggle("hide");
-  //console.log("ok");
 
 }
 
@@ -356,51 +367,53 @@ function validarInformacoesBasicas() {
     console.log('passei');
     numero_perguntas = quantPerguntas;
     numero_niveis = quantNiveis;
+    tituloQuizNovo = tituloQuiz;
+    bannerQuizNovo = URLquiz;
 
     passarProximaFormulario();
     criarPerguntas();
-
-
+    
   }
 
   //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
 }
 
 //CRIAR FORMULARIO DAS PERGUNTAS
-
+criarPerguntas()
 function criarPerguntas() {
 
   //FORMULARIO PERGUNTAS
 
   console.log(numero_perguntas);
   let espaco_perguntas = document.querySelector(".tela32 .espaco-perguntas");
-  console.log(espaco_perguntas);
-  console.log(espaco_perguntas.innerHTML);
+  // console.log(espaco_perguntas);
+  // console.log(espaco_perguntas.innerHTML);
   for (let i = 0; i < (numero_perguntas); i++) {
     espaco_perguntas.innerHTML += `
-    <form class="caixa novaPergunta">
-        <p>Pergunta ${i + 1}</p>
+    <form class="caixa novaPergunta pergunta_numero${i}">
+        <p class = "perguntas-impressas")>Pergunta ${i + 1}</p>
         <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-        <input id="textoPergunta" type="text" placeholder="Texto da pergunta" />
-        <input id="corFundo" type="text" placeholder="Cor de fundo da pergunta" />
+        <input class="textoPergunta" type="text" placeholder="Texto da pergunta" />
+        <input class="corFundo" type="text" placeholder="Cor de fundo da pergunta" />
 
         <p>Resposta correta</p>
-        <input id="textoResposta" type="text" placeholder="Resposta correta" />
-        <input id="urlImagemResposta" type="text" placeholder="URL da imagem" />
+        <input class ="texto-correta" type="text" placeholder="Resposta correta" />
+        <input class ="imagem-correta" type="text" placeholder="URL da imagem" />
 
-        <p>Respostas incorretas</p>
-        <input type="text" placeholder="Resposta incorreta 1" />
-        <input type="text" placeholder="URL da imagem 1" /><br />
+        <p>Resposta incorreta</p>
+        <input class = "texto-incorreta inc_0" type="text" placeholder="Resposta incorreta 1" />
+        <input class = "imagem-incorreta inc_0" type="text" placeholder="URL da imagem 1" /><br />
 
-        <input type="text" placeholder="Resposta incorreta 2" />
-        <input type="text" placeholder="URL da imagem 2" /><br />
-
-        <input type="text" placeholder="Resposta incorreta 3" />
-        <input type="text" placeholder="URL da imagem 3" />
+        <input class = "texto-incorreta inc_1" type="text" placeholder="Resposta incorreta 2" />
+        <input class = "imagem-incorreta inc_1" type="text" placeholder="URL da imagem 2" /><br />
+        <input class = "texto-incorreta inc_1"  type="text" placeholder="Resposta incorreta 3" />
+        <input class = "imagem-incorreta inc_2" type="text" placeholder="URL da imagem 3" />
         
       </form>`;
 
   }
+
+  
 }
 
 function validarPerguntaseRespostas() {
@@ -436,10 +449,72 @@ function validarPerguntaseRespostas() {
   //     passarProximaFormulario();
   //     criarNiveis();
   //   }
+ 
+ 
+  // passarProximaFormulario();
+  // criarNiveis();
+  
+  //salvar as perguntas em objeto
+  let numero_perguntas = document.querySelectorAll('.tela32 .espaco-perguntas .perguntas-impressas').length;
+let respostas = [];
+let perguntas = [];
 
-  passarProximaFormulario();
-  criarNiveis();
-}
+  for (let j = 0;j<numero_perguntas;j++){
+    //o primeiro for abre as perguntas
+  let pergunta_atual_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .textoPergunta`).value;
+  let pergunta_atual_cor = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .corFundo`).value;
+  console.log(pergunta_atual_texto);console.log(pergunta_atual_cor);
+
+  let contagem_respostas = document.querySelectorAll(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta`).length;
+  //respostas está aqui porque cada vez que começar um for para uma nova pergunta eu tenho que zerar ele
+    contagem_respostas = contagem_respostas;
+    let respostas = [];
+
+  let resposta_correta_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-correta`).value;
+  let resposta_correta_imagem = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-correta`).value;
+
+  let resposta_correta = { 
+    text: resposta_correta_texto,
+    imagem: resposta_correta_imagem,
+    isCorrectAnswer: true
+  };
+
+  respostas.push(resposta_correta);
+
+  for(let i=0; i<contagem_respostas;i++){
+    //o loop é só para as respostas erradas
+    let resposta_incorreta_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta .inc_${j}`);
+    let resposta_incorreta_imagem = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta .inc_${j}`);
+
+
+  
+  if(resposta_incorreta_texto!==null){
+    let resposta_incorreta = { 
+      text: resposta_incorreta_texto.value,
+      imagem: resposta_incorreta_imagem.value,
+      isCorrectAnswer: true
+    };
+    respostas.push(resposta_incorreta);
+  }
+  
+  }//fim do for que cria as respostas incorretas
+
+  console.log(respostas);
+  
+  let pergunta_preenchida = {
+    title: pergunta_atual_texto,
+    color: pergunta_atual_cor,
+    answers: respostas
+  }
+  //e esse objeto tem que ser dado push em uma array contendo as perguntas
+
+  perguntas.push(pergunta_preenchida);
+  
+} //fecha o for que cria as perguntas
+console.log(perguntas);
+console.log(typeof(perguntas));
+console.log(typeof(perguntas[0]));
+}//fecha a funcao
 
 function criarNiveis() {
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
@@ -495,9 +570,18 @@ function validarNiveis() {
   //   passarProximaFormulario();
   // }
   passarProximaFormulario();
+  criarNovoQuizz();
+
 }
 
+function criarNovoQuizz(){
+  const informacoesBasicasinput = document.querySelector(".informacoesBasicas");
+  console.log(informacoesBasicasinput);
+  tituloQuiz =  informacoesBasicasinput.firstChild.value;
+  bannerQuiz = informacoesBasicasinput.secondChild.value;
 
+
+}
 
 
 
