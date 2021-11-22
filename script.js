@@ -1,11 +1,11 @@
 /*****************************************
  *         COnfigurações gerais:          *
  ******************************************/
- let numero_perguntas = ""; //O NUMERO DE PERGUNTAS, QUE DEPOIS SERÁ DETERMINADO ALI EMBAIXO
- let numero_niveis = "";
- let posicaoFormulario = 1;
+let numero_perguntas = ""; //O NUMERO DE PERGUNTAS, QUE DEPOIS SERÁ DETERMINADO ALI EMBAIXO
+let numero_niveis = "";
+let posicaoFormulario = 1;
 
-//let quizzesUsuarioArmazenados = 0; //variável global onde será alterado o valor se adicionado quizzes pelo usuário
+let quizzesUsuarioArmazenados = 0; //variável global onde será alterado o valor se adicionado quizzes pelo usuário
 
 /*****************************************
  *         COnfigurações tela 1:          *
@@ -107,21 +107,19 @@ function criarQuizzSelecionado() {
 let id = 0;
 
 function mostraQuizz(resposta) {
-  /////criarQuizzSelecionado();
-
-  let id = resposta //resposta.querySelector(".identificacao").innerText;
-  console.log(id);
-
+  criarQuizzSelecionado();
+  let id = resposta.querySelector(".identificacao").innerText;
   const promisse = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`);
+
   promisse.then(quizzLoading);
   promisse.catch(loadingQuizzError);
 }
-mostraQuizz(1)
-
 function loadingQuizzError(error) {
   alert("error#1 - Não foi possivel carregar esse quizz");
 }
+
 let quizzPerguntar = [];
+
 function quizzLoading(answer) {
   quizzPerguntar = answer.data;
   console.log(quizzPerguntar);
@@ -165,10 +163,7 @@ function quizzLoading(answer) {
     document.getElementById(`c${i}`).style.backgroundColor = `${quizzPerguntar.questions[i].color}`;
   }
 }
-
-
-// **************************************** ESSA FUNCAO DEIXA AS COISAS BRANCAS E CHAMA A FUNCAO QUE VAI CONFERIR AS RESPOSTAS ***************
-
+//respostas brancas:
 function respostaSelecionada(resposta) {
   let selecionada = resposta;
   console.log(selecionada.firstChild);
@@ -199,7 +194,7 @@ function respostaSelecionada(resposta) {
   conferirRespostas(resposta);
 }
 
-// **************************************** ESSA FUNCAO  VAI CONFERIR AS RESPOSTAS ***************
+// conferir respostas:
 let respostas_certas = 0; //variável global para contabilizar quantas das respostas seleciondas são === true
 let perguntas_respondidas = 0;
 let embrulhoCardSelecionado; //para scrollar pagina
@@ -218,22 +213,17 @@ function conferirRespostas(resposta) {
     respostas_certas++
   }
 
-
   let cards_conferir = document.querySelectorAll(`.${espacoSelecao} .card .resposta-card`);
   //com isso eu consigo um vetor com todas as respostas já de forma relacionada aos seus cards. 
 
   for (let i = 0; i < cards_conferir.length; i++) {
-
     if (cards_conferir[i].innerText === "true") {
-
       let titulo_card = cards_conferir[i].parentElement;
       titulo_card.classList.add("resposta-certa");
-
     }
     else {
       let titulo_card = cards_conferir[i].parentElement;
       titulo_card.classList.add("resposta-errada");
-
     }
   }
   //eu tenho que saber quantas perguntas no total tem, pra ver se eu já respondi todas elas
@@ -243,12 +233,12 @@ function conferirRespostas(resposta) {
 
   perguntas_respondidas++
 
-  if (perguntas_respondidas === numero_perguntas) {
-    //alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
+  //alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
+  if (perguntas_respondidas === numero_perguntas)
     mostraResultado();
-  }
   setTimeout(scrollPagina, 2000);
 }
+
 function scrollPagina() {
   let scrollInto = document.querySelector(`.${embrulhoCardSelecionado}`);
   scrollInto.lastElementChild.lastElementChild.scrollIntoView();
@@ -285,17 +275,12 @@ function mostraResultado() {
       </button>`
       return;
     }
-
   }
 }
 function reiniciarQuizz(answer) {
-
   let scrollInto = document.querySelector(`.embrulho-quizz-tela2`);
   scrollInto.lastElementChild.firstElementChild.scrollIntoView();
-
   window.location.reload(true);
-
-
 }
 /*****************************************
  *         COnfigurações tela 3:          *
@@ -369,13 +354,13 @@ function validarInformacoesBasicas() {
 
   else {
     console.log('passei');
-    numero_perguntas=quantPerguntas;
+    numero_perguntas = quantPerguntas;
     numero_niveis = quantNiveis;
 
     passarProximaFormulario();
     criarPerguntas();
 
-    
+
   }
 
   //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
@@ -383,18 +368,18 @@ function validarInformacoesBasicas() {
 
 //CRIAR FORMULARIO DAS PERGUNTAS
 
-function criarPerguntas (){
+function criarPerguntas() {
 
   //FORMULARIO PERGUNTAS
 
   console.log(numero_perguntas);
-let espaco_perguntas = document.querySelector(".tela32 .espaco-perguntas");
-console.log(espaco_perguntas);
-console.log(espaco_perguntas.innerHTML);
-  for(let i=0;i<(numero_perguntas);i++){
-    espaco_perguntas.innerHTML+=`
+  let espaco_perguntas = document.querySelector(".tela32 .espaco-perguntas");
+  console.log(espaco_perguntas);
+  console.log(espaco_perguntas.innerHTML);
+  for (let i = 0; i < (numero_perguntas); i++) {
+    espaco_perguntas.innerHTML += `
     <form class="caixa novaPergunta">
-        <p>Pergunta ${i+1}</p>
+        <p>Pergunta ${i + 1}</p>
         <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
         <input id="textoPergunta" type="text" placeholder="Texto da pergunta" />
         <input id="corFundo" type="text" placeholder="Cor de fundo da pergunta" />
@@ -415,54 +400,55 @@ console.log(espaco_perguntas.innerHTML);
         
       </form>`;
 
-  }}
-
-function validarPerguntaseRespostas() {
-//   let textoPergunta = document.querySelector("#textoPergunta").value;
-//   let corFundo = document.querySelector("#corFundo").value;
-//   let textoResposta = document.querySelector("#textoResposta").value;
-//   let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
-
-//   let isValidHttpUrl = (urlImagemResposta) => {
-//     let url;
-//     try {
-//       url = new URL(urlImagemResposta);
-//     } catch (_) {
-//       return false;
-//     }
-//     return url.protocol === "http:" || url.protocol === "https:";
-//   }
-
-//   if (textoPergunta.lentgh < 20 || textoPergunta === "") {
-//     alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
-//   }
-//   else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-//     alert('Validação falhou, cor em formato inválido');
-//   }
-//   else if (textoResposta === "") {
-//     alert('Validação falhou, o texto da resposta não pode estar vazio');
-//   }
-//   else if (!isValidHttpUrl || urlImagemResposta === "") {
-//     alert('Validação falhou, url deve ter formato válido');
-//   }
-//   else {
-//     console.log('passei');
-//     passarProximaFormulario();
-//     criarNiveis();
-//   }
-
-passarProximaFormulario();
-criarNiveis();
+  }
 }
 
-function criarNiveis (){
+function validarPerguntaseRespostas() {
+  //   let textoPergunta = document.querySelector("#textoPergunta").value;
+  //   let corFundo = document.querySelector("#corFundo").value;
+  //   let textoResposta = document.querySelector("#textoResposta").value;
+  //   let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
+
+  //   let isValidHttpUrl = (urlImagemResposta) => {
+  //     let url;
+  //     try {
+  //       url = new URL(urlImagemResposta);
+  //     } catch (_) {
+  //       return false;
+  //     }
+  //     return url.protocol === "http:" || url.protocol === "https:";
+  //   }
+
+  //   if (textoPergunta.lentgh < 20 || textoPergunta === "") {
+  //     alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
+  //   }
+  //   else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+  //     alert('Validação falhou, cor em formato inválido');
+  //   }
+  //   else if (textoResposta === "") {
+  //     alert('Validação falhou, o texto da resposta não pode estar vazio');
+  //   }
+  //   else if (!isValidHttpUrl || urlImagemResposta === "") {
+  //     alert('Validação falhou, url deve ter formato válido');
+  //   }
+  //   else {
+  //     console.log('passei');
+  //     passarProximaFormulario();
+  //     criarNiveis();
+  //   }
+
+  passarProximaFormulario();
+  criarNiveis();
+}
+
+function criarNiveis() {
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
-console.log(espaco_niveis);
-console.log(espaco_niveis.innerHTML);
-  for(let i=0;i<numero_niveis;i++){
-    espaco_niveis.innerHTML+=`
+  console.log(espaco_niveis);
+  console.log(espaco_niveis.innerHTML);
+  for (let i = 0; i < numero_niveis; i++) {
+    espaco_niveis.innerHTML += `
     <form class="caixa novoNível">
-    <p>Nível ${i+1}</p>
+    <p>Nível ${i + 1}</p>
     <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
     <input id="tituloNivel" type="text" placeholder="Título do nível" />
     <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
@@ -470,7 +456,7 @@ console.log(espaco_niveis.innerHTML);
     <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
   </form>
     `
-}
+  }
 }
 
 function validarNiveis() {
@@ -522,7 +508,7 @@ function validarNiveis() {
 /***********************************************
  *         COnfigurações Navegação Entre Telas *
  ***********************************************/
- //variavel global para poder conferir a passagem dos formularios
+//variavel global para poder conferir a passagem dos formularios
 
 function voltarParaHome(clique) {
   console.log("fui chamado para voltar pra tela1");
