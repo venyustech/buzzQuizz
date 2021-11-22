@@ -11,7 +11,7 @@ let quizzesUsuarioArmazenados = 0; //variável global onde será alterado o valo
 let tituloQuizNovo="";
 let bannerQuizNovo="";
 let perguntasQuizNovo = [];
-let niveisQuizNovo;
+let niveisQuizNovo = [];
 
 let Objeto_Vazio = {
   title:tituloQuizNovo,
@@ -379,7 +379,7 @@ function validarInformacoesBasicas() {
 }
 
 //CRIAR FORMULARIO DAS PERGUNTAS
-criarPerguntas()
+
 function criarPerguntas() {
 
   //FORMULARIO PERGUNTAS
@@ -417,161 +417,185 @@ function criarPerguntas() {
 }
 
 function validarPerguntaseRespostas() {
-  //   let textoPergunta = document.querySelector("#textoPergunta").value;
-  //   let corFundo = document.querySelector("#corFundo").value;
-  //   let textoResposta = document.querySelector("#textoResposta").value;
-  //   let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
+    let textoPergunta = document.querySelector("#textoPergunta").value;
+    let corFundo = document.querySelector("#corFundo").value;
+    let textoResposta = document.querySelector("#textoResposta").value;
+    let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
 
-  //   let isValidHttpUrl = (urlImagemResposta) => {
-  //     let url;
-  //     try {
-  //       url = new URL(urlImagemResposta);
-  //     } catch (_) {
-  //       return false;
-  //     }
-  //     return url.protocol === "http:" || url.protocol === "https:";
-  //   }
+    let isValidHttpUrl = (urlImagemResposta) => {
+      let url;
+      try {
+        url = new URL(urlImagemResposta);
+      } catch (_) {
+        return false;
+      }
+      return url.protocol === "http:" || url.protocol === "https:";
+    }
 
-  //   if (textoPergunta.lentgh < 20 || textoPergunta === "") {
-  //     alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
-  //   }
-  //   else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-  //     alert('Validação falhou, cor em formato inválido');
-  //   }
-  //   else if (textoResposta === "") {
-  //     alert('Validação falhou, o texto da resposta não pode estar vazio');
-  //   }
-  //   else if (!isValidHttpUrl || urlImagemResposta === "") {
-  //     alert('Validação falhou, url deve ter formato válido');
-  //   }
-  //   else {
-  //     console.log('passei');
-  //     passarProximaFormulario();
-  //     criarNiveis();
-  //   }
- 
- 
-  // passarProximaFormulario();
-  // criarNiveis();
-  
-  //salvar as perguntas em objeto
+    if (textoPergunta.lentgh < 20 || textoPergunta === "") {
+      alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
+    }
+    else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+      alert('Validação falhou, cor em formato inválido');
+    }
+    else if (textoResposta === "") {
+      alert('Validação falhou, o texto da resposta não pode estar vazio');
+    }
+    else if (!isValidHttpUrl || urlImagemResposta === "") {
+      alert('Validação falhou, url deve ter formato válido');
+    }
+    else {
+      console.log('passei');
+      passarProximaFormulario();
+      criarNiveis();
+      //salvar as perguntas em objeto
   let numero_perguntas = document.querySelectorAll('.tela32 .espaco-perguntas .perguntas-impressas').length;
-let respostas = [];
-let perguntas = [];
-
-  for (let j = 0;j<numero_perguntas;j++){
-    //o primeiro for abre as perguntas
-  let pergunta_atual_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .textoPergunta`).value;
-  let pergunta_atual_cor = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .corFundo`).value;
-  console.log(pergunta_atual_texto);console.log(pergunta_atual_cor);
-
-  let contagem_respostas = document.querySelectorAll(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta`).length;
-  //respostas está aqui porque cada vez que começar um for para uma nova pergunta eu tenho que zerar ele
-    contagem_respostas = contagem_respostas;
-    let respostas = [];
-
-  let resposta_correta_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-correta`).value;
-  let resposta_correta_imagem = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-correta`).value;
-
-  let resposta_correta = { 
-    text: resposta_correta_texto,
-    imagem: resposta_correta_imagem,
-    isCorrectAnswer: true
-  };
-
-  respostas.push(resposta_correta);
-
-  for(let i=0; i<contagem_respostas;i++){
-    //o loop é só para as respostas erradas
-    let resposta_incorreta_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta .inc_${j}`);
-    let resposta_incorreta_imagem = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta .inc_${j}`);
-
-
+  let respostas = [];
+  let perguntas = [];
   
-  if(resposta_incorreta_texto!==null){
-    let resposta_incorreta = { 
-      text: resposta_incorreta_texto.value,
-      imagem: resposta_incorreta_imagem.value,
+    for (let j = 0;j<numero_perguntas;j++){
+      //o primeiro for abre as perguntas
+    let pergunta_atual_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .textoPergunta`).value;
+    let pergunta_atual_cor = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .corFundo`).value;
+    console.log(pergunta_atual_texto);console.log(pergunta_atual_cor);
+  
+    let contagem_respostas = document.querySelectorAll(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta`).length;
+    //respostas está aqui porque cada vez que começar um for para uma nova pergunta eu tenho que zerar ele
+      contagem_respostas = contagem_respostas;
+      let respostas = [];
+  
+    let resposta_correta_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-correta`).value;
+    let resposta_correta_imagem = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-correta`).value;
+  
+    let resposta_correta = { 
+      text: resposta_correta_texto,
+      imagem: resposta_correta_imagem,
       isCorrectAnswer: true
     };
-    respostas.push(resposta_incorreta);
-  }
   
-  }//fim do for que cria as respostas incorretas
-
-  console.log(respostas);
+    respostas.push(resposta_correta);
   
-  let pergunta_preenchida = {
-    title: pergunta_atual_texto,
-    color: pergunta_atual_cor,
-    answers: respostas
-  }
-  //e esse objeto tem que ser dado push em uma array contendo as perguntas
-
-  perguntas.push(pergunta_preenchida);
+    for(let i=0; i<contagem_respostas;i++){
+      //o loop é só para as respostas erradas
+      let resposta_incorreta_texto = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta .inc_${j}`);
+      let resposta_incorreta_imagem = document.querySelector(`.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta .inc_${j}`);
   
-} //fecha o for que cria as perguntas
-console.log(perguntas);
-console.log(typeof(perguntas));
-console.log(typeof(perguntas[0]));
+  
+    
+    if(resposta_incorreta_texto!==null){
+      let resposta_incorreta = { 
+        text: resposta_incorreta_texto.value,
+        imagem: resposta_incorreta_imagem.value,
+        isCorrectAnswer: true
+      };
+      respostas.push(resposta_incorreta);
+    }
+    
+    }//fim do for que cria as respostas incorretas
+  
+    console.log(respostas);
+    
+    let pergunta_preenchida = {
+      title: pergunta_atual_texto,
+      color: pergunta_atual_cor,
+      answers: respostas
+    }
+    //e esse objeto tem que ser dado push em uma array contendo as perguntas
+  
+    perguntasQuizNovo.push(pergunta_preenchida);
+    
+  } //fecha o for que cria as perguntas
+  
+    }
+ 
+ 
+  passarProximaFormulario();
+  criarNiveis();
+  
+  
 }//fecha a funcao
 
+
+
 function criarNiveis() {
+
+
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
   console.log(espaco_niveis);
   console.log(espaco_niveis.innerHTML);
+  numero_niveis = 3;
   for (let i = 0; i < numero_niveis; i++) {
     espaco_niveis.innerHTML += `
     <form class="caixa novoNível">
     <p>Nível ${i + 1}</p>
     <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-    <input id="tituloNivel" type="text" placeholder="Título do nível" />
-    <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
-    <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
-    <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
+    <input id="tituloNivel${i + 1}" type="text" placeholder="Título do nível" />
+    <input id="porcentagemAcerto${i + 1}" type="text" placeholder="% de acerto mínima" />
+    <input id="urlImagemNivel${i + 1}" type="text" placeholder="URL da imagem do nível" />
+    <input id="descricaoNivel${i + 1}" type="text" placeholder="Descrição do nível" />
   </form>
     `
   }
 }
 
 function validarNiveis() {
-  // let tituloNivel = document.querySelector("#tituloNivel").value;
-  // let porcentagemAcerto = document.querySelector("#porcentagemAcerto").value;
-  // //Pelo menos um dos níveis precisa ter porcentagemAcerto mínimo igual a 0%
-  // let urlImagemNivel = document.querySelector("#urlImagemNivel").value;
-  // let descricaoNivel = document.querySelector("#descricaoNivel").value;
+  let tituloNivel = document.querySelector("#tituloNivel").value;
+  let porcentagemAcerto = document.querySelector("#porcentagemAcerto").value;
+  //Pelo menos um dos níveis precisa ter porcentagemAcerto mínimo igual a 0%
+  let urlImagemNivel = document.querySelector("#urlImagemNivel").value;
+  let descricaoNivel = document.querySelector("#descricaoNivel").value;
 
-  // let isValidHttpUrl = (urlImagemNivel) => {
-  //   let url;
+  let isValidHttpUrl = (urlImagemNivel) => {
+    let url;
 
-  //   try {
-  //     url = new URL(urlImagemNivel);
-  //   } catch (_) {
-  //     return false;
-  //   }
+    try {
+      url = new URL(urlImagemNivel);
+    } catch (_) {
+      return false;
+    }
 
-  //   return url.protocol === "http:" || url.protocol === "https:";
-  // }
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
 
-  // if (tituloNivel.length < 10 || tituloNivel === "") {
-  //   alert('Validação falhou, o título do nível precisa ter no mínimo 10 caracteres');
-  // }
-  // else if (parseInt(porcentagemAcerto) < 0 || parseInt(porcentagemAcerto) > 100 || porcentagemAcerto === "") {
-  //   alert('Validação falhou, porcentagem precisa estar entre 0 e 100%');
-  // }
-  // else if (!isValidHttpUrl || urlImagemNivel === "") {
-  //   alert('Validação falhou, o texto da resposta não pode estar vazio');
-  // }
-  // else if (descricaoNivel.length < 30 || descricaoNivel === "") {
-  //   alert('Validação falhou, descrição do nível deve ter no mínimo 30 caracteres');
-  // }
-  // else {
-  //   console.log('passei');
-  //   passarProximaFormulario();
-  // }
+  if (tituloNivel.length < 10 || tituloNivel === "") {
+    alert('Validação falhou, o título do nível precisa ter no mínimo 10 caracteres');
+  }
+  else if (parseInt(porcentagemAcerto) < 0 || parseInt(porcentagemAcerto) > 100 || porcentagemAcerto === "") {
+    alert('Validação falhou, porcentagem precisa estar entre 0 e 100%');
+  }
+  else if (!isValidHttpUrl || urlImagemNivel === "") {
+    alert('Validação falhou, o texto da resposta não pode estar vazio');
+  }
+  else if (descricaoNivel.length < 30 || descricaoNivel === "") {
+    alert('Validação falhou, descrição do nível deve ter no mínimo 30 caracteres');
+  }
+  else {
+    console.log('passei');
+    passarProximaFormulario();
+    for (let i=0;i<numero_niveis;i++){
+      let tituloNivel = document.getElementById(`tituloNivel${i + 1}`).value;
+      let urlImagemNivel = document.getElementById(`urlImagemNivel${i + 1}`).value;
+      let descricaoNivel = document.getElementById(`descricaoNivel${i + 1}`).value;
+      let valorMinimo = document.getElementById(`porcentagemAcerto${i + 1}`).value;
+  
+      let level_atual = {
+        title: tituloNivel, //variavel global
+        image: urlImagemNivel,//variavel global
+        text: descricaoNivel, //variavel global
+        minValue: valorMinimo
+      }
+  
+    niveisQuizzAtual.push(level_atual);
+    console.log(niveisQuizNovo);
+    }
+  
+    console.log(Objeto_Vazio);
+  
+  }
   passarProximaFormulario();
   criarNovoQuizz();
 
+ 
 }
 
 function criarNovoQuizz(){
@@ -579,7 +603,7 @@ function criarNovoQuizz(){
   console.log(informacoesBasicasinput);
   tituloQuiz =  informacoesBasicasinput.firstChild.value;
   bannerQuiz = informacoesBasicasinput.secondChild.value;
-
+console.log(Objeto_Vazio);
 
 }
 
