@@ -1,13 +1,16 @@
 /*****************************************
  *         COnfigurações gerais:          *
  ******************************************/
+ let numero_perguntas = ""; //O NUMERO DE PERGUNTAS, QUE DEPOIS SERÁ DETERMINADO ALI EMBAIXO
+ let numero_niveis = "";
+ let posicaoFormulario = 1;
 
 //let quizzesUsuarioArmazenados = 0; //variável global onde será alterado o valor se adicionado quizzes pelo usuário
 
 /*****************************************
  *         COnfigurações tela 1:          *
  ******************************************/
-/*carregarQuizzes();
+carregarQuizzes();
 
 function carregarQuizzes() {
 
@@ -321,6 +324,7 @@ function reiniciarQuizz(answer) {
 
 //   }
 
+
 function validarInformacoesBasicas() {
   console.log('estou funcionando');
   // RAFA, COMENTEI SUA PARTE PORQUE NÃO ACHEI DE ONDE QUE ESTAVA VINDO ESSE INFORMACOES BASICAS NO HTML
@@ -365,81 +369,146 @@ function validarInformacoesBasicas() {
 
   else {
     console.log('passei');
+    numero_perguntas=quantPerguntas;
+    numero_niveis = quantNiveis;
+
     passarProximaFormulario();
+    criarPerguntas();
+
+    
   }
 
   //se passou, essas informacoes tem que ser armazenadas em forma de objeto para depoir criarem o novo quizz. E o botão deve chamar a próxima página
 }
 
+//CRIAR FORMULARIO DAS PERGUNTAS
+
+function criarPerguntas (){
+
+  //FORMULARIO PERGUNTAS
+
+  console.log(numero_perguntas);
+let espaco_perguntas = document.querySelector(".tela32 .espaco-perguntas");
+console.log(espaco_perguntas);
+console.log(espaco_perguntas.innerHTML);
+  for(let i=0;i<(numero_perguntas);i++){
+    espaco_perguntas.innerHTML+=`
+    <form class="caixa novaPergunta">
+        <p>Pergunta ${i+1}</p>
+        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+        <input id="textoPergunta" type="text" placeholder="Texto da pergunta" />
+        <input id="corFundo" type="text" placeholder="Cor de fundo da pergunta" />
+
+        <p>Resposta correta</p>
+        <input id="textoResposta" type="text" placeholder="Resposta correta" />
+        <input id="urlImagemResposta" type="text" placeholder="URL da imagem" />
+
+        <p>Respostas incorretas</p>
+        <input type="text" placeholder="Resposta incorreta 1" />
+        <input type="text" placeholder="URL da imagem 1" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 2" />
+        <input type="text" placeholder="URL da imagem 2" /><br />
+
+        <input type="text" placeholder="Resposta incorreta 3" />
+        <input type="text" placeholder="URL da imagem 3" />
+        
+      </form>`;
+
+  }}
+
 function validarPerguntaseRespostas() {
-  let textoPergunta = document.querySelector("#textoPergunta").value;
-  let corFundo = document.querySelector("#corFundo").value;
-  let textoResposta = document.querySelector("#textoResposta").value;
-  let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
+//   let textoPergunta = document.querySelector("#textoPergunta").value;
+//   let corFundo = document.querySelector("#corFundo").value;
+//   let textoResposta = document.querySelector("#textoResposta").value;
+//   let urlImagemResposta = document.querySelector("#urlImagemResposta").value;
 
-  let isValidHttpUrl = (urlImagemResposta) => {
-    let url;
-    try {
-      url = new URL(urlImagemResposta);
-    } catch (_) {
-      return false;
-    }
-    return url.protocol === "http:" || url.protocol === "https:";
-  }
+//   let isValidHttpUrl = (urlImagemResposta) => {
+//     let url;
+//     try {
+//       url = new URL(urlImagemResposta);
+//     } catch (_) {
+//       return false;
+//     }
+//     return url.protocol === "http:" || url.protocol === "https:";
+//   }
 
-  if (textoPergunta.lentgh < 20 || textoPergunta === "") {
-    alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
-  }
-  else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-    alert('Validação falhou, cor em formato inválido');
-  }
-  else if (textoResposta === "") {
-    alert('Validação falhou, o texto da resposta não pode estar vazio');
-  }
-  else if (!isValidHttpUrl || urlImagemResposta === "") {
-    alert('Validação falhou, url deve ter formato válido');
-  }
-  else {
-    console.log('passei');
-    passarProximaFormulario();
-  }
+//   if (textoPergunta.lentgh < 20 || textoPergunta === "") {
+//     alert('Validação falhou, a pergunta deve ter no mínimo 20 caracteres');
+//   }
+//   else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+//     alert('Validação falhou, cor em formato inválido');
+//   }
+//   else if (textoResposta === "") {
+//     alert('Validação falhou, o texto da resposta não pode estar vazio');
+//   }
+//   else if (!isValidHttpUrl || urlImagemResposta === "") {
+//     alert('Validação falhou, url deve ter formato válido');
+//   }
+//   else {
+//     console.log('passei');
+//     passarProximaFormulario();
+//     criarNiveis();
+//   }
+
+passarProximaFormulario();
+criarNiveis();
+}
+
+function criarNiveis (){
+  let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
+console.log(espaco_niveis);
+console.log(espaco_niveis.innerHTML);
+  for(let i=0;i<numero_niveis;i++){
+    espaco_niveis.innerHTML+=`
+    <form class="caixa novoNível">
+    <p>Nível ${i+1}</p>
+    <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
+    <input id="tituloNivel" type="text" placeholder="Título do nível" />
+    <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
+    <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
+    <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
+  </form>
+    `
+}
 }
 
 function validarNiveis() {
-  let tituloNivel = document.querySelector("#tituloNivel").value;
-  let porcentagemAcerto = document.querySelector("#porcentagemAcerto").value;
-  //Pelo menos um dos níveis precisa ter porcentagemAcerto mínimo igual a 0%
-  let urlImagemNivel = document.querySelector("#urlImagemNivel").value;
-  let descricaoNivel = document.querySelector("#descricaoNivel").value;
+  // let tituloNivel = document.querySelector("#tituloNivel").value;
+  // let porcentagemAcerto = document.querySelector("#porcentagemAcerto").value;
+  // //Pelo menos um dos níveis precisa ter porcentagemAcerto mínimo igual a 0%
+  // let urlImagemNivel = document.querySelector("#urlImagemNivel").value;
+  // let descricaoNivel = document.querySelector("#descricaoNivel").value;
 
-  let isValidHttpUrl = (urlImagemNivel) => {
-    let url;
+  // let isValidHttpUrl = (urlImagemNivel) => {
+  //   let url;
 
-    try {
-      url = new URL(urlImagemNivel);
-    } catch (_) {
-      return false;
-    }
+  //   try {
+  //     url = new URL(urlImagemNivel);
+  //   } catch (_) {
+  //     return false;
+  //   }
 
-    return url.protocol === "http:" || url.protocol === "https:";
-  }
+  //   return url.protocol === "http:" || url.protocol === "https:";
+  // }
 
-  if (tituloNivel.length < 10 || tituloNivel === "") {
-    alert('Validação falhou, o título do nível precisa ter no mínimo 10 caracteres');
-  }
-  else if (parseInt(porcentagemAcerto) < 0 || parseInt(porcentagemAcerto) > 100 || porcentagemAcerto === "") {
-    alert('Validação falhou, porcentagem precisa estar entre 0 e 100%');
-  }
-  else if (!isValidHttpUrl || urlImagemNivel === "") {
-    alert('Validação falhou, o texto da resposta não pode estar vazio');
-  }
-  else if (descricaoNivel.length < 30 || descricaoNivel === "") {
-    alert('Validação falhou, descrição do nível deve ter no mínimo 30 caracteres');
-  }
-  else {
-    console.log('passei');
-    passarProximaFormulario();
-  }
+  // if (tituloNivel.length < 10 || tituloNivel === "") {
+  //   alert('Validação falhou, o título do nível precisa ter no mínimo 10 caracteres');
+  // }
+  // else if (parseInt(porcentagemAcerto) < 0 || parseInt(porcentagemAcerto) > 100 || porcentagemAcerto === "") {
+  //   alert('Validação falhou, porcentagem precisa estar entre 0 e 100%');
+  // }
+  // else if (!isValidHttpUrl || urlImagemNivel === "") {
+  //   alert('Validação falhou, o texto da resposta não pode estar vazio');
+  // }
+  // else if (descricaoNivel.length < 30 || descricaoNivel === "") {
+  //   alert('Validação falhou, descrição do nível deve ter no mínimo 30 caracteres');
+  // }
+  // else {
+  //   console.log('passei');
+  //   passarProximaFormulario();
+  // }
+  passarProximaFormulario();
 }
 
 
@@ -453,7 +522,7 @@ function validarNiveis() {
 /***********************************************
  *         COnfigurações Navegação Entre Telas *
  ***********************************************/
-let posicaoFormulario = 1; //variavel global para poder conferir a passagem dos formularios
+ //variavel global para poder conferir a passagem dos formularios
 
 function voltarParaHome(clique) {
   console.log("fui chamado para voltar pra tela1");

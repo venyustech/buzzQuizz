@@ -29,7 +29,7 @@
         *         Configurações tela 1:      *
         ***********************************-->
 
-  <main class="tela1 hide">
+  <main class="tela1">
     <div class="quizzes-usuario">
       <div class="exibir-quiz">
         <p>Seus Quizzes</p>
@@ -62,7 +62,7 @@
         *         Configurações tela 2:      *
         ***********************************-->
   <section>
-    <div class="embrulho-quizz-tela2">
+    <div class="embrulho-quizz-tela2 hide">
       <!--<div class="quizz-titulo" id="titulo1">
           <p>O quão PotterHead é você?</p>
         </div>
@@ -159,7 +159,9 @@
 
     <div class="tela32 hide">
       <div class="titulo-form">Crie suas perguntas</div>
-      <form class="caixa novaPergunta">
+      <div class = "espaco-perguntas">
+
+      <!-- <form class="caixa novaPergunta">
         <p>Pergunta 1</p>
         <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
         <input id="textoPergunta" type="text" placeholder="Texto da pergunta" />
@@ -207,7 +209,9 @@
 
         <p>Respostas incorretas</p>
         <input type="text" placeholder="Resposta incorreta 1" />
-        <input type="text" placeholder="URL da imagem 1" /><br />
+        <input type="text" placeholder="URL da imagem 1" /><br /> -->
+
+        </div>
 
       </form>
       <button onclick="validarPerguntaseRespostas()" type="submit"><span>Prosseguir para criar níveis</span></button>
@@ -215,6 +219,9 @@
 
     <div class="tela33 hide">
       <div class="titulo-form">Agora, decida os níveis</div>
+
+      <div class = "espaco-niveis">
+<!--         
       <form class="caixa novoNível">
         <p>Nível 1</p>
         <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
@@ -231,7 +238,9 @@
         <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
         <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
         <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
-      </form>
+      </form> -->
+
+      </div>
 
       <button onclick="validarNiveis()" type="submit"><span>Finalizar Quizz</span></button>
     </div>
