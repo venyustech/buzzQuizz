@@ -197,10 +197,12 @@ function respostaSelecionada(resposta) {
 // **************************************** ESSA FUNCAO  VAI CONFERIR AS RESPOSTAS ***************
 let respostas_certas = 0; //variável global para contabilizar quantas das respostas seleciondas são === true
 let perguntas_respondidas = 0;
+let embrulhoCardSelecionado; //para scrollar pagina
 function conferirRespostas(resposta) {
 
   let selecionada = resposta;
   let espacoSelecao = selecionada.parentElement.classList[1];
+  embrulhoCardSelecionado = espacoSelecao;
   //conferir se a resposta selecionada é a resposta certa
   let resposta_selecionada = document.querySelector(`.${espacoSelecao} .selecionada .resposta-card`).innerText;
   // console.log(resposta_selecionada==selecionada);
@@ -239,9 +241,13 @@ function conferirRespostas(resposta) {
   if (perguntas_respondidas === numero_perguntas) {
     alert(`você terminou o quiz! você acertou ${respostas_certas} perguntas`);
   }
+  setTimeout(scrollPagina, 2000);
+}
+function scrollPagina() {
+  let scrollInto = document.querySelector(`.${embrulhoCardSelecionado}`);
+  scrollInto.lastElementChild.lastElementChild.scrollIntoView();
 
 }
-
 
 /*****************************************
  *         COnfigurações tela 3:          *
