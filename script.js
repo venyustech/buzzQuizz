@@ -388,12 +388,12 @@ function criarPerguntas() {
         <input class ="imagem-correta" type="text" placeholder="URL da imagem" />
 
         <p class = "resposta-incorreta-text">Resposta incorreta</p>
-        <input class = "texto-incorreta inc_0" type="text" placeholder="Resposta incorreta 1" />
-        <input class = "imagem-incorreta inc_0" type="text" placeholder="URL da imagem 1" /><br />
-        <input class = "texto-incorreta inc_1" type="text" placeholder="Resposta incorreta 2" />
-        <input class = "imagem-incorreta inc_1" type="text" placeholder="URL da imagem 2" /><br />
-        <input class = "texto-incorreta inc_1"  type="text" placeholder="Resposta incorreta 3" />
-        <input class = "imagem-incorreta inc_2" type="text" placeholder="URL da imagem 3" />
+        <input class = "texto-incorreta0" type="text" placeholder="Resposta incorreta 1" />
+        <input class = "imagem-incorreta0" type="text" placeholder="URL da imagem 1" /><br />
+        <input class = "texto-incorreta1" type="text" placeholder="Resposta incorreta 2" />
+        <input class = "imagem-incorreta1" type="text" placeholder="URL da imagem 2" /><br />
+        <input class = "texto-incorreta2"  type="text" placeholder="Resposta incorreta 3" />
+        <input class = "imagem-incorreta2" type="text" placeholder="URL da imagem 3" />
       </div>  
     </form>`;
   }
@@ -407,7 +407,7 @@ function validarPerguntaseRespostas() {
     const todosInput = perguntasTotal[j].querySelectorAll("input");
     let textoPergunta = todosInput[0].value;
     let corFundo = todosInput[1].value;
-    console.log(todosInput.length);
+  
 
     // if (textoPergunta.length < 20 || textoPergunta === "") {
     //   alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
@@ -454,9 +454,9 @@ function validarPerguntaseRespostas() {
     let pergunta_atual_cor = document.querySelector(
       `.tela32 .espaco-perguntas .pergunta_numero${j} .corFundo`
     ).value;
-    let contagem_respostas = document.querySelectorAll(
-      `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta`
-    ).length;
+    // let contagem_respostas = document.querySelectorAll(
+    //   `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta`
+    // ).length;
     //respostas está aqui porque cada vez que começar um for para uma nova pergunta eu tenho que zerar ele
     let resposta_correta_texto = document.querySelector(
       `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-correta`
@@ -472,22 +472,22 @@ function validarPerguntaseRespostas() {
     };
 
     respostas.push(resposta_correta);
+    let contagem_respostas=3;
     for (let i = 0; i < contagem_respostas; i++) {
-      console.log("ok");
-      //o loop é só para as respostas erradas
+  console.log(i);
       let resposta_incorreta_texto = document.querySelector(
-        `.tela32 .espaco-perguntas .pergunta_numero${j}`);
+        `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta${i}`);
 
-      console.log(resposta_incorreta_texto.value);
       let resposta_incorreta_imagem = document.querySelector(
-        `.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta .inc_${i}`
+        `.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta${i}`
       );
-
-      if (resposta_incorreta_texto !== null && resposta_incorreta_imagem !== null) {
+console.log(resposta_incorreta_texto.value=="");
+console.log(resposta_incorreta_imagem)
+      if (resposta_incorreta_texto.value !== "" && resposta_incorreta_imagem.value !== "") {
         let resposta_incorreta = {
           text: resposta_incorreta_texto.value,
           imagem: resposta_incorreta_imagem.value,
-          isCorrectAnswer: true,
+          isCorrectAnswer: false,
         };
         console.log("estou sendo chamado");
         respostas.push(resposta_incorreta);
