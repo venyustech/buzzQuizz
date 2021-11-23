@@ -8,7 +8,7 @@ body {
 
 /*desktop*/
 header {
-  position: ;
+  position: fixed;
   width: 100%;
   height: 69px;
   background-color: #ec362d;
