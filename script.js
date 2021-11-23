@@ -407,16 +407,16 @@ function validarPerguntaseRespostas() {
     const todosInput = perguntasTotal[j].querySelectorAll("input");
     let textoPergunta = todosInput[0].value;
     let corFundo = todosInput[1].value;
-  
+
 
     // if (textoPergunta.length < 20 || textoPergunta === "") {
     //   alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
     // } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
     //   alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");}
 
-    for (let m = 2; m < todosInput.length; m=m+2) {
-    let textoResposta = todosInput[m].value;
-    let urlImagemResposta = todosInput[m+1].value;
+    for (let m = 2; m < todosInput.length; m = m + 2) {
+      let textoResposta = todosInput[m].value;
+      let urlImagemResposta = todosInput[m + 1].value;
 
       let isValidHttpUrl = (urlImagemResposta) => {
         let url;
@@ -439,7 +439,7 @@ function validarPerguntaseRespostas() {
     }
   }
 
-  
+
 
   //aqui é pra criar o objeto
   let numero_perguntas = document.querySelectorAll(
@@ -472,17 +472,17 @@ function validarPerguntaseRespostas() {
     };
 
     respostas.push(resposta_correta);
-    let contagem_respostas=3;
+    let contagem_respostas = 3;
     for (let i = 0; i < contagem_respostas; i++) {
-  console.log(i);
+      console.log(i);
       let resposta_incorreta_texto = document.querySelector(
         `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta${i}`);
 
       let resposta_incorreta_imagem = document.querySelector(
         `.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta${i}`
       );
-console.log(resposta_incorreta_texto.value=="");
-console.log(resposta_incorreta_imagem)
+      console.log(resposta_incorreta_texto.value == "");
+      console.log(resposta_incorreta_imagem)
       if (resposta_incorreta_texto.value !== "" && resposta_incorreta_imagem.value !== "") {
         let resposta_incorreta = {
           text: resposta_incorreta_texto.value,
@@ -528,6 +528,7 @@ function criarNiveis() {
     `;
   }
 }
+
 
 function validarNiveis() {
 
@@ -603,13 +604,32 @@ function validarNiveis() {
 }
 
 
-// function criarNovoQuizz() {
-//   const informacoesBasicasinput = document.querySelector(".informacoesBasicas");
-//   console.log(informacoesBasicasinput);
-//   tituloQuiz = informacoesBasicasinput.firstChild.value;
-//   bannerQuiz = informacoesBasicasinput.secondChild.value;
-//   console.log(Objeto_Vazio);
-// }
+function criarNovoQuizz() {
+  //   const informacoesBasicasinput = document.querySelector(".informacoesBasicas");
+  //   console.log(informacoesBasicasinput);
+  //   tituloQuiz = informacoesBasicasinput.firstChild.value;
+  //   bannerQuiz = informacoesBasicasinput.secondChild.value;
+  console.log(Objeto_Vazio);
+  const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { Objeto_Vazio });
+
+  novoQuizz.then(sucessoDoQuizz);
+  novoQuizz.catch(verificacaoDeErro);
+}
+
+function sucessoDoQuizz(resposta) {
+  let sucesso = resposta.data;
+  let telaFinal = document.querySelector(".tela34");
+  telaFinal.innerHTML += `
+     <div class="titulo-form">Seu quizz está pronto!</div>
+        <div class="card">
+          <figure>
+            <div class="card-image">
+              <img src="${sucesso.image}" />
+              <span>${sucesso.title}</span>
+            </div>
+          </figure>
+        </div>`;
+}
 
 /***********************************************
  *         COnfigurações Navegação Entre Telas *
