@@ -1,9 +1,17 @@
 /*****************************************
  *         COnfigurações gerais:          *
  ******************************************/
-let quizzesUsuarioArmazenados = localStorage?.getItem("quizz");
-let quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
-let listaQuizzesUsuario = quizzesUsuarioArmazenadosLocal;
+let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
+let quizzesUsuarioArmazenadosLocal;
+let listaQuizzesUsuario;
+if( quizzesUsuarioArmazenados === null){
+listaQuizzesUsuario = [];
+}
+else{
+ quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
+  listaQuizzesUsuario = quizzesUsuarioArmazenadosLocal;
+}
+
 let tituloQuizNovo = "";
 let bannerQuizNovo = "";
 let perguntasQuizNovo = [];
@@ -32,13 +40,11 @@ function carregarQuizzes() {
   quizzes.catch(verificacaoDeErro);
 
   if (quizzesUsuarioArmazenadosLocal == null) {
-    return;
-  }  //venyus.add: se for vazio esconde "seus quizes e sai da função"
-
-  if (quizzesUsuarioArmazenadosLocal.length == 0) {
     let listagem_quizz_usuario = document.querySelector(".quizzes-usuario");
     listagem_quizz_usuario.style.display = "none";
-  }
+    // return;
+  }  //venyus.add: se for vazio esconde "seus quizes e sai da função"
+  
   else {
     let cardsDoUser = document.querySelector(".quizzes-usuario");
     cardsDoUser.classList.remove("hide");
@@ -522,8 +528,6 @@ function validarPerguntaseRespostas() {
       }
     }
 
-    console.log(respostas);
-
     let pergunta_preenchida = {
       title: pergunta_atual_texto,
       color: pergunta_atual_cor,
@@ -531,8 +535,14 @@ function validarPerguntaseRespostas() {
     };
     perguntasQuizNovo.push(pergunta_preenchida);
   }
+  console.log(perguntasQuizNovo);
+    console.log(perguntasQuizNovo[0].title.value)//deu undefined
+    console.log(perguntasQuizNovo[0].title.value ==="");
+let prosseguir=0;
+  
   criarNiveis();
   passarProximaFormulario();
+
 }
 
 
@@ -663,7 +673,7 @@ function criarQuizzUsuario() {
     
     listaQuizzesUsuario.push(Objeto_Novo);
     console.log(listaQuizzesUsuario);
-    //ok, ela existe, mas so com o quizz novo
+    //ok, ela existgite, mas so com o quizz novo
     //aqui é ele salvando na máquina
     let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
     localStorage.setItem("quizz", Objeto_NovoSerializado);
