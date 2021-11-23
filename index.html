@@ -25,23 +25,16 @@
   <header>
     <p>BuzzQuizz</p>
   </header>
-
-  <!--**********************************
-        *         Configurações tela 1:      *
-        ***********************************-->
-
   <main class="tela1">
     <div class="quizzes-usuario" data-identifier="user-quizzes">
       <div class="exibir-quiz">
         <p>Seus Quizzes</p>
         <p></p>
         <div class="lista-quiz-disponivel" data-identifier="quizz-card">
-          <!-- ESSA PARTE VAI SER GERADA POR JS -->
         </div>
       </div>
     </div>
 
-    <!-- se não houver quizzes do usuário -->
     <div class="criar-quiz">
       <span>Você não criou nenhum <br />
         quizz ainda :(</span>
@@ -49,28 +42,22 @@
         Criar Quizz
       </button>
     </div>
-    <!-- fim criar quizz -->
 
     <div class="exibir-quiz">
       <p>Todos os Quizzes</p>
       <p></p>
       <div class="lista-quiz-disponivel lista_servidor" data-identifier="general-quizzes">
-        <!-- ESSA PARTE VAI SER GERADA POR JS -->
       </div>
     </div>
   </main>
-  <!--**********************************
-        *         Configurações tela 2:      *
-        ***********************************-->
+
   <section>
     <div class="embrulho-quizz-tela2 hide" id="here">
 
     </div>
   </section>
 
-  <!--************************************
-        *         Configurações tela 3:      *
-        ***********************************-->
+
   <div class="tela3 ">
     <div class="tela31 hide">
       <span class="titulo-form">Comece pelo começo</span>
@@ -80,7 +67,6 @@
         <input id="numeroPerguntas" type="text" placeholder="Quantidade de perguntas do quizz" />
         <input id="numeroNiveis" type="text" placeholder="Quantidade de níveis do quizz" />
       </form>
-      <!-- aDICIONEI A FUNCAO ONCLICK PARA QUE A VERIFICACAO SEJA FEITA -->
       <button onclick="validarInformacoesBasicas()" class="prosseguir">
         <span>Prosseguir para criar perguntas</span>
       </button>
@@ -102,44 +88,13 @@
       <div class="titulo-form">Agora, decida os níveis</div>
 
       <div class="espaco-niveis">
-        <!--         
-      <form class="caixa novoNível">
-        <p>Nível 1</p>
-        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-        <input id="tituloNivel" type="text" placeholder="Título do nível" />
-        <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
-        <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
-        <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
-      </form>
-
-      <form class="caixa novoNível">
-        <p>Nível 2</p>
-        <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
-        <input id="tituloNivel" type="text" placeholder="Título do nível" />
-        <input id="porcentagemAcerto" type="text" placeholder="% de acerto mínima" />
-        <input id="urlImagemNivel" type="text" placeholder="URL da imagem do nível" />
-        <input id="descricaoNivel" type="text" placeholder="Descrição do nível" />
-      </form> -->
-
       </div>
 
       <button onclick="validarNiveis()" type="submit"><span>Finalizar Quizz</span></button>
     </div>
 
     <div class="tela34 hide">
-      <!-- <div class="titulo-form">Seu quizz está pronto!</div>
-      <div class="card">
-        <figure>
-          <div class="card-image">
-            <img src="./assets/tela2/cards/Rectangle 34.png" />
-            <span>O quão Potterhead é você?</span>
-          </div>
-        </figure>
-      </div> -->
-      <!-- <button><span>Acessar Quizz</span></button>
-      <button onclick="voltarParaHome(this)" class="botao-voltar-home">
-        Voltar para home
-      </button> -->
+
     </div>
   </div>
 

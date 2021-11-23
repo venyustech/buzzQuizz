@@ -1,13 +1,9 @@
-/*****************************************
- *         COnfigurações gerais:          *
- ******************************************/
 let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
 let quizzesUsuarioArmazenadosLocal;
 let listaQuizzesUsuario;
 if (quizzesUsuarioArmazenados === null) {
   listaQuizzesUsuario = [];
-}
-else {
+} else {
   quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
   listaQuizzesUsuario = quizzesUsuarioArmazenadosLocal;
 }
@@ -23,15 +19,9 @@ let perguntas_respondidas = 0;
 criarQuizzUsuario();
 let posicaoFormulario = 1;
 
-
-/*****************************************
- *         COnfigurações tela 1:          *
- ******************************************/
 carregarQuizzes();
 
 function carregarQuizzes() {
-
-  //console.log("tá indo aqui");
   console.log("tá indo aqui");
   let quizzes = axios.get(
     "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
@@ -42,15 +32,14 @@ function carregarQuizzes() {
   if (quizzesUsuarioArmazenadosLocal == null) {
     let listagem_quizz_usuario = document.querySelector(".quizzes-usuario");
     listagem_quizz_usuario.style.display = "none";
-  }
-
-  else {
+  } else {
     let cardsDoUser = document.querySelector(".quizzes-usuario");
     cardsDoUser.classList.remove("hide");
     let lista_vazia = document.querySelector(".criar-quiz");
     for (let i = 0; i < quizzesUsuarioArmazenadosLocal.length; i++) {
-
-      let listagem_quizz = document.querySelector(".tela1 .quizzes-usuario .lista-quiz-disponivel");
+      let listagem_quizz = document.querySelector(
+        ".tela1 .quizzes-usuario .lista-quiz-disponivel"
+      );
       console.log(listagem_quizz);
       listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizzUsuario(this)'>
         
@@ -67,10 +56,7 @@ function carregarQuizzes() {
 function mostraQuizzUsuario() {
   alert("essa função está em construção! Ela exibirá o quizz do usuário :,)");
 }
-function verificacaoDeErro(erro) {
-
-}
-
+function verificacaoDeErro(erro) { }
 function exibicaoDeQuizz(resposta) {
   let nomes = [];
   let capas = [];
@@ -85,12 +71,9 @@ function exibicaoDeQuizz(resposta) {
     } else {
       nomes.push(resposta.data[ii].title);
       capas.push(resposta.data[ii].image);
-
       imprimir = true;
     }
-
     if (imprimir) {
-
       listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizz(this)' data-identifier="quizz-card">
       
         <figure>
@@ -102,11 +85,9 @@ function exibicaoDeQuizz(resposta) {
       </article>`;
     }
   }
-
   nomes = [];
   capas = [];
 }
-
 function tela1tela3(resposta) {
   console.log("fui chamada");
   let tela_anterior = document.querySelector(".tela1");
@@ -123,21 +104,15 @@ function buscarQuizzSelecionado(id) {
   quizz.then(mostraQuizz);
   quizz.catch(verificacaoDeErro);
 }
-
 function criarQuizzSelecionado() {
   let tela_anterior = document.querySelector(".tela1");
   tela_anterior.classList.toggle("hide");
   let tela_atual = document.querySelector(".embrulho-quizz-tela2");
   tela_atual.classList.toggle("hide");
 }
-
-/******************************************
- *         COnfigurações tela 2:          *
- ******************************************/
 let id = 0;
-
 function mostraQuizz(resposta) {
-  console.log(resposta)
+  console.log(resposta);
   criarQuizzSelecionado();
   let id = resposta.querySelector(".identificacao").innerText;
   const promisse = axios.get(
@@ -151,9 +126,8 @@ function loadingQuizzError(error) {
   alert("error#1 - Não foi possivel carregar esse quizz");
 }
 
-
 function quizzLoading(answer) {
-  console.log("id:", id)
+  console.log("id:", id);
   quizzPerguntar = answer.data;
   console.log(quizzPerguntar);
   reloadPage = answer;
@@ -162,7 +136,6 @@ function quizzLoading(answer) {
   <img src="${quizzPerguntar.image}" alt="${quizzPerguntar.title}">
 <p>${quizzPerguntar.title}</p>
 </div>`;
-  //document.querySelector(".quizz-titulo").style.backgroundImage = `url('${quizzPerguntar.image}')`;
 
   for (let i = 0; i < quizzPerguntar.questions.length; i++) {
     let embaralhador = [];
@@ -174,7 +147,8 @@ function quizzLoading(answer) {
     }
     tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
 <div class="pergunta-caixa" id = "caixa${i + 1}">
-  <div class="pergunta-titulo" id="c${i}" data-identifier="question"><p>${quizzPerguntar.questions[i].title}</p>
+  <div class="pergunta-titulo" id="c${i}" data-identifier="question"><p>${quizzPerguntar.questions[i].title
+      }</p>
 </div>
 <div class="cards-embrulho conjunto-cards${i}">  </div>
 `;
@@ -198,7 +172,6 @@ function quizzLoading(answer) {
     ).style.backgroundColor = `${quizzPerguntar.questions[i].color}`;
   }
 }
-//respostas brancas:
 function respostaSelecionada(resposta) {
   let selecionada = resposta;
 
@@ -208,17 +181,11 @@ function respostaSelecionada(resposta) {
   selecionada.firstChild.classList.remove("nao-selecionada");
   console.log(selecionada);
 
-  //com isso, ele marca a carta que foi selecionada, agora falta adicionar algo nas outras para remover o onclick, mas como a encontrar?
   let espacoSelecao = selecionada.parentElement.classList[1];
   console.log(espacoSelecao);
-  // console.log(espacoSelecao);
-  // com isso, ele ve em qual espaço (ou em qual pergunta) foi selecionada a resposta em questão
   let numeroRespostas = document.querySelectorAll(
     `.${espacoSelecao} .card`
   ).length;
-  //com isso ele ve quantas respostas tem no total, contando a selecionada
-  // console.log(numeroRespostas);
-  //agora com um for eu vou adicionar a classe de nao selecionada em todas as outras, e tirar o onclick delas muahahaha
 
   let nao_selecionada_display = document.querySelectorAll(
     `.${espacoSelecao} .card .nao-selecionada`
@@ -231,33 +198,26 @@ function respostaSelecionada(resposta) {
     nao_selecionada_display[i].style.display = "initial";
     nao_selecionada_clique[i].parentElement.removeAttribute("onclick");
   }
-  //conferencia se a resposta é certa ou não
-
   conferirRespostas(resposta);
 }
 
-
-let cardSelecionado; //para scrollar pagina
+let cardSelecionado;
 function conferirRespostas(resposta) {
   let selecionada = resposta;
   let espacoSelecao = selecionada.parentElement.classList[1];
   cardSelecionado = resposta;
-  //conferir se a resposta selecionada é a resposta certa
   let resposta_selecionada = document.querySelector(
     `.${espacoSelecao} .selecionada .resposta-card`
   ).innerText;
-  // console.log(resposta_selecionada==selecionada);
   console.log(resposta_selecionada);
   console.log(resposta_selecionada === "true");
   if (resposta_selecionada === "true") {
-    // alert("você acertou!");
     respostas_certas++;
   }
 
   let cards_conferir = document.querySelectorAll(
     `.${espacoSelecao} .card .resposta-card`
   );
-  //com isso eu consigo um vetor com todas as respostas já de forma relacionada aos seus cards.
 
   for (let i = 0; i < cards_conferir.length; i++) {
     if (cards_conferir[i].innerText === "true") {
@@ -268,14 +228,9 @@ function conferirRespostas(resposta) {
       titulo_card.classList.add("resposta-errada");
     }
   }
-  //eu tenho que saber quantas perguntas no total tem, pra ver se eu já respondi todas elas
-
   let numero_perguntas = document.querySelectorAll(".pergunta-caixa").length;
-  //cada vez que a função é chamada, uma função foi respondida
-
   perguntas_respondidas++;
 
-  //alert(`você terminou o quiz! você acertou:\n ${respostas_certas} perguntas\n de um total de: ${perguntas_respondidas}`);
   if (perguntas_respondidas === numero_perguntas) {
     console.log("entrou no if");
     setTimeout(mostraResultado, 2000);
@@ -343,9 +298,6 @@ function reiniciarQuizz(answer) {
   perguntas_respondidas = 0;
   quizzLoading(reloadPage);
 }
-/*****************************************
- *         COnfigurações tela 3:          *
- ******************************************/
 
 function validarInformacoesBasicas() {
   console.log("estou funcionando");
@@ -354,7 +306,6 @@ function validarInformacoesBasicas() {
   let URLquiz = document.querySelector("#urlImagem").value;
   let quantPerguntas = document.querySelector("#numeroPerguntas").value;
   let quantNiveis = document.querySelector("#numeroNiveis").value;
-
 
   let isValidHttpUrl = (URLquiz) => {
     try {
@@ -365,27 +316,22 @@ function validarInformacoesBasicas() {
     return true;
   };
 
-
   if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert(
-      "Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters");
-    // break  
+      "Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters"
+    );
   } else if (!isValidHttpUrl(URLquiz) || URLquiz.length < 2) {
     alert("Validação falhou, url deve ter formato válido");
-
-
   } else if (
     parseInt(quantPerguntas) < 3 ||
     parseInt(quantPerguntas) !== parseInt(quantPerguntas)
   ) {
     alert("Validação falhou, o quiz deve ter no mínimo 3 perguntas");
-
   } else if (
     parseInt(quantNiveis) < 2 ||
     parseInt(quantNiveis) !== parseInt(quantNiveis)
   ) {
     alert("Validação falhou, o quiz deve ter no mínimo 2 níveis");
-
   } else {
     console.log("passei");
     numero_perguntas = quantPerguntas;
@@ -436,16 +382,17 @@ function validarPerguntaseRespostas() {
     let corFundo = todosInput[1].value;
     if (textoPergunta.length < 20 || textoPergunta === "") {
       alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
-      break
+      break;
     } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-      alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
-      break
+      alert(
+        "Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX"
+      );
+      break;
     }
 
     for (let m = 2; m < todosInput.length; m = m + 2) {
       let textoResposta = todosInput[m].value;
       let urlImagemResposta = todosInput[m + 1].value;
-
 
       let isValidHttpUrl = (urlImagemResposta) => {
         try {
@@ -458,22 +405,22 @@ function validarPerguntaseRespostas() {
 
       if (textoResposta === "" && m < 5) {
         alert("Validação falhou, o texto da resposta não pode estar vazio");
-        break
-      } else if ((!isValidHttpUrl(urlImagemResposta) || urlImagemResposta === "") && m < 5) {
+        break;
+      } else if (
+        (!isValidHttpUrl(urlImagemResposta) || urlImagemResposta === "") &&
+        m < 5
+      ) {
         alert("Validação falhou, url deve ter formato válido");
-        break
+        break;
       }
-
     }
   }
 
-  //aqui é pra criar o objeto
   let numero_perguntas = document.querySelectorAll(
     ".tela32 .espaco-perguntas .perguntas-impressas"
   ).length;
   for (let j = 0; j < numero_perguntas; j++) {
     let respostas = [];
-    //o primeiro for abre as perguntas
     let pergunta_atual_texto = document.querySelector(
       `.tela32 .espaco-perguntas .pergunta_numero${j} .textoPergunta`
     ).value;
@@ -528,19 +475,17 @@ function validarPerguntaseRespostas() {
     perguntasQuizNovo.push(pergunta_preenchida);
   }
   console.log(perguntasQuizNovo);
-  console.log(perguntasQuizNovo[0].title.value)//deu undefined
+  console.log(perguntasQuizNovo[0].title.value);
   console.log(perguntasQuizNovo[0].title.value === "");
   let prosseguir = 0;
 
   criarNiveis();
   passarProximaFormulario();
-
 }
-
 
 function criarNiveis() {
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
-  //venyus adicionei div:
+
   for (let i = 0; i < numero_niveis; i++) {
     espaco_niveis.innerHTML += `
     <form class="caixa novoNivel">
@@ -603,7 +548,7 @@ function validarNiveis() {
       );
       break;
     }
-  } //fecha o for de validação
+  }
 
   for (let i = 0; i < numero_niveis; i++) {
     let tituloNivel = document.getElementById(`tituloNivel${i + 1}`).value;
@@ -652,10 +597,10 @@ function sucessoDoQuizz() {
 
 function criarQuizzUsuario() {
   if (!localStorage.quizz) {
-    localStorage.setItem("quizz", JSON.stringify({ quizz: [] }))
+    localStorage.setItem("quizz", JSON.stringify({ quizz: [] }));
   }
   console.log("fui chamado aqui ó");
-  //cria o objeto
+
   let Objeto_Novo = {
     title: tituloQuizNovo,
     image: bannerQuizNovo,
@@ -664,48 +609,22 @@ function criarQuizzUsuario() {
   };
   console.log("ok");
 
-  // if (Objeto_Novo.title !== "") {
-
-  // //   listaQuizzesUsuario.push(Objeto_Novo);
-  // //   console.log(listaQuizzesUsuario);
-  // //   //ok, ela existgite, mas so com o quizz novo
-  // //   //aqui é ele salvando na máquina
-  //   let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
-  //  localStorage.setItem("quizz", Objeto_NovoSerializado);
-  //  }
-
-  // else {
-  //   console.log("nada foi feito");
-  //   let teste = localStorage.getItem("quizz");
-  //   testeok = JSON.parse(teste);
-
-  // }
-
-
   console.log(Objeto_Novo);
-  // aqui é ele enviando pro servidor
-  const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', Objeto_Novo);
+
+  const novoQuizz = axios.post(
+    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
+    Objeto_Novo
+  );
   novoQuizz.then(() => deuTudoCerto(Objeto_Novo));
   novoQuizz.catch(verificacaoDeErro);
-  //ainda existe, ainda só com o quizz novo
-
 }
 function deuTudoCerto(quizzCriado) {
-  // let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
-  // localStorage.setItem("quizz", ...Objeto_NovoSerializado);
-  // let teste = localStorage.getItem("quizz");
-  // testeok = JSON.parse(teste);
-  // console.log(teste)
-  localStorage.setItem("quizz", JSON.stringify(quizzCriado))
-  alert("o quizz foi enviado para o servidor! Atualize a página principal para o ver!");
+  localStorage.setItem("quizz", JSON.stringify(quizzCriado));
+  alert(
+    "o quizz foi enviado para o servidor! Atualize a página principal para o ver!"
+  );
   carregarQuizzes();
 }
-
-
-
-/***********************************************
- *         COnfigurações Navegação Entre Telas *
- ***********************************************/
 
 function voltarParaHome(clique) {
   respostas_certas = 0;
@@ -743,9 +662,7 @@ function passarProximaFormulario() {
   }
 }
 
-/*Animações :*/
 function escondePerguntas(answer) {
   let selecionado = answer.parentNode.nextElementSibling;
-  // console.log("olha so o que temus", selecionado);
   selecionado.classList.toggle("hide");
 }
