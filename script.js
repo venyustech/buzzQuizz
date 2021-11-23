@@ -18,7 +18,7 @@ let perguntasQuizNovo = [];
 let niveisQuizNovo = [];
 let quizzPerguntar = [];
 let reloadPage = 0;
-let respostas_certas = 0; //variável global para contabilizar quantas das respostas seleciondas são === true
+let respostas_certas = 0; 
 let perguntas_respondidas = 0;
 criarQuizzUsuario();
 let posicaoFormulario = 1;
@@ -42,14 +42,12 @@ function carregarQuizzes() {
   if (quizzesUsuarioArmazenadosLocal == null) {
     let listagem_quizz_usuario = document.querySelector(".quizzes-usuario");
     listagem_quizz_usuario.style.display = "none";
-    // return;
-  }  //venyus.add: se for vazio esconde "seus quizes e sai da função"
+  }  
   
   else {
     let cardsDoUser = document.querySelector(".quizzes-usuario");
     cardsDoUser.classList.remove("hide");
     let lista_vazia = document.querySelector(".criar-quiz");
-    // lista_vazia.style.display = "none";
     for (let i = 0; i < quizzesUsuarioArmazenadosLocal.length; i++) {
 
       let listagem_quizz = document.querySelector(".tela1 .quizzes-usuario .lista-quiz-disponivel");
@@ -71,7 +69,6 @@ function mostraQuizzUsuario() {
 }
 function verificacaoDeErro(erro) {
 
-  //console.log(erro);
 }
 
 function exibicaoDeQuizz(resposta) {
@@ -88,13 +85,12 @@ function exibicaoDeQuizz(resposta) {
     } else {
       nomes.push(resposta.data[ii].title);
       capas.push(resposta.data[ii].image);
-      //console.log("ok, é um quizz novo");
+      
       imprimir = true;
     }
 
     if (imprimir) {
-      //CONFERIR SE TEM QUIZZES REPETIDOS
-
+      
       listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizz(this)' data-identifier="quizz-card">
       
         <figure>
@@ -106,8 +102,7 @@ function exibicaoDeQuizz(resposta) {
       </article>`;
     }
   }
-  //fim criacao quizz
-  //console.log(nomes);
+
   nomes = [];
   capas = [];
 }
@@ -461,8 +456,6 @@ function validarPerguntaseRespostas() {
         return true;
       };
 
-      // agora é outro loop para as verificacoes de perguntas
-
       if (textoResposta === "" && m<5) {
         alert("Validação falhou, o texto da resposta não pode estar vazio");
         break
@@ -696,6 +689,7 @@ function criarQuizzUsuario() {
 }
 function deuTudoCerto(resposta) {
   alert("o quizz foi enviado para o servidor! Atualize a página principal para o ver!");
+  carregarQuizzes();
 }
 
 
