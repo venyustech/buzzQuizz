@@ -1,7 +1,9 @@
 /*****************************************
  *         COnfigurações gerais:          *
  ******************************************/
-let listaQuizzesUsuario = [];
+let quizzesUsuarioArmazenados = localStorage?.getItem("quizz");
+let quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
+let listaQuizzesUsuario = quizzesUsuarioArmazenadosLocal;
 let tituloQuizNovo = "";
 let bannerQuizNovo = "";
 let perguntasQuizNovo = [];
@@ -12,7 +14,7 @@ let respostas_certas = 0; //variável global para contabilizar quantas das respo
 let perguntas_respondidas = 0;
 criarQuizzUsuario();
 let posicaoFormulario = 1;
-let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
+
 
 /*****************************************
  *         COnfigurações tela 1:          *
@@ -20,7 +22,7 @@ let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
 carregarQuizzes();
 
 function carregarQuizzes() {
-  let quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
+ 
   //console.log("tá indo aqui");
   console.log("tá indo aqui");
   let quizzes = axios.get(
@@ -62,7 +64,7 @@ function mostraQuizzUsuario() {
   alert("essa função está em construção! Ela exibirá o quizz do usuário :,)");
 }
 function verificacaoDeErro(erro) {
-  alert("deu ruim");
+
   //console.log(erro);
 }
 
@@ -352,34 +354,37 @@ function validarInformacoesBasicas() {
   let quantPerguntas = document.querySelector("#numeroPerguntas").value;
   let quantNiveis = document.querySelector("#numeroNiveis").value;
 
-  let isValidHttpUrl = (URLquiz) => {
-    let url;
 
+  let isValidHttpUrl = (URLquiz) => {
     try {
-      url = new URL(URLquiz);
+      new URL(URLquiz);
     } catch (_) {
       return false;
     }
-
-    return url.protocol === "http:" || url.protocol === "https:";
+    return true;
   };
 
+  
   if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert(
-      "Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters"
-    );
-  } else if (!isValidHttpUrl || URLquiz.length < 2) {
+      "Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters");
+      // break  
+  } else if (!isValidHttpUrl(URLquiz) || URLquiz.length < 2) {
     alert("Validação falhou, url deve ter formato válido");
+    
+   
   } else if (
     parseInt(quantPerguntas) < 3 ||
     parseInt(quantPerguntas) !== parseInt(quantPerguntas)
   ) {
     alert("Validação falhou, o quiz deve ter no mínimo 3 perguntas");
+  
   } else if (
     parseInt(quantNiveis) < 2 ||
     parseInt(quantNiveis) !== parseInt(quantNiveis)
   ) {
     alert("Validação falhou, o quiz deve ter no mínimo 2 níveis");
+    
   } else {
     console.log("passei");
     numero_perguntas = quantPerguntas;
@@ -428,7 +433,6 @@ function validarPerguntaseRespostas() {
     const todosInput = perguntasTotal[j].querySelectorAll("input");
     let textoPergunta = todosInput[0].value;
     let corFundo = todosInput[1].value;
-
     if (textoPergunta.length < 20 || textoPergunta === "") {
       alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
       break
@@ -441,27 +445,29 @@ function validarPerguntaseRespostas() {
       let textoResposta = todosInput[m].value;
       let urlImagemResposta = todosInput[m + 1].value;
 
+
       let isValidHttpUrl = (urlImagemResposta) => {
-        let url;
         try {
-          url = new URL(urlImagemResposta);
+          new URL(urlImagemResposta);
         } catch (_) {
           return false;
         }
-        return url.protocol === "http:" || url.protocol === "https:";
+        return true;
       };
 
       // agora é outro loop para as verificacoes de perguntas
 
-      if (textoResposta === "") {
+      if (textoResposta === "" && m<5) {
         alert("Validação falhou, o texto da resposta não pode estar vazio");
         break
-      } else if (!isValidHttpUrl || urlImagemResposta === "") {
+      } else if ((!isValidHttpUrl(urlImagemResposta) || urlImagemResposta === "") && m<5) {
         alert("Validação falhou, url deve ter formato válido");
         break
       }
+      
     }
   }
+
 
   //aqui é pra criar o objeto
   let numero_perguntas = document.querySelectorAll(
@@ -485,7 +491,7 @@ function validarPerguntaseRespostas() {
 
     let resposta_correta = {
       text: resposta_correta_texto,
-      imagem: resposta_correta_imagem,
+      image: resposta_correta_imagem,
       isCorrectAnswer: true,
     };
 
@@ -508,7 +514,7 @@ function validarPerguntaseRespostas() {
       ) {
         let resposta_incorreta = {
           text: resposta_incorreta_texto.value,
-          imagem: resposta_incorreta_imagem.value,
+          image: resposta_incorreta_imagem.value,
           isCorrectAnswer: false,
         };
         console.log("estou sendo chamado");
@@ -528,11 +534,9 @@ function validarPerguntaseRespostas() {
   criarNiveis();
   passarProximaFormulario();
 }
-//fecha a funcao
-criarNiveis();
+
 
 function criarNiveis() {
-  numero_niveis = 2;
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
   //venyus adicionei div:
   for (let i = 0; i < numero_niveis; i++) {
@@ -654,8 +658,12 @@ function criarQuizzUsuario() {
     levels: niveisQuizNovo,
   };
   console.log("ok");
+
   if (Objeto_Novo.title !== "") {
+    
     listaQuizzesUsuario.push(Objeto_Novo);
+    console.log(listaQuizzesUsuario);
+    //ok, ela existe, mas so com o quizz novo
     //aqui é ele salvando na máquina
     let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
     localStorage.setItem("quizz", Objeto_NovoSerializado);
@@ -664,20 +672,20 @@ function criarQuizzUsuario() {
 
   else {
     console.log("nada foi feito");
-    listaQuizzesUsuario = listaQuizzesUsuario;
     let teste = localStorage.getItem("quizz");
     testeok = JSON.parse(teste);
-    console.log(testeok);
+ 
   }
-  //aqui é ele enviando pro servidor
-  // const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { Objeto_Novo });
-  // novoQuizz.then(deuTudoCerto);
-  // novoQuizz.catch(verificacaoDeErro);
-  console.log(listaQuizzesUsuario)
+  console.log(Objeto_Novo);
+  // aqui é ele enviando pro servidor
+  const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', Objeto_Novo);
+  novoQuizz.then(deuTudoCerto);
+  novoQuizz.catch(verificacaoDeErro);
+  //ainda existe, ainda só com o quizz novo
 
 }
 function deuTudoCerto(resposta) {
-  alert("o quizz foi enviado para o servidor!");
+  alert("o quizz foi enviado para o servidor! Atualize a página principal para o ver!");
 }
 
 
@@ -697,15 +705,12 @@ function voltarParaHome(clique) {
   if (conferencia == localTela2) {
     let tela_anterior = document.querySelector(".embrulho-quizz-tela2");
     tela_anterior.classList.toggle("hide");
-    console.log(tela_anterior);
+
     let tela_atual = document.querySelector(".tela1");
     tela_atual.classList.toggle("hide");
-    console.log("ok");
   } else if (conferencia.value == localTela3) {
-    console.log("ok");
     let tela_anterior = document.querySelector(".tela34");
     tela_anterior.classList.toggle("hide");
-    console.log(tela_anterior);
     let tela_atual = document.querySelector(".tela1");
     tela_atual.classList.toggle("hide");
 
