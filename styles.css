@@ -8,6 +8,7 @@ body {
 
 /*desktop*/
 header {
+  position: ;
   width: 100%;
   height: 69px;
   background-color: #ec362d;
@@ -42,6 +43,8 @@ button {
   max-width: 1051px;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 69px;
+
 }
 
 .criar-quiz {
@@ -188,6 +191,8 @@ button {
   align-items: center;
 
   padding-bottom: 32px;
+  padding-top: 69px;
+
 }
 
 
@@ -433,6 +438,8 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 10px;
+
 }
 
 .tela32 {
