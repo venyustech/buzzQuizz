@@ -435,6 +435,13 @@ button {
   align-items: center;
 }
 
+.tela32 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .titulo-form {
   font-size: 23px;
   line-height: 27px;
@@ -463,6 +470,7 @@ form {
 }
 
 input {
+  outline: none;
   width: 564px;
   height: 46px;
 
@@ -471,6 +479,7 @@ input {
   border: 1px solid #d1d1d1;
 
   text-align: center;
+  margin-bottom: 16px;
 }
 
 input::placeholder {
@@ -495,6 +504,49 @@ input::placeholder {
   color: #fff5f4;
   text-align: center;
   font-size: 21px;
+}
+
+.lembrete {
+  margin-top: 16px;
+  height: 23.00337028503418px;
+  width: 25.99943733215332px;
+  cursor: pointer;
+}
+
+.titulo-perguntas {
+  display: flex;
+  justify-content: space-between;
+  width: 550px;
+}
+
+.perguntas p, .perguntas-impressas {
+  height: 23px;
+  left: 443px;
+  top: 391px;
+
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 28px;
+  padding-top: 28px;
+
+  color: #000000;
+}
+
+.botao-tela-32 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  width: 353.9076843261719px;
+  left: 549px;
+  top: 1295px;
+  border-radius: 15px;
+  margin-bottom: 64px;
+  background-color: #EC362D;
+  color: white;
 }
 
 /*Mobile:*/

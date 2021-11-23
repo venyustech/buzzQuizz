@@ -144,9 +144,8 @@ function quizzLoading(answer) {
     }
     tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
 <div class="pergunta-caixa" id = "caixa${i + 1}">
-  <div class="pergunta-titulo" id="c${i}"><p>${
-      quizzPerguntar.questions[i].title
-    }</p>
+  <div class="pergunta-titulo" id="c${i}"><p>${quizzPerguntar.questions[i].title
+      }</p>
 </div>
 <div class="cards-embrulho conjunto-cards${i}">  </div>
 `;
@@ -154,14 +153,11 @@ function quizzLoading(answer) {
     while (j < comprimento) {
       let localRespostas = document.querySelector(`.conjunto-cards${i}`);
       localRespostas.innerHTML += `<div class="card" onclick = "respostaSelecionada(this)"><div class = "nao-selecionada"></div>
-<img class="card-image" src="${
-        quizzPerguntar.questions[i].answers[embaralhador[j]].image
-      }" height = "175.2px"  width="329.91px"/>
-<div class="card-titulo"><p>${
-        quizzPerguntar.questions[i].answers[embaralhador[j]].text
-      }</p><span class = "resposta-card">${
-        quizzPerguntar.questions[i].answers[embaralhador[j]].isCorrectAnswer
-      }</span></div>
+<img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[j]].image
+        }" height = "175.2px"  width="329.91px"/>
+<div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[j]].text
+        }</p><span class = "resposta-card">${quizzPerguntar.questions[i].answers[embaralhador[j]].isCorrectAnswer
+        }</span></div>
 </div>
 </div>`;
       j++;
@@ -379,8 +375,11 @@ function criarPerguntas() {
   for (let i = 0; i < numero_perguntas; i++) {
     espaco_perguntas.innerHTML += `
     <form class="caixa novaPergunta pergunta_numero${i}">
-        <p class = "perguntas-impressas")>Pergunta ${i + 1}</p>
-        <img class = "lembrete" src="https://img.icons8.com/metro/26/000000/create-new.png" alt="dor do coração do Yann" />
+      <div class = "titulo-perguntas" >
+        <p class = "perguntas-impressas">Pergunta ${i + 1}</p>
+        <img class = "lembrete" onclick = "escondePerguntas(this)"src="https://img.icons8.com/metro/26/000000/create-new.png" alt="dor do coração do Yann" />
+      </div>
+      <div class = "perguntas hide" >
         <input class="textoPergunta" type="text" placeholder="Texto da pergunta" />
         <input class="corFundo" type="text" placeholder="Cor de fundo da pergunta" />
 
@@ -388,15 +387,15 @@ function criarPerguntas() {
         <input class ="texto-correta" type="text" placeholder="Resposta correta" />
         <input class ="imagem-correta" type="text" placeholder="URL da imagem" />
 
-        <p>Resposta incorreta</p>
+        <p class = "resposta-incorreta-text">Resposta incorreta</p>
         <input class = "texto-incorreta inc_0" type="text" placeholder="Resposta incorreta 1" />
         <input class = "imagem-incorreta inc_0" type="text" placeholder="URL da imagem 1" /><br />
         <input class = "texto-incorreta inc_1" type="text" placeholder="Resposta incorreta 2" />
         <input class = "imagem-incorreta inc_1" type="text" placeholder="URL da imagem 2" /><br />
         <input class = "texto-incorreta inc_1"  type="text" placeholder="Resposta incorreta 3" />
         <input class = "imagem-incorreta inc_2" type="text" placeholder="URL da imagem 3" />
-        
-      </form>`;
+      </div>  
+    </form>`;
   }
 }
 
@@ -404,42 +403,42 @@ function validarPerguntaseRespostas() {
 
   let perguntasTotal = document.querySelectorAll(".novaPergunta");
 
-for(let j = 0; j<perguntasTotal.length;j++){
-const todosInput = perguntasTotal[j].querySelectorAll("input");
-let textoPergunta = todosInput[0].value;
-let corFundo = todosInput[1].value;
-console.log(todosInput);
+  for (let j = 0; j < perguntasTotal.length; j++) {
+    const todosInput = perguntasTotal[j].querySelectorAll("input");
+    let textoPergunta = todosInput[0].value;
+    let corFundo = todosInput[1].value;
+    console.log(todosInput);
 
-for(let i=2; i<perguntasTotal.length;i++){
+    for (let i = 2; i < perguntasTotal.length; i++) {
 
-  let textoResposta = document.querySelectorAll(".textoResposta");
-  let urlImagemResposta = document.querySelectorAll(".urlImagemResposta");
+      let textoResposta = document.querySelectorAll(".textoResposta");
+      let urlImagemResposta = document.querySelectorAll(".urlImagemResposta");
 
-  let isValidHttpUrl = (urlImagemResposta) => {
-    let url;
-    try {
-      url = new URL(urlImagemResposta);
-    } catch (_) {
-      return false;
+      let isValidHttpUrl = (urlImagemResposta) => {
+        let url;
+        try {
+          url = new URL(urlImagemResposta);
+        } catch (_) {
+          return false;
+        }
+        return url.protocol === "http:" || url.protocol === "https:";
+      };
+
+      //agora é outro loop para as verificacoes de perguntas
+
+      if (textoPergunta.lentgh < 20 || textoPergunta === "") {
+        alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
+      } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+        alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
+      } else if (textoResposta === "") {
+        alert("Validação falhou, o texto da resposta não pode estar vazio");
+      } else if (!isValidHttpUrl || urlImagemResposta === "") {
+        alert("Validação falhou, url deve ter formato válido");
+      }
+
     }
-    return url.protocol === "http:" || url.protocol === "https:";
-  };
 
-  //agora é outro loop para as verificacoes de perguntas
-
-  if (textoPergunta.lentgh < 20 || textoPergunta === "") {
-    alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
-  } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-    alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
-  } else if (textoResposta === "") {
-    alert("Validação falhou, o texto da resposta não pode estar vazio");
-  } else if (!isValidHttpUrl || urlImagemResposta === "") {
-    alert("Validação falhou, url deve ter formato válido");
-  } 
-
-}
-
-}
+  }
 
   let numero_perguntas = document.querySelectorAll(
     ".tela32 .espaco-perguntas .perguntas-impressas"
@@ -490,7 +489,7 @@ for(let i=2; i<perguntasTotal.length;i++){
         };
         respostas.push(resposta_incorreta);
       }
-    } 
+    }
 
     console.log(respostas);
 
@@ -500,7 +499,7 @@ for(let i=2; i<perguntasTotal.length;i++){
       answers: respostas,
     };
     perguntasQuizNovo.push(pergunta_preenchida);
-  } 
+  }
   criarNiveis();
   passarProximaFormulario();
 }
@@ -518,15 +517,12 @@ function criarNiveis() {
     <p>Nível ${i + 1}</p>
     <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
     <input id="tituloNivel${i + 1}" type="text" placeholder="Título do nível" />
-    <input id="porcentagemAcerto${
-      i + 1
-    }" type="text" placeholder="% de acerto mínima" />
-    <input id="urlImagemNivel${
-      i + 1
-    }" type="text" placeholder="URL da imagem do nível" />
-    <input id="descricaoNivel${
-      i + 1
-    }" type="text" placeholder="Descrição do nível" />
+    <input id="porcentagemAcerto${i + 1
+      }" type="text" placeholder="% de acerto mínima" />
+    <input id="urlImagemNivel${i + 1
+      }" type="text" placeholder="URL da imagem do nível" />
+    <input id="descricaoNivel${i + 1
+      }" type="text" placeholder="Descrição do nível" />
   </form>
     `;
   }
@@ -537,69 +533,70 @@ function validarNiveis() {
   niveisQuizNovo = [];
 
   let totalNiveis = document.querySelectorAll(".novoNivel");
-  for(let j = 0;j<totalNiveis.length;j++){
-  const todosInput = totalNiveis[j].querySelectorAll("input");
+  for (let j = 0; j < totalNiveis.length; j++) {
+    const todosInput = totalNiveis[j].querySelectorAll("input");
 
-  let tituloNivel = todosInput[0].value;
-  let porcentagemAcerto = todosInput[1].value;
-  let urlImagemNivel = todosInput[2].value;
-  let descricaoNivel = todosInput[3].value;
+    let tituloNivel = todosInput[0].value;
+    let porcentagemAcerto = todosInput[1].value;
+    let urlImagemNivel = todosInput[2].value;
+    let descricaoNivel = todosInput[3].value;
 
-  let isValidHttpUrl = (urlImagemNivel) => {
-  
-    try {
-      new URL(urlImagemNivel);
-    } catch (_) {
-      return false;
-    }
-    return true
-  };
+    let isValidHttpUrl = (urlImagemNivel) => {
 
-  if (tituloNivel.length < 10 || tituloNivel === "") {
-    alert(
-      "Validação falhou, o título do nível precisa ter no mínimo 10 caracteres"
-    );
-    break
-  } else if (
-    parseInt(porcentagemAcerto) < 0 ||
-    parseInt(porcentagemAcerto) > 100 ||
-    porcentagemAcerto === ""
-  ) {
-    alert("Validação falhou, porcentagem precisa estar entre 0 e 100%");
-    break
-  } else if (!isValidHttpUrl(urlImagemNivel
+      try {
+        new URL(urlImagemNivel);
+      } catch (_) {
+        return false;
+      }
+      return true
+    };
+
+    if (tituloNivel.length < 10 || tituloNivel === "") {
+      alert(
+        "Validação falhou, o título do nível precisa ter no mínimo 10 caracteres"
+      );
+      break
+    } else if (
+      parseInt(porcentagemAcerto) < 0 ||
+      parseInt(porcentagemAcerto) > 100 ||
+      porcentagemAcerto === ""
+    ) {
+      alert("Validação falhou, porcentagem precisa estar entre 0 e 100%");
+      break
+    } else if (!isValidHttpUrl(urlImagemNivel
     ) || urlImagemNivel === "") {
-    alert("Validação falhou, o texto da resposta não pode estar vazio");
-    break
-  } else if (descricaoNivel.length < 30 || descricaoNivel === "") {
-    alert(
-      "Validação falhou, descrição do nível deve ter no mínimo 30 caracteres"
-    );
-    break
-  } } //fecha o for de validação
-   
-    for (let i = 0; i < numero_niveis; i++) {
-      let tituloNivel = document.getElementById(`tituloNivel${i + 1}`).value;
-      let urlImagemNivel = document.getElementById(
-        `urlImagemNivel${i + 1}`
-      ).value;
-      let descricaoNivel = document.getElementById(
-        `descricaoNivel${i + 1}`
-      ).value;
-      let valorMinimo = document.getElementById(
-        `porcentagemAcerto${i + 1}`
-      ).value;
-
-      let level_atual = {
-        title: tituloNivel,
-        image: urlImagemNivel, 
-        text: descricaoNivel, 
-        minValue: valorMinimo,
-      };
-      niveisQuizNovo.push(level_atual);
-      console.log(niveisQuizNovo);
+      alert("Validação falhou, o texto da resposta não pode estar vazio");
+      break
+    } else if (descricaoNivel.length < 30 || descricaoNivel === "") {
+      alert(
+        "Validação falhou, descrição do nível deve ter no mínimo 30 caracteres"
+      );
+      break
     }
-  
+  } //fecha o for de validação
+
+  for (let i = 0; i < numero_niveis; i++) {
+    let tituloNivel = document.getElementById(`tituloNivel${i + 1}`).value;
+    let urlImagemNivel = document.getElementById(
+      `urlImagemNivel${i + 1}`
+    ).value;
+    let descricaoNivel = document.getElementById(
+      `descricaoNivel${i + 1}`
+    ).value;
+    let valorMinimo = document.getElementById(
+      `porcentagemAcerto${i + 1}`
+    ).value;
+
+    let level_atual = {
+      title: tituloNivel,
+      image: urlImagemNivel,
+      text: descricaoNivel,
+      minValue: valorMinimo,
+    };
+    niveisQuizNovo.push(level_atual);
+    console.log(niveisQuizNovo);
+  }
+
   // passarProximaFormulario();
   // criarNovoQuizz();
 }
@@ -654,4 +651,11 @@ function passarProximaFormulario() {
     proxima_tela.classList.toggle("hide");
     posicaoFormulario++;
   }
+}
+
+/*Animações :*/
+function escondePerguntas(answer) {
+  let selecionado = answer.parentNode.nextElementSibling;
+  console.log("olha so o que temus", selecionado)
+  selecionado.classList.toggle("hide");
 }
