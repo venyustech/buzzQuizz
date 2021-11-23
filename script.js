@@ -407,12 +407,16 @@ function validarPerguntaseRespostas() {
     const todosInput = perguntasTotal[j].querySelectorAll("input");
     let textoPergunta = todosInput[0].value;
     let corFundo = todosInput[1].value;
-    console.log(todosInput);
+    console.log(todosInput.length);
 
-    for (let i = 2; i < perguntasTotal.length; i++) {
+    // if (textoPergunta.length < 20 || textoPergunta === "") {
+    //   alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
+    // } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
+    //   alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");}
 
-      let textoResposta = document.querySelectorAll(".textoResposta");
-      let urlImagemResposta = document.querySelectorAll(".urlImagemResposta");
+    for (let m = 2; m < todosInput.length; m=m+2) {
+    let textoResposta = todosInput[m].value;
+    let urlImagemResposta = todosInput[m+1].value;
 
       let isValidHttpUrl = (urlImagemResposta) => {
         let url;
@@ -426,20 +430,18 @@ function validarPerguntaseRespostas() {
 
       //agora é outro loop para as verificacoes de perguntas
 
-      if (textoPergunta.lentgh < 20 || textoPergunta === "") {
-        alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
-      } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
-        alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
-      } else if (textoResposta === "") {
-        alert("Validação falhou, o texto da resposta não pode estar vazio");
-      } else if (!isValidHttpUrl || urlImagemResposta === "") {
-        alert("Validação falhou, url deve ter formato válido");
-      }
+      //  if (textoResposta === "") {
+      //   alert("Validação falhou, o texto da resposta não pode estar vazio");
+      // } else if (!isValidHttpUrl || urlImagemResposta === "") {
+      //   alert("Validação falhou, url deve ter formato válido");
+      // }
 
     }
-
   }
 
+  
+
+  //aqui é pra criar o objeto
   let numero_perguntas = document.querySelectorAll(
     ".tela32 .espaco-perguntas .perguntas-impressas"
   ).length;
@@ -471,10 +473,10 @@ function validarPerguntaseRespostas() {
 
     respostas.push(resposta_correta);
     for (let i = 0; i < contagem_respostas; i++) {
+      console.log("ok");
       //o loop é só para as respostas erradas
       let resposta_incorreta_texto = document.querySelector(
         `.tela32 .espaco-perguntas .pergunta_numero${j}`);
-      console.log(j);
 
       console.log(resposta_incorreta_texto.value);
       let resposta_incorreta_imagem = document.querySelector(
