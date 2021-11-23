@@ -8,6 +8,7 @@ body {
 
 /*desktop*/
 header {
+  z-index: 500;
   position: fixed;
   width: 100%;
   height: 69px;
@@ -45,6 +46,15 @@ button {
   margin-right: auto;
   padding-top: 69px;
 
+}
+
+.quizzes-titulo {
+  height: 23px;
+  width: 158px;
+  left: 194px;
+  top: 404px;
+  border-radius: undefinedpx;
+  font-weight: bold;
 }
 
 .criar-quiz {
@@ -438,8 +448,15 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 10px;
+  padding-top: 100px;
 
+}
+
+.tela31 {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
 
 .tela32 {
@@ -450,6 +467,7 @@ button {
 }
 
 .titulo-form {
+  display: flex;
   font-size: 23px;
   line-height: 27px;
 
@@ -457,14 +475,14 @@ button {
   text-align: center;
   color: #000000;
 
-  padding-top: 71px;
+  padding-top: 39px;
   padding-bottom: 21px;
 }
 
 form {
   width: 600px;
   padding: 21px 20px 24px 16px;
-  margin-bottom: 85px;
+  margin-bottom: 28px;
   gap: 9px;
 
   background: #ffffff;
@@ -511,6 +529,7 @@ input::placeholder {
   color: #fff5f4;
   text-align: center;
   font-size: 21px;
+  margin-left: 110px;
 }
 
 .lembrete {
@@ -524,6 +543,11 @@ input::placeholder {
   display: flex;
   justify-content: space-between;
   width: 550px;
+}
+
+.titulo-perguntas p {
+  margin-top: 5px;
+  font-weight: bold;
 }
 
 .perguntas p, .perguntas-impressas {
@@ -542,7 +566,7 @@ input::placeholder {
   color: #000000;
 }
 
-.botao-tela-32 {
+.botao-tela-32, .botao-finalizar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -554,6 +578,19 @@ input::placeholder {
   margin-bottom: 64px;
   background-color: #EC362D;
   color: white;
+}
+
+.informacoesBasicas {
+  margin-bottom: 32px;
+}
+
+.novoNivel {
+  margin-top: 28px;
+  margin-bottom: 15px;
+}
+
+.tela33 .botao-finalizar {
+  margin-left: 100px;
 }
 
 /*Mobile:*/

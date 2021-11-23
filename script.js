@@ -1,18 +1,18 @@
 /*****************************************
  *         COnfigurações gerais:          *
  ******************************************/
- let listaQuizzesUsuario;
- let tituloQuizNovo = "";
- let bannerQuizNovo = "";
- let perguntasQuizNovo = [];
- let niveisQuizNovo = [];
- let quizzPerguntar = [];
- let reloadPage = 0;
+let listaQuizzesUsuario = [];
+let tituloQuizNovo = "";
+let bannerQuizNovo = "";
+let perguntasQuizNovo = [];
+let niveisQuizNovo = [];
+let quizzPerguntar = [];
+let reloadPage = 0;
 let respostas_certas = 0; //variável global para contabilizar quantas das respostas seleciondas são === true
 let perguntas_respondidas = 0;
- criarQuizzUsuario();
- let posicaoFormulario = 1;
- let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
+criarQuizzUsuario();
+let posicaoFormulario = 1;
+let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
 
 /*****************************************
  *         COnfigurações tela 1:          *
@@ -29,18 +29,24 @@ function carregarQuizzes() {
   quizzes.then(exibicaoDeQuizz);
   quizzes.catch(verificacaoDeErro);
 
+  if (quizzesUsuarioArmazenadosLocal == null) {
+    return;
+  }  //venyus.add: se for vazio esconde "seus quizes e sai da função"
+
   if (quizzesUsuarioArmazenadosLocal.length == 0) {
     let listagem_quizz_usuario = document.querySelector(".quizzes-usuario");
     listagem_quizz_usuario.style.display = "none";
   }
-  else{
+  else {
+    let cardsDoUser = document.querySelector(".quizzes-usuario");
+    cardsDoUser.classList.remove("hide");
     let lista_vazia = document.querySelector(".criar-quiz");
     // lista_vazia.style.display = "none";
-    for (let i=0;i<quizzesUsuarioArmazenadosLocal.length;i++){
-      
-        let listagem_quizz = document.querySelector(".tela1 .quizzes-usuario .lista-quiz-disponivel");
-        console.log(listagem_quizz);
-        listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizzUsuario(this)'>
+    for (let i = 0; i < quizzesUsuarioArmazenadosLocal.length; i++) {
+
+      let listagem_quizz = document.querySelector(".tela1 .quizzes-usuario .lista-quiz-disponivel");
+      console.log(listagem_quizz);
+      listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizzUsuario(this)'>
         
         <figure>
         <div class = "degrade-escuro"></div>
@@ -49,10 +55,10 @@ function carregarQuizzes() {
           <span class = "identificacao"></span>
         </figure>
       </article>`;
-      }
-      }
+    }
   }
-function mostraQuizzUsuario(){
+}
+function mostraQuizzUsuario() {
   alert("essa função está em construção! Ela exibirá o quizz do usuário :,)");
 }
 function verificacaoDeErro(erro) {
@@ -128,6 +134,7 @@ function criarQuizzSelecionado() {
 let id = 0;
 
 function mostraQuizz(resposta) {
+  console.log(resposta)
   criarQuizzSelecionado();
   let id = resposta.querySelector(".identificacao").innerText;
   const promisse = axios.get(
@@ -142,8 +149,8 @@ function loadingQuizzError(error) {
 }
 
 
-
 function quizzLoading(answer) {
+  console.log("id:", id)
   quizzPerguntar = answer.data;
   console.log(quizzPerguntar);
   reloadPage = answer;
@@ -288,7 +295,7 @@ function scrollPagina() {
 function mostraResultado() {
   console.log("entrouu");
   console.log(quizzPerguntar);
-  resultado = (respostas_certas / perguntas_respondidas) * 100;
+  resultado = Math.round((respostas_certas / perguntas_respondidas) * 100);
   console.log("resultado:", resultado);
   let resultadoLoading = document.querySelector(".embrulho-quizz-tela2");
   console.log(resultadoLoading.innerHTML);
@@ -427,7 +434,8 @@ function validarPerguntaseRespostas() {
       break
     } else if (corFundo.match(/^#[a-f0-9]{6}$/i) === null) {
       alert("Validação falhou, cor em formato inválido, \n por favor utilize o seguinte formato: #XXXXXX");
-    break}
+      break
+    }
 
     for (let m = 2; m < todosInput.length; m = m + 2) {
       let textoResposta = todosInput[m].value;
@@ -445,7 +453,7 @@ function validarPerguntaseRespostas() {
 
       // agora é outro loop para as verificacoes de perguntas
 
-       if (textoResposta === "") {
+      if (textoResposta === "") {
         alert("Validação falhou, o texto da resposta não pode estar vazio");
         break
       } else if (!isValidHttpUrl || urlImagemResposta === "") {
@@ -526,10 +534,14 @@ criarNiveis();
 function criarNiveis() {
   numero_niveis = 2;
   let espaco_niveis = document.querySelector(".tela33 .espaco-niveis");
+  //venyus adicionei div:
   for (let i = 0; i < numero_niveis; i++) {
     espaco_niveis.innerHTML += `
     <form class="caixa novoNivel">
-    <p>Nível ${i + 1}</p>
+    <div class = "titulo-perguntas">
+      <p>Nível ${i + 1}</p>
+      <img class = "lembrete2" onclick = "escondePerguntas(this)"src="https://img.icons8.com/metro/26/000000/create-new.png" alt="dor do coração do Yann" />
+    </div>
     <img src="https://img.icons8.com/metro/26/000000/create-new.png hide" alt="" />
     <input id="tituloNivel${i + 1}" type="text" placeholder="Título do nível" />
     <input id="porcentagemAcerto${i + 1
@@ -629,40 +641,42 @@ function sucessoDoQuizz() {
         <button onclick="voltarParaHome(this)" class="botao-voltar-home">
           Voltar para home
         </button>`;
-        criarQuizzUsuario();
+  criarQuizzUsuario();
 }
 
 function criarQuizzUsuario() {
   console.log("fui chamado aqui ó");
   //cria o objeto
   let Objeto_Novo = {
-     title: tituloQuizNovo,
-     image: bannerQuizNovo,
-     questions: perguntasQuizNovo,
-     levels: niveisQuizNovo,
-   };
+    title: tituloQuizNovo,
+    image: bannerQuizNovo,
+    questions: perguntasQuizNovo,
+    levels: niveisQuizNovo,
+  };
   console.log("ok");
-  if(Objeto_Novo.title!==""){
-  listaQuizzesUsuario.push(Objeto_Novo);
-  //aqui é ele salvando na máquina
+  if (Objeto_Novo.title !== "") {
+    listaQuizzesUsuario.push(Objeto_Novo);
+    //aqui é ele salvando na máquina
     let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
-    localStorage.setItem("quizz",Objeto_NovoSerializado); 
-   
-    }
-    else{
-      console.log("nada foi feito");
-     listaQuizzesUsuario = listaQuizzesUsuario;
-     let teste = localStorage.getItem("quizz");
-     testeok = JSON.parse(teste);
-     console.log(testeok);
-    }
-    //aqui é ele enviando pro servidor
-    // const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { Objeto_Novo });
-    // novoQuizz.then(deuTudoCerto);
-    // novoQuizz.catch(verificacaoDeErro);
+    localStorage.setItem("quizz", Objeto_NovoSerializado);
+
+  }
+
+  else {
+    console.log("nada foi feito");
+    listaQuizzesUsuario = listaQuizzesUsuario;
+    let teste = localStorage.getItem("quizz");
+    testeok = JSON.parse(teste);
+    console.log(testeok);
+  }
+  //aqui é ele enviando pro servidor
+  // const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { Objeto_Novo });
+  // novoQuizz.then(deuTudoCerto);
+  // novoQuizz.catch(verificacaoDeErro);
+  console.log(listaQuizzesUsuario)
 
 }
-function deuTudoCerto(resposta){
+function deuTudoCerto(resposta) {
   alert("o quizz foi enviado para o servidor!");
 }
 
@@ -714,6 +728,6 @@ function passarProximaFormulario() {
 /*Animações :*/
 function escondePerguntas(answer) {
   let selecionado = answer.parentNode.nextElementSibling;
-  console.log("olha so o que temus", selecionado);
+  // console.log("olha so o que temus", selecionado);
   selecionado.classList.toggle("hide");
 }
