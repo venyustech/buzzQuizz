@@ -4,11 +4,11 @@
 let quizzesUsuarioArmazenados = localStorage.getItem("quizz");
 let quizzesUsuarioArmazenadosLocal;
 let listaQuizzesUsuario;
-if( quizzesUsuarioArmazenados === null){
-listaQuizzesUsuario = [];
+if (quizzesUsuarioArmazenados === null) {
+  listaQuizzesUsuario = [];
 }
-else{
- quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
+else {
+  quizzesUsuarioArmazenadosLocal = JSON.parse(quizzesUsuarioArmazenados);
   listaQuizzesUsuario = quizzesUsuarioArmazenadosLocal;
 }
 
@@ -18,7 +18,7 @@ let perguntasQuizNovo = [];
 let niveisQuizNovo = [];
 let quizzPerguntar = [];
 let reloadPage = 0;
-let respostas_certas = 0; 
+let respostas_certas = 0;
 let perguntas_respondidas = 0;
 criarQuizzUsuario();
 let posicaoFormulario = 1;
@@ -30,7 +30,7 @@ let posicaoFormulario = 1;
 carregarQuizzes();
 
 function carregarQuizzes() {
- 
+
   //console.log("tá indo aqui");
   console.log("tá indo aqui");
   let quizzes = axios.get(
@@ -42,8 +42,8 @@ function carregarQuizzes() {
   if (quizzesUsuarioArmazenadosLocal == null) {
     let listagem_quizz_usuario = document.querySelector(".quizzes-usuario");
     listagem_quizz_usuario.style.display = "none";
-  }  
-  
+  }
+
   else {
     let cardsDoUser = document.querySelector(".quizzes-usuario");
     cardsDoUser.classList.remove("hide");
@@ -85,12 +85,12 @@ function exibicaoDeQuizz(resposta) {
     } else {
       nomes.push(resposta.data[ii].title);
       capas.push(resposta.data[ii].image);
-      
+
       imprimir = true;
     }
 
     if (imprimir) {
-      
+
       listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizz(this)' data-identifier="quizz-card">
       
         <figure>
@@ -365,27 +365,27 @@ function validarInformacoesBasicas() {
     return true;
   };
 
-  
+
   if (tituloQuiz.length < 20 || tituloQuiz.length > 65) {
     alert(
       "Validação falhou, titulo do quiz deve ter no mínimo 20 e no máximo 65 caracters");
-      // break  
+    // break  
   } else if (!isValidHttpUrl(URLquiz) || URLquiz.length < 2) {
     alert("Validação falhou, url deve ter formato válido");
-    
-   
+
+
   } else if (
     parseInt(quantPerguntas) < 3 ||
     parseInt(quantPerguntas) !== parseInt(quantPerguntas)
   ) {
     alert("Validação falhou, o quiz deve ter no mínimo 3 perguntas");
-  
+
   } else if (
     parseInt(quantNiveis) < 2 ||
     parseInt(quantNiveis) !== parseInt(quantNiveis)
   ) {
     alert("Validação falhou, o quiz deve ter no mínimo 2 níveis");
-    
+
   } else {
     console.log("passei");
     numero_perguntas = quantPerguntas;
@@ -456,17 +456,16 @@ function validarPerguntaseRespostas() {
         return true;
       };
 
-      if (textoResposta === "" && m<5) {
+      if (textoResposta === "" && m < 5) {
         alert("Validação falhou, o texto da resposta não pode estar vazio");
         break
-      } else if ((!isValidHttpUrl(urlImagemResposta) || urlImagemResposta === "") && m<5) {
+      } else if ((!isValidHttpUrl(urlImagemResposta) || urlImagemResposta === "") && m < 5) {
         alert("Validação falhou, url deve ter formato válido");
         break
       }
-      
+
     }
   }
-
 
   //aqui é pra criar o objeto
   let numero_perguntas = document.querySelectorAll(
@@ -529,10 +528,10 @@ function validarPerguntaseRespostas() {
     perguntasQuizNovo.push(pergunta_preenchida);
   }
   console.log(perguntasQuizNovo);
-    console.log(perguntasQuizNovo[0].title.value)//deu undefined
-    console.log(perguntasQuizNovo[0].title.value ==="");
-let prosseguir=0;
-  
+  console.log(perguntasQuizNovo[0].title.value)//deu undefined
+  console.log(perguntasQuizNovo[0].title.value === "");
+  let prosseguir = 0;
+
   criarNiveis();
   passarProximaFormulario();
 
@@ -652,6 +651,9 @@ function sucessoDoQuizz() {
 }
 
 function criarQuizzUsuario() {
+  if (!localStorage.quizz) {
+    localStorage.setItem("quizz", JSON.stringify({ quizz: [] }))
+  }
   console.log("fui chamado aqui ó");
   //cria o objeto
   let Objeto_Novo = {
@@ -662,32 +664,39 @@ function criarQuizzUsuario() {
   };
   console.log("ok");
 
-  if (Objeto_Novo.title !== "") {
-    
-    listaQuizzesUsuario.push(Objeto_Novo);
-    console.log(listaQuizzesUsuario);
-    //ok, ela existgite, mas so com o quizz novo
-    //aqui é ele salvando na máquina
-    let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
-    localStorage.setItem("quizz", Objeto_NovoSerializado);
+  // if (Objeto_Novo.title !== "") {
 
-  }
+  // //   listaQuizzesUsuario.push(Objeto_Novo);
+  // //   console.log(listaQuizzesUsuario);
+  // //   //ok, ela existgite, mas so com o quizz novo
+  // //   //aqui é ele salvando na máquina
+  //   let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
+  //  localStorage.setItem("quizz", Objeto_NovoSerializado);
+  //  }
 
-  else {
-    console.log("nada foi feito");
-    let teste = localStorage.getItem("quizz");
-    testeok = JSON.parse(teste);
- 
-  }
+  // else {
+  //   console.log("nada foi feito");
+  //   let teste = localStorage.getItem("quizz");
+  //   testeok = JSON.parse(teste);
+
+  // }
+
+
   console.log(Objeto_Novo);
   // aqui é ele enviando pro servidor
   const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', Objeto_Novo);
-  novoQuizz.then(deuTudoCerto);
+  novoQuizz.then(() => deuTudoCerto(Objeto_Novo));
   novoQuizz.catch(verificacaoDeErro);
   //ainda existe, ainda só com o quizz novo
 
 }
-function deuTudoCerto(resposta) {
+function deuTudoCerto(quizzCriado) {
+  // let Objeto_NovoSerializado = JSON.stringify(listaQuizzesUsuario);
+  // localStorage.setItem("quizz", ...Objeto_NovoSerializado);
+  // let teste = localStorage.getItem("quizz");
+  // testeok = JSON.parse(teste);
+  // console.log(teste)
+  localStorage.setItem("quizz", JSON.stringify(quizzCriado))
   alert("o quizz foi enviado para o servidor! Atualize a página principal para o ver!");
   carregarQuizzes();
 }
