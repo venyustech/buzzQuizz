@@ -29,12 +29,12 @@
         *         Configurações tela 1:      *
         ***********************************-->
 
-  <main class="tela1 hide">
-    <div class="quizzes-usuario">
+  <main class="tela1">
+    <div class="quizzes-usuario" data-identifier="user-quizzes">
       <div class="exibir-quiz">
         <p>Seus Quizzes</p>
         <p></p>
-        <div class="lista-quiz-disponivel">
+        <div class="lista-quiz-disponivel" data-identifier="quizz-card">
           <!-- ESSA PARTE VAI SER GERADA POR JS -->
         </div>
       </div>
@@ -44,7 +44,7 @@
     <div class="criar-quiz">
       <span>Você não criou nenhum <br />
         quizz ainda :(</span>
-      <button onclick="tela1tela3(this)" class="criar-novo-quizz">
+      <button onclick="tela1tela3(this)" class="criar-novo-quizz" data-identifier="create-quizz">
         Criar Quizz
       </button>
     </div>
@@ -53,7 +53,7 @@
     <div class="exibir-quiz">
       <p>Todos os Quizzes</p>
       <p></p>
-      <div class="lista-quiz-disponivel lista_servidor">
+      <div class="lista-quiz-disponivel lista_servidor" data-identifier="general-quizzes">
         <!-- ESSA PARTE VAI SER GERADA POR JS -->
       </div>
     </div>
@@ -70,7 +70,7 @@
   <!--************************************
         *         Configurações tela 3:      *
         ***********************************-->
-  <div class="tela3 ">
+  <div class="tela3 hide">
     <div class="tela31 hide">
       <span class="titulo-form">Comece pelo começo</span>
       <form class="informacoesBasicas">

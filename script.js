@@ -61,7 +61,7 @@ function exibicaoDeQuizz(resposta) {
     if (imprimir) {
       //CONFERIR SE TEM QUIZZES REPETIDOS
 
-      listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizz(this)'>
+      listagem_quizz.innerHTML += `<article class = "quizz" onclick = 'mostraQuizz(this)' data-identifier="quizz-card">
       
         <figure>
         <div class = "degrade-escuro"></div>
@@ -144,15 +144,14 @@ function quizzLoading(answer) {
     }
     tituloDaPaginaLoading.innerHTML += `<div class="pergunta-embrulho">
 <div class="pergunta-caixa" id = "caixa${i + 1}">
-  <div class="pergunta-titulo" id="c${i}"><p>${quizzPerguntar.questions[i].title
-      }</p>
+  <div class="pergunta-titulo" id="c${i}" data-identifier="question"><p>${quizzPerguntar.questions[i].title}</p>
 </div>
 <div class="cards-embrulho conjunto-cards${i}">  </div>
 `;
     let j = 0;
     while (j < comprimento) {
       let localRespostas = document.querySelector(`.conjunto-cards${i}`);
-      localRespostas.innerHTML += `<div class="card" onclick = "respostaSelecionada(this)"><div class = "nao-selecionada"></div>
+      localRespostas.innerHTML += `<div class="card" data-identifier="answer" onclick = "respostaSelecionada(this)"><div class = "nao-selecionada"></div>
 <img class="card-image" src="${quizzPerguntar.questions[i].answers[embaralhador[j]].image
         }" height = "175.2px"  width="329.91px"/>
 <div class="card-titulo"><p>${quizzPerguntar.questions[i].answers[embaralhador[j]].text
@@ -278,7 +277,7 @@ function mostraResultado() {
   for (let i = quizzPerguntar.levels.length - 1; i >= 0; i--) {
     console.log(quizzPerguntar.levels[i].minValue);
     if (resultado >= quizzPerguntar.levels[i].minValue) {
-      resultadoLoading.innerHTML += `<div class="resultado-embrulho">
+      resultadoLoading.innerHTML += `<div class="resultado-embrulho" data-identifier="quizz-result">
       <div class="resultado-caixa">
         <div class="resultado-titulo">
           <p>${resultado}% de acerto: ${quizzPerguntar.levels[i].title}</p> 
@@ -400,14 +399,12 @@ function criarPerguntas() {
 }
 
 function validarPerguntaseRespostas() {
-
   let perguntasTotal = document.querySelectorAll(".novaPergunta");
 
   for (let j = 0; j < perguntasTotal.length; j++) {
     const todosInput = perguntasTotal[j].querySelectorAll("input");
     let textoPergunta = todosInput[0].value;
     let corFundo = todosInput[1].value;
-
 
     // if (textoPergunta.length < 20 || textoPergunta === "") {
     //   alert("Validação falhou, a pergunta deve ter no mínimo 20 caracteres");
@@ -435,11 +432,8 @@ function validarPerguntaseRespostas() {
       // } else if (!isValidHttpUrl || urlImagemResposta === "") {
       //   alert("Validação falhou, url deve ter formato válido");
       // }
-
     }
   }
-
-
 
   //aqui é pra criar o objeto
   let numero_perguntas = document.querySelectorAll(
@@ -476,14 +470,18 @@ function validarPerguntaseRespostas() {
     for (let i = 0; i < contagem_respostas; i++) {
       console.log(i);
       let resposta_incorreta_texto = document.querySelector(
-        `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta${i}`);
+        `.tela32 .espaco-perguntas .pergunta_numero${j} .texto-incorreta${i}`
+      );
 
       let resposta_incorreta_imagem = document.querySelector(
         `.tela32 .espaco-perguntas .pergunta_numero${j} .imagem-incorreta${i}`
       );
       console.log(resposta_incorreta_texto.value == "");
-      console.log(resposta_incorreta_imagem)
-      if (resposta_incorreta_texto.value !== "" && resposta_incorreta_imagem.value !== "") {
+      console.log(resposta_incorreta_imagem);
+      if (
+        resposta_incorreta_texto.value !== "" &&
+        resposta_incorreta_imagem.value !== ""
+      ) {
         let resposta_incorreta = {
           text: resposta_incorreta_texto.value,
           imagem: resposta_incorreta_imagem.value,
@@ -529,9 +527,7 @@ function criarNiveis() {
   }
 }
 
-
 function validarNiveis() {
-
   niveisQuizNovo = [];
 
   let totalNiveis = document.querySelectorAll(".novoNivel");
@@ -544,36 +540,34 @@ function validarNiveis() {
     let descricaoNivel = todosInput[3].value;
 
     let isValidHttpUrl = (urlImagemNivel) => {
-
       try {
         new URL(urlImagemNivel);
       } catch (_) {
         return false;
       }
-      return true
+      return true;
     };
 
     if (tituloNivel.length < 10 || tituloNivel === "") {
       alert(
         "Validação falhou, o título do nível precisa ter no mínimo 10 caracteres"
       );
-      break
+      break;
     } else if (
       parseInt(porcentagemAcerto) < 0 ||
       parseInt(porcentagemAcerto) > 100 ||
       porcentagemAcerto === ""
     ) {
       alert("Validação falhou, porcentagem precisa estar entre 0 e 100%");
-      break
-    } else if (!isValidHttpUrl(urlImagemNivel
-    ) || urlImagemNivel === "") {
+      break;
+    } else if (!isValidHttpUrl(urlImagemNivel) || urlImagemNivel === "") {
       alert("Validação falhou, o texto da resposta não pode estar vazio");
-      break
+      break;
     } else if (descricaoNivel.length < 30 || descricaoNivel === "") {
       alert(
         "Validação falhou, descrição do nível deve ter no mínimo 30 caracteres"
       );
-      break
+      break;
     }
   } //fecha o for de validação
 
@@ -603,14 +597,16 @@ function validarNiveis() {
   // criarNovoQuizz();
 }
 
-
 function criarNovoQuizz() {
   //   const informacoesBasicasinput = document.querySelector(".informacoesBasicas");
   //   console.log(informacoesBasicasinput);
   //   tituloQuiz = informacoesBasicasinput.firstChild.value;
   //   bannerQuiz = informacoesBasicasinput.secondChild.value;
   console.log(Objeto_Vazio);
-  const novoQuizz = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', { Objeto_Vazio });
+  const novoQuizz = axios.post(
+    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
+    { Objeto_Vazio }
+  );
 
   novoQuizz.then(sucessoDoQuizz);
   novoQuizz.catch(verificacaoDeErro);
@@ -677,6 +673,6 @@ function passarProximaFormulario() {
 /*Animações :*/
 function escondePerguntas(answer) {
   let selecionado = answer.parentNode.nextElementSibling;
-  console.log("olha so o que temus", selecionado)
+  console.log("olha so o que temus", selecionado);
   selecionado.classList.toggle("hide");
 }
